@@ -3851,3 +3851,147 @@
     padding-right: 16px;
   }
 }
+
+/* V2: paper edges and light connect the narrative without extra pinned scenes. */
+.section {
+  position: relative;
+  isolation: isolate;
+}
+.section-handoff {
+  position: absolute;
+  inset: -1px 0 auto;
+  height: 280px;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  --seam-ink: #70c8ff;
+}
+.section-handoff > svg {
+  width: 100%;
+  height: 70px;
+  display: block;
+}
+.handoff-paper {
+  fill: var(--previous-surface);
+}
+.handoff-trace {
+  fill: none;
+  stroke: var(--seam-ink);
+  stroke-width: 1;
+  stroke-opacity: 0.4;
+  stroke-dasharray: 1;
+  vector-effect: non-scaling-stroke;
+}
+.handoff-glow {
+  position: absolute;
+  inset: 0 0 auto 35%;
+  height: 260px;
+  background: radial-gradient(ellipse at 60% 0, #70c8ff19, transparent 70%);
+  opacity: 0.7;
+}
+.handoff-on-light {
+  --seam-ink: #175cdb;
+}
+.handoff-on-light .handoff-glow {
+  background: radial-gradient(ellipse at 60% 0, #175cdb0a, transparent 70%);
+}
+.tuition-scene {
+  position: relative;
+  width: 100%;
+  height: clamp(190px, 19vw, 255px);
+  margin-block: 22px 26px;
+  color: #2f658d;
+  --scene-window: #70c8ff10;
+  --scene-desk: #c7dbe2;
+  --scene-frame: #163c60;
+  pointer-events: none;
+  isolation: isolate;
+}
+.tuition-scene-london {
+  color: #a6d8f5;
+  --scene-window: #70c8ff0b;
+  --scene-desk: #1d4966;
+}
+.tuition-scene svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.scene-enter-layer,
+.scene-depth-layer {
+  position: absolute;
+  inset: 0;
+}
+.scene-ground {
+  position: absolute;
+  inset: 0;
+  fill: #07101f22;
+  filter: blur(5px);
+}
+.tuition-scene-london .scene-ground {
+  fill: #02081455;
+}
+.delivery-card .tuition-scene + .text-link {
+  position: relative;
+  z-index: 3;
+}
+@media (max-width: 900px) {
+  .section-handoff > svg {
+    height: 48px;
+  }
+  .tuition-scene {
+    height: 215px;
+    margin-block: 14px 22px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .handoff-glow {
+    opacity: 0.35;
+  }
+}
+
+/* Keep the book prominent on tablets instead of compressing it below the copy. */
+@media (min-width: 601px) and (max-width: 900px) {
+  .story-copy {
+    top: 27%;
+    width: 35%;
+    max-width: 320px;
+  }
+  .story-copy h1 {
+    font-size: clamp(38px, 5.1vw, 48px);
+    max-width: none;
+    line-height: 1.02;
+  }
+  .chapter-0 .story-copy h1 {
+    max-width: none;
+  }
+  .story-description {
+    font-size: 12px;
+    line-height: 1.8;
+    max-width: 32ch;
+  }
+  .story-note {
+    font-size: 9px;
+    line-height: 1.7;
+  }
+  .story-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .story-actions .button {
+    min-width: 180px;
+  }
+  .book-visual {
+    top: 18%;
+    left: 35%;
+    width: 69%;
+    height: 65%;
+  }
+}
+@media (min-width: 701px) and (max-width: 900px) {
+  .delivery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

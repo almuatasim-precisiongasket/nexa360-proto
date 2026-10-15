@@ -89,3 +89,34 @@ ScrollTrigger measurements after the layout changes.
 
 Removed SiteEffects' duplicate entrance tween for the team cards. Team.tsx owns
 their entrance, avoiding two GSAP tweens controlling the same transform/opacity.
+
+## V2: paper, depth and deliberate movement
+
+Book materials use a deterministic 64px grain texture, selective cover metalness
+and roughness masks for the printed title/border, striped paper edges and a thin
+cover wall following the page vertex normals. The interior remains rough paper.
+The cover wall uses a separate untextured material; it does not require UVs.
+Quintic turn easing produces a softer start/finish and a restrained curl.
+
+The existing demand-rendered R3F canvas handles pointer light/camera response.
+Desktop pointer motion eases toward a bounded target and invalidates only until
+settled. Offscreen/hidden scenes stop requesting frames. Shadow maps are capped
+at 512px for smaller canvases and 1024px otherwise; no post-processing or extra
+WebGL canvas was added. Tablet composition now gives the book a larger area next
+to the live HTML copy rather than a shallow strip below it.
+
+SectionHandoff draws a paper edge between the existing section colors, with a
+scroll-linked SVG light trace and a restrained glow (1.4s scrub smoothing). It
+adds no pinning or input interception. Reduced motion shows static decoration.
+
+TuitionScene uses three SVG layers: architecture/diagram background, desk/laptop
+middle layer, and open book/learning notes in front. Fine-pointer devices reveal
+layers over 1.6s with 0.16s staggering and respond with at most 12px parallax,
+eased over 1.2s. Touch and reduced motion show the full static composition.
+Entrance and parallax transforms are on separate wrapper elements. Text and
+links remain fixed; enquiry preselection and native FAQ disclosures are retained.
+
+References:
+
+- https://threejs.org/docs/pages/MeshStandardMaterial.html
+- https://r3f.docs.pmnd.rs/advanced/scaling-performance

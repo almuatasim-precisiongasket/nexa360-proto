@@ -10,6 +10,8 @@ import { TuitionCommitments } from "./TuitionCommitments";
 import { MovingBorder, TracingBeam } from "./AceternityEffects";
 import { BackgroundBeams } from "./ui/background-beams";
 import { TuitionQuestions } from "./TuitionQuestions";
+import { TuitionScene } from "./TuitionScene";
+import { SectionHandoff } from "./SectionHandoff";
 function SectionLabel({
   number,
   title,
@@ -32,6 +34,7 @@ export function Information() {
   return (
     <>
       <section id="about" className="section about" tabIndex={-1}>
+        <SectionHandoff previous="#07101f" />
         <TracingBeam />
         <SectionLabel
           number="01"
@@ -92,6 +95,7 @@ export function Information() {
         </div>
       </section>
       <section id="pathways" className="section pathways-section">
+        <SectionHandoff previous="#0b1b2d" light />
         <SectionLabel
           number="02"
           title="YOUR PATHWAYS"
@@ -111,6 +115,7 @@ export function Information() {
         <Pathways />
       </section>
       <section id="tuition" className="section tuition">
+        <SectionHandoff previous="#f1f3ef" light />
         <TracingBeam />
         <SectionLabel
           number="03"
@@ -137,17 +142,7 @@ export function Information() {
               Structured, supportive one-to-one sessions at our East London
               tuition centre.
             </p>
-            <div className="format-drawing" aria-hidden="true">
-              <svg viewBox="0 0 360 130" fill="none">
-                <g stroke="currentColor">
-                  <path d="M70 112V48l80-30 80 30v64M55 112h190M150 18v94M75 66h150M93 77h20v35m74-35h20v35M128 79h44v33M108 54V42m84 12V42" />
-                  <path
-                    d="M255 112V65h40v47m-30-37h20m-20 12h20"
-                    opacity=".35"
-                  />
-                </g>
-              </svg>
-            </div>
+            <TuitionScene format="london" />
             <TuitionEnquiry format="In person — Barking, London">
               Enquire about London tuition
             </TuitionEnquiry>
@@ -160,16 +155,7 @@ export function Information() {
               Interactive sessions with personalised lesson plans, real-time
               explanations and steady progress tracking.
             </p>
-            <div className="format-drawing" aria-hidden="true">
-              <svg viewBox="0 0 360 130" fill="none">
-                <g stroke="currentColor">
-                  <rect x="85" y="19" width="185" height="90" rx="4" />
-                  <path d="M75 119h205M160 109v10m35-10v10M98 32h77v63H98zM190 45h60m-60 15h47m-47 15h60m-60 15h35" />
-                  <circle cx="136" cy="53" r="10" />
-                  <path d="M116 84c0-26 40-26 40 0" />
-                </g>
-              </svg>
-            </div>
+            <TuitionScene format="online" />
             <TuitionEnquiry format="Online tuition">
               Enquire about online tuition
             </TuitionEnquiry>
@@ -185,6 +171,7 @@ export function Information() {
         </div>
       </section>
       <section id="team" className="section team-section">
+        <SectionHandoff previous="#e7edea" />
         <BackgroundBeams className="team-background-beams" />
         <SectionLabel
           number="04"
@@ -197,6 +184,7 @@ export function Information() {
         <Team />
       </section>
       <section id="initiatives" className="section initiatives ambient-section">
+        <SectionHandoff previous="#09182a" />
         <AmbientField />
         <SectionLabel
           number="05"
@@ -281,6 +269,7 @@ export function Information() {
         id="collaboration"
         className="section collaboration ambient-section"
       >
+        <SectionHandoff previous="#07101f" />
         <AmbientField />
         <SectionLabel number="06" title="CONNECTIONS THAT COUNT" />
         <div className="collaboration-layout">
@@ -319,6 +308,7 @@ export function Information() {
         </div>
       </section>
       <section id="contact" className="section contact ambient-section">
+        <SectionHandoff previous="#0d2035" />
         <AmbientField />
         <SectionLabel
           number="07"

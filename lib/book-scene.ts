@@ -85,7 +85,9 @@ export function createBookScene(mobile: boolean, logo: THREE.Texture) {
   turn.position.y = 0.028;
   turn.castShadow = true;
   const rim = coverRim(turn.geometry);
-  const coverWall = new THREE.Mesh(rim.geometry, navy);
+  const rimMaterial = navy.clone();
+  rimMaterial.bumpMap = null;
+  const coverWall = new THREE.Mesh(rim.geometry, rimMaterial);
   coverWall.position.y = turn.position.y;
   coverWall.castShadow = true;
   book.add(coverWall);

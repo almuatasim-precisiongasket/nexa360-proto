@@ -141,3 +141,23 @@ team entrance tween from SiteEffects; Team.tsx retains its scoped animation.
 The optimized production build completed successfully. The preview was restarted
 at 127.0.0.1:3000. The tuition cards were visually reviewed at the current narrow
 browser viewport and a screenshot was saved in output/website-refinement.jpg.
+
+## V2 visual refinement — 15 October 2026
+
+The book now uses cloth grain, selective cover foil, warm layered page edges,
+a cover wall following its geometry, softer lighting and quieter turn easing.
+Pointer-responsive light/camera movement uses the existing demand-rendered canvas.
+The tablet book composition now reserves a larger area alongside the live text.
+
+Seven section handoffs add curved paper edges and scroll-linked light traces.
+Tuition's London and online illustrations now use three separate SVG depth
+layers with scoped desktop parallax; the existing enquiry selection is retained.
+Wider tablets show both lesson formats side by side. No new dependencies added.
+
+Production compilation and TypeScript completed successfully for the book stage
+and the integrated implementation. Visual review used the current browser window
+at approximately 870 CSS pixels wide; cover and academic-spread screenshots are
+saved in output/v2-book-cover.jpg and output/v2-book-spread.jpg. The screenshots
+are local review artifacts and are excluded by .gitignore. No automated tests
+were added or run, as requested. Physical-device and cross-browser performance
+have not been measured; no field performance claim is made.
