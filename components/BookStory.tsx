@@ -47,10 +47,19 @@ export function BookStory() {
   const drag = useRef<{ x: number; y: number; horizontal: boolean } | null>(
     null,
   );
-  const onReady = useCallback(() => setReady(true), []),
+  useEffect(() => {
+    const fallback = () => setIllustrated(true);
+    window.addEventListener("nexa:book-fallback", fallback);
+    return () => window.removeEventListener("nexa:book-fallback", fallback);
+  }, []);
+  const onReady = useCallback(() => {
+      setReady(true);
+      window.dispatchEvent(new Event("nexa:book-ready"));
+    }, []),
     onFailure = useCallback(() => {
       setFailed(true);
       setReady(false);
+      window.dispatchEvent(new Event("nexa:book-ready"));
     }, []);
   useGSAP(
     (_, contextSafe) => {
@@ -282,6 +291,13 @@ export function BookStory() {
         </div>
         <div
           className={`book-visual ${ready && !failed && !reduced && !illustrated ? "book-ready" : ""}`}
+          data-book-status={
+            failed || reduced || illustrated
+              ? "illustrated"
+              : ready
+                ? "ready"
+                : "loading"
+          }
           onPointerDown={(event) => {
             if (
               !event.isPrimary ||

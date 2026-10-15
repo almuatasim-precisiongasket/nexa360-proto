@@ -4273,3 +4273,74 @@
     margin: 0;
   }
 }
+
+/* The introduction covers hydration and exits only once the book has a usable view. */
+.brand-intro {
+  opacity: 1;
+  transition:
+    opacity 0.6s ease,
+    visibility 0.6s;
+}
+.brand-intro.intro-leaving {
+  opacity: 0;
+  visibility: hidden;
+}
+.intro-loading {
+  position: absolute;
+  bottom: 88px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(240px, 75vw);
+  text-align: center;
+  color: #a4bfd7;
+  font-size: 11px;
+}
+.intro-loading i {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  width: 160px;
+  height: 2px;
+  margin: 16px auto 0;
+  background: #70c8ff20;
+}
+.intro-loading i::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #70c8ff;
+  transform: scaleX(0.3);
+  animation: intro-loading 1.8s ease-in-out infinite alternate;
+}
+@keyframes intro-loading {
+  from {
+    transform: translateX(-45%) scaleX(0.3);
+  }
+  to {
+    transform: translateX(45%) scaleX(0.3);
+  }
+}
+@media (max-height: 500px) {
+  .intro-mark {
+    margin: 16px auto;
+    width: min(300px, 65vw);
+  }
+  .intro-loading {
+    bottom: 52px;
+  }
+  .intro-bottom {
+    bottom: 16px;
+  }
+  .intro-inner > p {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand-intro {
+    transition: none;
+  }
+  .intro-loading i::after,
+  .intro-mark::after {
+    animation: none;
+  }
+}

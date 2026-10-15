@@ -213,3 +213,17 @@ Production compilation and TypeScript passed. The 390px and 320px layouts were
 reviewed in the browser, and the Next button advanced from cover to academic
 without moving the document scroll position. No automated tests were added or
 run. Physical-device touch performance has not been measured.
+
+## Intro loading reliability — 16 October 2026
+
+Removed the sessionStorage once-per-tab suppression and the independent 2.8s
+intro dismissal. Home-page loads now render the introduction in initial HTML,
+then wait for the book-ready signal with a 1.6s minimum presentation and 600ms
+fade. A 6.5s upper bound opens the illustrated book if WebGL is still pending.
+Skip/Escape remain available; deep section links and reduced-motion visits bypass
+the automatic intro. Replay checks both ready 3D and illustrated book states.
+A noscript style keeps the page available when JavaScript is disabled.
+
+The production build and TypeScript passed. Two consecutive home reloads showed
+the intro, and the ready book dismissed it and released page scrolling. No browser
+console errors were observed. No automated tests were added or run.
