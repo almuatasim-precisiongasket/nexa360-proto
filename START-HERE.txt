@@ -1,0 +1,13 @@
+NEXA360 — Next.js source
+
+1. Open a terminal in this folder.
+2. Run: npm ci
+3. Run: npm run dev
+4. Open: http://127.0.0.1:3000
+
+Requirements: Node.js 22.13+ (Node 24 LTS recommended).
+The Next.js source is in app/, components/ and lib/.
+The original static site is retained in dist/ as a reference.
+
+The inquiry form creates a local draft. It does not send messages.
+See README.md for production commands and docs/implementation-notes.md for validation.
