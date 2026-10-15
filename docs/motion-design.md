@@ -163,3 +163,11 @@ brass materials. The existing fine-pointer GSAP tilt moves only the illustration
 card text remains steady. The previous CSS transform transition was removed from
 these SVGs so it does not compete with GSAP. Coarse-pointer and reduced-motion
 views retain static artwork. Products and Events artwork is static and decorative.
+
+## Mobile chapter control
+
+Mobile uses GSAP matchMedia to replace the pinned timeline with a 1.6-second
+progress tween. Swipes commit after a horizontal 40px gesture; vertical movement
+releases the gesture to native scrolling. Reduced motion switches chapters
+without a tween. Desktop retains its existing scroll timeline.
+

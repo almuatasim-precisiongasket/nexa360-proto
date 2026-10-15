@@ -1,6 +1,12 @@
 "use client";
 import dynamic from "next/dynamic";
-import { useCallback, useRef, useState, type PointerEvent } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type PointerEvent,
+} from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
@@ -13,6 +19,8 @@ import { PathArt } from "./PathArt";
 import type { StoryBridge } from "./BookCanvas";
 const BookCanvas = dynamic(() => import("./BookCanvas"), { ssr: false });
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, useGSAP);
+const mobileBookQuery =
+  "(max-width: 600px), (max-width: 900px) and (pointer: coarse), (max-width: 900px) and (max-height: 500px)";
 export function BookStory() {
   const root = useRef<HTMLElement>(null),
     stage = useRef<HTMLDivElement>(null);
@@ -23,6 +31,19 @@ export function BookStory() {
     [failed, setFailed] = useState(false),
     [illustrated, setIllustrated] = useState(false);
   const reduced = useMediaQuery("(prefers-reduced-motion: reduce)");
+  const mobileBook = useMediaQuery(mobileBookQuery);
+  useEffect(() => {
+    if (!mobileBook) return;
+    const tab = root.current?.querySelector<HTMLButtonElement>(
+      `[data-chapter-button="${chapter}"]`,
+    );
+    const strip = tab?.parentElement;
+    if (tab && strip)
+      strip.scrollTo({
+        left: tab.offsetLeft - (strip.clientWidth - tab.offsetWidth) / 2,
+        behavior: reduced ? "instant" : "smooth",
+      });
+  }, [chapter, mobileBook, reduced]);
   const drag = useRef<{ x: number; y: number; horizontal: boolean } | null>(
     null,
   );
@@ -38,6 +59,7 @@ export function BookStory() {
         {
           motion: "(prefers-reduced-motion: no-preference)",
           reduced: "(prefers-reduced-motion: reduce)",
+          mobile: mobileBookQuery,
         },
         (context) => {
           const isReduced = context.conditions?.reduced;
@@ -63,16 +85,28 @@ export function BookStory() {
             );
             bridge.current.invalidate();
           };
-          if (isReduced) {
+          if (isReduced || context.conditions?.mobile) {
             bridge.current.progress = readingPosition(
               Math.max(0, storyFrame(bridge.current.progress).chapter),
             );
             update();
-            navigate.current = (n) => {
-              bridge.current.progress = readingPosition(clamp(n, 0, 6));
-              update();
+            navigate.current = contextSafe!((n: number) => {
+              navigation?.kill();
+              if (isReduced) {
+                bridge.current.progress = readingPosition(clamp(n, 0, 6));
+                update();
+              } else {
+                navigation = gsap.to(bridge.current, {
+                  progress: readingPosition(clamp(n, 0, 6)),
+                  duration: 1.6,
+                  ease: "power2.inOut",
+                  onUpdate: update,
+                });
+              }
+            });
+            return () => {
+              navigation?.kill();
             };
-            return;
           }
           bridge.current.progress = 0;
           const timeline = gsap.timeline({
@@ -249,6 +283,12 @@ export function BookStory() {
         <div
           className={`book-visual ${ready && !failed && !reduced && !illustrated ? "book-ready" : ""}`}
           onPointerDown={(event) => {
+            if (
+              !event.isPrimary ||
+              event.button !== 0 ||
+              (event.target as Element).closest("button,a")
+            )
+              return;
             drag.current = {
               x: event.clientX,
               y: event.clientY,
@@ -259,6 +299,14 @@ export function BookStory() {
             if (!drag.current) return;
             const dx = event.clientX - drag.current.x,
               dy = event.clientY - drag.current.y;
+            if (
+              !drag.current.horizontal &&
+              Math.abs(dy) > 16 &&
+              Math.abs(dy) > Math.abs(dx)
+            ) {
+              drag.current = null;
+              return;
+            }
             if (Math.abs(dx) > 24 && Math.abs(dx) > Math.abs(dy) * 1.5) {
               drag.current.horizontal = true;
               event.currentTarget.setPointerCapture(event.pointerId);
@@ -266,6 +314,9 @@ export function BookStory() {
           }}
           onPointerUp={release}
           onPointerCancel={() => {
+            drag.current = null;
+          }}
+          onLostPointerCapture={() => {
             drag.current = null;
           }}
         >
@@ -347,7 +398,11 @@ export function BookStory() {
         <div className="story-bottom">
           <span className="scroll-instruction kicker">
             <i />
-            {reduced ? "CHOOSE YOUR CHAPTER" : "SCROLL TO TURN THE PAGE"}
+            {reduced
+              ? "CHOOSE YOUR CHAPTER"
+              : mobileBook
+                ? "SWIPE THE BOOK OR USE THE ARROWS"
+                : "SCROLL TO TURN THE PAGE"}
           </span>
           <div
             className="chapter-navigation"

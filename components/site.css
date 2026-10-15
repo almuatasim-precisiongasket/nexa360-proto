@@ -4085,3 +4085,191 @@
     margin-top: -8px;
   }
 }
+
+/* Phones use a touch reader in document flow; the desktop scroll story stays pinned. */
+@media (max-width: 600px),
+  (max-width: 900px) and (pointer: coarse),
+  (max-width: 900px) and (max-height: 500px) {
+  .book-story .story-stage {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100svh;
+    padding: 88px 20px max(24px, env(safe-area-inset-bottom));
+    overflow: hidden;
+  }
+  .book-story .story-topline,
+  .book-story .story-copy,
+  .book-story .book-visual,
+  .book-story .story-reading,
+  .book-story .story-bottom {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    max-width: none;
+    flex: none;
+  }
+  .book-story .story-topline {
+    margin-bottom: 16px;
+  }
+  .book-story .story-topline > .kicker {
+    display: none;
+  }
+  .book-story .story-tools {
+    width: 100%;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .book-story .illustration-toggle,
+  .book-story .skip-story {
+    min-height: 44px;
+    padding: 8px 0;
+    font-size: 11px;
+  }
+  .book-story .story-copy {
+    min-height: 288px;
+    pointer-events: auto;
+  }
+  .book-story .chapter-kicker {
+    font-size: 9px;
+    margin-bottom: 12px;
+  }
+  .book-story .story-copy h1 {
+    font-size: clamp(38px, 10vw, 52px);
+    max-width: 100%;
+    margin-bottom: 16px;
+  }
+  .book-story .story-description {
+    font-size: 13px;
+    line-height: 1.7;
+    max-width: 48ch;
+  }
+  .book-story .story-note {
+    font-size: 10px;
+    line-height: 1.7;
+    margin-top: 8px;
+    max-width: 48ch;
+  }
+  .book-story .story-actions {
+    margin-top: 16px;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+  }
+  .book-story .story-actions .button {
+    min-height: 44px;
+    font-size: 11px;
+    padding: 12px 16px;
+    min-width: 190px;
+  }
+  .book-story .story-secondary {
+    min-height: 44px;
+    display: inline-flex;
+    font-size: 11px;
+  }
+  .book-story .book-visual {
+    height: clamp(260px, 80vw, 380px);
+    margin: 8px 0;
+    touch-action: pan-y pinch-zoom;
+  }
+  .book-story .page-corner {
+    width: 44px;
+    height: 44px;
+    right: 8px;
+    bottom: 8px;
+  }
+  .book-story .book-fallback {
+    inset: 15% 4% 12%;
+  }
+  .book-story .fallback-cover {
+    inset: 8% 27% 12%;
+  }
+  .book-story .story-reading {
+    display: none;
+  }
+  .book-story .story-bottom {
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .book-story .chapter-navigation {
+    order: 0;
+    width: 100%;
+    gap: 8px;
+  }
+  .book-story .chapter-arrow {
+    width: 44px;
+    height: 48px;
+    flex: 0 0 44px;
+    border: 1px solid #70c8ff30;
+    border-radius: 4px;
+  }
+  .book-story .chapter-tabs {
+    position: relative;
+    min-width: 0;
+    flex: 1;
+    overflow-x: auto;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 4px 2px 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #70c8ff55 transparent;
+  }
+  .book-story .chapter-tabs button {
+    min-width: 52px;
+    min-height: 52px;
+    flex: 0 0 52px;
+    padding: 8px 2px;
+  }
+  .book-story .chapter-tabs button > span {
+    font-size: 12px;
+  }
+  .book-story .chapter-tabs small {
+    font-size: 9px;
+    margin-top: 6px;
+  }
+  .book-story .scroll-instruction {
+    order: 1;
+    font-size: 8px;
+    letter-spacing: 0.08em;
+    line-height: 1.7;
+  }
+  .book-story .scroll-instruction > i {
+    display: none;
+  }
+  .book-story .story-number,
+  .book-story .story-edition {
+    display: none;
+  }
+  .book-story .no-script-story {
+    position: relative;
+    inset: auto;
+  }
+}
+@media (min-width: 601px) and (max-width: 900px) and (max-height: 500px) {
+  .book-story .story-stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 16px 24px;
+    padding-top: 72px;
+  }
+  .book-story .story-topline {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+  .book-story .story-copy {
+    grid-column: 1;
+    min-height: 0;
+  }
+  .book-story .book-visual {
+    grid-column: 2;
+    height: 300px;
+    margin: 0;
+    align-self: center;
+  }
+  .book-story .story-copy h1 {
+    font-size: 38px;
+  }
+  .book-story .story-bottom {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+}

@@ -13,6 +13,7 @@ import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { createBookScene } from "@/lib/book-scene";
 import { studioEnvironment } from "@/lib/book-textures";
+import { useMediaQuery } from "@/lib/use-media-query";
 export type StoryBridge = { progress: number; invalidate: () => void };
 class CanvasBoundary extends Component<
   { children: ReactNode; onFailure: () => void },
@@ -115,8 +116,11 @@ function BookScene({
       delta,
     );
     // Use the resting canvas more fully, then make room for the upright leaf.
+    const aspect = size.width / Math.max(1, size.height);
+    // Keep the full spread inside a narrow canvas, including a raised turning leaf.
     const framing =
-      (size.width / size.height > 1.05 ? 0.92 : 1) * (1 + transition * 0.3);
+      (mobile ? Math.max(1, 1.12 / aspect) : aspect > 1.05 ? 0.92 : 1) *
+      (1 + transition * 0.3);
     camera.position.set(
       transition * 0.35 + pointer.x * 0.12,
       4.2 * distance * framing - pointer.y * 0.08,
@@ -178,6 +182,9 @@ export default function BookCanvas({
   onFailure: () => void;
 }) {
   const [fontsReady, setFontsReady] = useState(false);
+  const mobile = useMediaQuery(
+    "(max-width: 600px), (max-width: 900px) and (pointer: coarse), (max-width: 900px) and (max-height: 500px)",
+  );
   useEffect(() => {
     let mounted = true;
     Promise.all([
@@ -198,7 +205,7 @@ export default function BookCanvas({
     <CanvasBoundary onFailure={onFailure}>
       <Canvas
         frameloop="demand"
-        dpr={[1, 1.6]}
+        dpr={[1, mobile ? 1.25 : 1.6]}
         shadows="percentage"
         camera={{ position: [0, 4.2, 8.4], fov: 34, near: 0.1, far: 100 }}
         gl={{

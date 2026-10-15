@@ -193,3 +193,23 @@ browser viewport. Screenshots are saved in output/v2-assets-services.jpg and
 output/v2-assets-products.jpg. The updated tab reported no console errors during
 this review. Preview is running at 127.0.0.1:3000.
 
+
+## Mobile book reader — 16 October 2026
+
+Phones up to 600px, touch devices up to 900px and short landscape viewports up to
+900px now use a manual book reader. GSAP animates the existing scene progress
+between chapters over 1.6 seconds without a pinned scroll timeline. Vertical page
+scrolling remains native; horizontal book gestures and the arrow/chapter buttons
+change chapters. Reduced motion uses the existing static illustrated view.
+
+Mobile layout uses document flow, readable copy, 44px or larger navigation targets,
+a horizontally scrollable chapter strip that follows the selected chapter, and a
+full-width book canvas. Landscape phones place the book beside the copy. Camera
+framing accounts for a narrow canvas aspect ratio. Mobile rendering caps DPR at
+1.25; the existing reduced geometry/shadow maps and demand rendering remain.
+The approved page geometry and upright pop-out objects have not been changed.
+
+Production compilation and TypeScript passed. The 390px and 320px layouts were
+reviewed in the browser, and the Next button advanced from cover to academic
+without moving the document scroll position. No automated tests were added or
+run. Physical-device touch performance has not been measured.
