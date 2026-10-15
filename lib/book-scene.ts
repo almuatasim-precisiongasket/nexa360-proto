@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { pageGeometry, deformPage } from "./book-geometry";
+import { pageGeometry, deformPage, coverRim } from "./book-geometry";
 import { createBookResources, paintedTexture } from "./book-textures";
 import { createProp } from "./book-props";
 import { storyFrame, ease, clamp } from "./story";
@@ -14,11 +14,26 @@ export function createBookScene(mobile: boolean, logo: THREE.Texture) {
   const bindings = new THREE.CylinderGeometry(1, 1, 1, 24);
   const navy = new THREE.MeshStandardMaterial({
     color: "#103253",
-    metalness: 0.25,
-    roughness: 0.45,
+    metalness: 0.08,
+    roughness: 0.72,
+    bumpMap: resources.grain,
+    bumpScale: 0.009,
   });
+  const paperEdges = paintedTexture(
+    (c) => {
+      c.fillStyle = "#f0ede4";
+      c.fillRect(0, 0, 1024, 1365);
+      for (let i = 0; i < 100; i++) {
+        c.fillStyle = i % 3 ? "#c8c3b855" : "#ffffff99";
+        c.fillRect(0, i * 14, 1024, 2);
+      }
+    },
+    32,
+    256,
+  );
   const edge = new THREE.MeshStandardMaterial({
-    color: "#d7e0e4",
+    color: "#fffaf0",
+    map: paperEdges,
     roughness: 0.9,
   });
   const leftNavy = navy.clone(),
@@ -68,6 +83,12 @@ export function createBookScene(mobile: boolean, logo: THREE.Texture) {
     resources.material("cover", "left-0"),
   );
   turn.position.y = 0.028;
+  turn.castShadow = true;
+  const rim = coverRim(turn.geometry);
+  const coverWall = new THREE.Mesh(rim.geometry, navy);
+  coverWall.position.y = turn.position.y;
+  coverWall.castShadow = true;
+  book.add(coverWall);
   [left, right, turn].forEach((mesh) => {
     mesh.receiveShadow = true;
     book.add(mesh);
@@ -89,12 +110,12 @@ export function createBookScene(mobile: boolean, logo: THREE.Texture) {
     new THREE.MeshBasicMaterial({
       map: shadow,
       transparent: true,
-      opacity: 0.7,
+      opacity: 0.62,
       depthWrite: false,
     }),
   );
   shadowMesh.rotation.x = -Math.PI / 2;
-  shadowMesh.position.y = -1;
+  shadowMesh.position.y = -1.35;
   world.add(shadowMesh);
   const propGroups = new Map<number, THREE.Group>();
   const anchor = new THREE.Vector3();
@@ -126,15 +147,21 @@ export function createBookScene(mobile: boolean, logo: THREE.Texture) {
       turn.material = resources.material("cover", "left-5");
     } else if (f.turn > 0) {
       turn.visible = true;
-      angle = ease(f.turn) * Math.PI;
-      bend = Math.sin(f.turn * Math.PI);
+      // Quintic easing gives a quieter start and finish than a linear curl.
+      const t = f.turn;
+      const settled = t * t * t * (t * (t * 6 - 15) + 10);
+      angle = settled * Math.PI;
+      bend = Math.sin(settled * Math.PI) * 0.85;
       turn.material = resources.material(`right-${f.from}`, `left-${f.to}`);
     } else turn.visible = false;
     if (turn.visible && (angle !== lastAngle || bend !== lastBend)) {
       deformPage(turn.geometry, angle, bend);
       lastAngle = angle;
       lastBend = bend;
+      rim.update();
     }
+    coverWall.visible = turn.visible && (progress < 1 || f.closing > 0);
+    shadowMesh.scale.set(0.78 + f.opening * 0.22, 1, 1);
     const index = Math.max(0, f.chapter - 1);
     if (f.visibility > 0.005 && !propGroups.has(index)) {
       const prop = createProp(index, logo);

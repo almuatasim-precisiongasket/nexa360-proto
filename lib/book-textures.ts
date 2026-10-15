@@ -47,6 +47,47 @@ export function createBookResources(mobile: boolean) {
   const materials = new Map<string, THREE.MeshStandardMaterial>();
   const width = mobile ? 512 : 768,
     height = mobile ? 682 : 1024;
+  const grainData = new Uint8Array(64 * 64 * 4);
+  for (let i = 0; i < 64 * 64; i++) {
+    const value = 120 + ((i * 73 + Math.floor(i / 64) * 29) % 25);
+    grainData.set([value, value, value, 255], i * 4);
+  }
+  const grain = new THREE.DataTexture(grainData, 64, 64);
+  grain.wrapS = grain.wrapT = THREE.RepeatWrapping;
+  grain.repeat.set(18, 24);
+  grain.needsUpdate = true;
+  textures.set("surface-grain", grain);
+  function foilMask(inverted = false) {
+    const map = paintedTexture(
+      (c) => {
+        c.fillStyle = inverted ? "#c4c4c4" : "#080808";
+        c.fillRect(0, 0, 1024, 1365);
+        const ink = inverted ? "#555555" : "#eeeeee";
+        c.strokeStyle = ink;
+        c.lineWidth = 3;
+        c.strokeRect(50, 50, 924, 1265);
+        text(c, "NEXA360", 512, 280, 85, ink, "DM Sans", "center");
+        text(
+          c,
+          "The Book of",
+          512,
+          640,
+          112,
+          ink,
+          "Instrument Serif",
+          "center",
+        );
+        text(c, "Becoming", 512, 795, 180, ink, "Instrument Serif", "center");
+      },
+      width,
+      height,
+    );
+    map.colorSpace = THREE.NoColorSpace;
+    textures.set(inverted ? "cover-roughness" : "cover-foil", map);
+    return map;
+  }
+  const foil = foilMask();
+  const coverRoughness = foilMask(true);
   function texture(key: string) {
     if (textures.has(key)) return textures.get(key)!;
     const tex = paintedTexture(
@@ -58,11 +99,11 @@ export function createBookResources(mobile: boolean) {
           g.addColorStop(1, "#0b203d");
           c.fillStyle = g;
           c.fillRect(0, 0, 1024, 1365);
-          c.strokeStyle = "#8dc9eb66";
+          c.strokeStyle = "#d8b25aaa";
           c.lineWidth = 2;
           c.strokeRect(50, 50, 924, 1265);
           c.strokeRect(68, 68, 888, 1229);
-          text(c, "NEXA360", 512, 280, 85, "#d4e8f6", "DM Sans", "center");
+          text(c, "NEXA360", 512, 280, 85, "#e5c986", "DM Sans", "center");
           rule(c, 402, 372, 220, "#70c8ff88");
           text(
             c,
@@ -70,7 +111,7 @@ export function createBookResources(mobile: boolean) {
             512,
             640,
             112,
-            "#deeff9",
+            "#e7d4a3",
             "Instrument Serif",
             "center",
           );
@@ -80,7 +121,7 @@ export function createBookResources(mobile: boolean) {
             512,
             795,
             180,
-            "#deeff9",
+            "#e7d4a3",
             "Instrument Serif",
             "center",
           );
@@ -252,8 +293,12 @@ export function createBookResources(mobile: boolean) {
     if (materials.has(key)) return materials.get(key)!;
     const mat = new THREE.MeshStandardMaterial({
       map: texture(front),
-      roughness: front === "cover" ? 0.42 : 0.88,
-      metalness: front === "cover" ? 0.12 : 0,
+      roughness: front === "cover" ? 1 : 0.88,
+      roughnessMap: front === "cover" ? coverRoughness : null,
+      metalness: front === "cover" ? 0.85 : 0,
+      metalnessMap: front === "cover" ? foil : null,
+      bumpMap: grain,
+      bumpScale: front === "cover" ? 0.012 : 0.003,
       side: back ? THREE.DoubleSide : THREE.FrontSide,
     });
     if (back) {
@@ -266,14 +311,27 @@ export function createBookResources(mobile: boolean) {
             "#include <map_fragment>",
             "#ifdef USE_MAP\nvec4 sampledDiffuseColor = gl_FrontFacing ? texture2D(map, vMapUv) : texture2D(backMap, vec2(1.0-vMapUv.x,vMapUv.y)); diffuseColor *= sampledDiffuseColor;\n#endif",
           );
+        if (front === "cover") {
+          shader.fragmentShader = shader.fragmentShader
+            .replace(
+              "#include <roughnessmap_fragment>",
+              "#include <roughnessmap_fragment>\nif (!gl_FrontFacing) roughnessFactor = 0.88;",
+            )
+            .replace(
+              "#include <metalnessmap_fragment>",
+              "#include <metalnessmap_fragment>\nif (!gl_FrontFacing) metalnessFactor = 0.0;",
+            );
+        }
       };
-      mat.customProgramCacheKey = () => "nexa-double-page";
+      mat.customProgramCacheKey = () =>
+        `nexa-double-page-${front === "cover" ? "foil" : "paper"}`;
     }
     materials.set(key, mat);
     return mat;
   }
   return {
     material,
+    grain,
     dispose() {
       textures.forEach((t) => t.dispose());
       materials.forEach((m) => m.dispose());

@@ -62,3 +62,47 @@ export function deformPage(
   geometry.computeVertexNormals();
   geometry.computeBoundingSphere();
 }
+
+/** A thin binding wall follows the cover's real vertex normals as it turns. */
+export function coverRim(surface: THREE.BufferGeometry) {
+  const { cols, rows } = surface.userData as { cols: number; rows: number };
+  const outline: number[] = [];
+  for (let i = 0; i <= cols; i++) outline.push(i);
+  for (let j = 1; j <= rows; j++) outline.push(j * (cols + 1) + cols);
+  for (let i = cols - 1; i >= 0; i--) outline.push(rows * (cols + 1) + i);
+  for (let j = rows - 1; j > 0; j--) outline.push(j * (cols + 1));
+  outline.push(outline[0]);
+  const geometry = new THREE.BufferGeometry();
+  const vertices = new THREE.BufferAttribute(
+    new Float32Array(outline.length * 6),
+    3,
+  ).setUsage(THREE.DynamicDrawUsage);
+  geometry.setAttribute("position", vertices);
+  const indices: number[] = [];
+  for (let i = 0; i < outline.length - 1; i++) {
+    const a = i * 2;
+    indices.push(a, a + 1, a + 2, a + 1, a + 3, a + 2);
+  }
+  geometry.setIndex(indices);
+  const update = () => {
+    const positions = surface.getAttribute("position");
+    const normals = surface.getAttribute("normal");
+    outline.forEach((n, i) => {
+      const x = positions.getX(n),
+        y = positions.getY(n),
+        z = positions.getZ(n);
+      vertices.setXYZ(i * 2, x, y, z);
+      vertices.setXYZ(
+        i * 2 + 1,
+        x - normals.getX(n) * 0.035,
+        y - normals.getY(n) * 0.035,
+        z - normals.getZ(n) * 0.035,
+      );
+    });
+    vertices.needsUpdate = true;
+    geometry.computeVertexNormals();
+    geometry.computeBoundingSphere();
+  };
+  update();
+  return { geometry, update };
+}
