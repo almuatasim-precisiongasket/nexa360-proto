@@ -120,3 +120,13 @@ References:
 
 - https://threejs.org/docs/pages/MeshStandardMaterial.html
 - https://r3f.docs.pmnd.rs/advanced/scaling-performance
+
+## Expanded book framing
+
+The book canvas now uses more of the desktop and tablet narrative area. Resting
+views in wide canvases use an 8% closer camera; opening, page and closing turns
+smoothly add distance and raise the camera target to accommodate upright leaves.
+Tablet canvas height increases from 65% to 70%; desktop framing stays within the
+right edge and reserves space for the chapter controls. The production build
+passed and the academic resting spread was visually reviewed in the current
+browser window. Preview: output/v2-book-expanded.jpg.

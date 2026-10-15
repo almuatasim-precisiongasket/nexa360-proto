@@ -111,12 +111,15 @@ function BookScene({
     pointer.x = THREE.MathUtils.lerp(pointer.x, pointer.targetX, smoothing);
     pointer.y = THREE.MathUtils.lerp(pointer.y, pointer.targetY, smoothing);
     const { distance, transition } = model.update(bridgeRef.current.progress);
+    // Use the resting canvas more fully, then make room for the upright leaf.
+    const framing =
+      (size.width / size.height > 1.05 ? 0.92 : 1) * (1 + transition * 0.3);
     camera.position.set(
       transition * 0.35 + pointer.x * 0.12,
-      4.2 * distance - pointer.y * 0.08,
-      8.4 * distance,
+      4.2 * distance * framing - pointer.y * 0.08,
+      8.4 * distance * framing,
     );
-    camera.lookAt(0, 0.12, 0);
+    camera.lookAt(0, 0.12 + transition * 0.38, 0);
     keyLight.current?.position.set(
       -3 + pointer.x * 0.7,
       7 - pointer.y * 0.4,

@@ -3984,14 +3984,22 @@
     min-width: 180px;
   }
   .book-visual {
-    top: 18%;
-    left: 35%;
-    width: 69%;
-    height: 65%;
+    top: 16%;
+    left: 34%;
+    width: 66%;
+    height: 70%;
   }
 }
 @media (min-width: 701px) and (max-width: 900px) {
   .delivery-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 901px) {
+  .book-visual {
+    top: 80px;
+    left: 26%;
+    width: 74%;
+    height: calc(100% - 155px);
   }
 }

@@ -125,7 +125,11 @@ export function createBookScene(mobile: boolean, logo: THREE.Texture) {
     lastBend = -10;
   function update(progress: number) {
     const f = storyFrame(progress);
-    const transition = f.turn ? Math.sin(f.turn * Math.PI) : 0;
+    const transition = Math.max(
+      Math.sin(f.turn * Math.PI),
+      progress < 1 ? Math.sin(f.opening * Math.PI) : 0,
+      Math.sin(f.closing * Math.PI),
+    );
     book.position.x = -1.12 * (1 - f.opening + f.closing);
     book.rotation.set(0.72 - transition * 0.11, -0.035 + transition * 0.045, 0);
     book.updateMatrixWorld(true);
