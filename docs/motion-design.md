@@ -171,3 +171,11 @@ progress tween. Swipes commit after a horizontal 40px gesture; vertical movement
 releases the gesture to native scrolling. Reduced motion switches chapters
 without a tween. Desktop retains its existing scroll timeline.
 
+
+## Mobile scrolling restored
+
+The mobile manual-only implementation is superseded by a pinned native-scroll
+timeline. Swipes and arrows move to the timeline's reading positions; stop-time
+snapping prevents an idle half-turned page. Motion remains static and manually
+controlled for reduced-motion users.
+

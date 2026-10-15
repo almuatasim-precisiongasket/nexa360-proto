@@ -227,3 +227,22 @@ A noscript style keeps the page available when JavaScript is disabled.
 The production build and TypeScript passed. Two consecutive home reloads showed
 the intro, and the ready book dismissed it and released page scrolling. No browser
 console errors were observed. No automated tests were added or run.
+
+## Mobile scroll and swipe correction — 16 October 2026
+
+Restored a ScrollTrigger timeline on phones, replacing the manual-only mobile
+reader. Native vertical scrolling, chapter buttons and horizontal swipes now all
+navigate the same scroll progress. The phone timeline spans nine stage heights,
+uses a 0.65s scrub and settles to reading positions after scrolling stops. Reduced
+motion retains manual static chapters. The mobile stage fits the small viewport
+with controls visible; short screens omit the repeated description but retain the
+chapter note and action. Landscape uses the same scroll-based reader.
+
+Swipe handlers run in capture phase, track one pointer and ignore a child's lost
+pointer-capture event. Horizontal gestures use a 32px release threshold, while
+vertical gestures remain native scrolling. Decorative canvas content no longer
+receives pointer hits, and canvas wrappers allow pan-y and pinch zoom.
+
+At 390x844, native scrolling advanced cover to Ambition, a horizontal drag advanced
+to Cyber, and the Next control advanced to AI. Browser pointer input is not a
+physical phone touch check. No automated tests were added or run.

@@ -44,9 +44,12 @@ export function BookStory() {
         behavior: reduced ? "instant" : "smooth",
       });
   }, [chapter, mobileBook, reduced]);
-  const drag = useRef<{ x: number; y: number; horizontal: boolean } | null>(
-    null,
-  );
+  const drag = useRef<{
+    x: number;
+    y: number;
+    pointerId: number;
+    horizontal: boolean;
+  } | null>(null);
   useEffect(() => {
     const fallback = () => setIllustrated(true);
     window.addEventListener("nexa:book-fallback", fallback);
@@ -94,24 +97,15 @@ export function BookStory() {
             );
             bridge.current.invalidate();
           };
-          if (isReduced || context.conditions?.mobile) {
+          if (isReduced) {
             bridge.current.progress = readingPosition(
               Math.max(0, storyFrame(bridge.current.progress).chapter),
             );
             update();
             navigate.current = contextSafe!((n: number) => {
               navigation?.kill();
-              if (isReduced) {
-                bridge.current.progress = readingPosition(clamp(n, 0, 6));
-                update();
-              } else {
-                navigation = gsap.to(bridge.current, {
-                  progress: readingPosition(clamp(n, 0, 6)),
-                  duration: 1.6,
-                  ease: "power2.inOut",
-                  onUpdate: update,
-                });
-              }
+              bridge.current.progress = readingPosition(clamp(n, 0, 6));
+              update();
             });
             return () => {
               navigation?.kill();
@@ -126,8 +120,23 @@ export function BookStory() {
               start: "top top",
               // Give every spread a generous reading pause before its page turn.
               end: () =>
-                `+=${window.innerHeight * (window.innerWidth < 900 ? 14 : 16)}`,
-              scrub: 1.25,
+                `+=${(stage.current?.clientHeight ?? window.innerHeight) * (context.conditions?.mobile ? 9 : window.innerWidth < 900 ? 14 : 16)}`,
+              scrub: context.conditions?.mobile ? 0.65 : 1.25,
+              snap: context.conditions?.mobile
+                ? {
+                    snapTo: [
+                      0,
+                      ...chapters
+                        .slice(1)
+                        .map((_, i) => readingPosition(i + 1) / 7),
+                      1,
+                    ],
+                    duration: { min: 0.35, max: 0.75 },
+                    delay: 0.2,
+                    inertia: false,
+                    ease: "power2.inOut",
+                  }
+                : undefined,
               invalidateOnRefresh: true,
               anticipatePin: 1,
             },
@@ -191,7 +200,11 @@ export function BookStory() {
   }
   function release(event: PointerEvent<HTMLDivElement>) {
     const start = drag.current;
-    if (start?.horizontal && Math.abs(event.clientX - start.x) > 40)
+    if (
+      start?.pointerId === event.pointerId &&
+      start.horizontal &&
+      Math.abs(event.clientX - start.x) > 32
+    )
       navigate.current(chapter + (event.clientX < start.x ? 1 : -1));
     if (event.currentTarget.hasPointerCapture(event.pointerId))
       event.currentTarget.releasePointerCapture(event.pointerId);
@@ -298,7 +311,7 @@ export function BookStory() {
                 ? "ready"
                 : "loading"
           }
-          onPointerDown={(event) => {
+          onPointerDownCapture={(event) => {
             if (
               !event.isPrimary ||
               event.button !== 0 ||
@@ -306,34 +319,37 @@ export function BookStory() {
             )
               return;
             drag.current = {
+              pointerId: event.pointerId,
               x: event.clientX,
               y: event.clientY,
               horizontal: false,
             };
           }}
-          onPointerMove={(event) => {
-            if (!drag.current) return;
+          onPointerMoveCapture={(event) => {
+            if (!drag.current || drag.current.pointerId !== event.pointerId)
+              return;
             const dx = event.clientX - drag.current.x,
               dy = event.clientY - drag.current.y;
             if (
               !drag.current.horizontal &&
-              Math.abs(dy) > 16 &&
-              Math.abs(dy) > Math.abs(dx)
+              Math.abs(dy) > 18 &&
+              Math.abs(dy) > Math.abs(dx) * 1.25
             ) {
               drag.current = null;
               return;
             }
-            if (Math.abs(dx) > 24 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+            if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy) * 1.1) {
               drag.current.horizontal = true;
               event.currentTarget.setPointerCapture(event.pointerId);
             }
           }}
-          onPointerUp={release}
-          onPointerCancel={() => {
+          onPointerUpCapture={release}
+          onPointerCancelCapture={() => {
             drag.current = null;
           }}
-          onLostPointerCapture={() => {
-            drag.current = null;
+          onLostPointerCapture={(event) => {
+            // A child losing implicit touch capture must not cancel our swipe.
+            if (event.target === event.currentTarget) drag.current = null;
           }}
         >
           <div
@@ -417,7 +433,7 @@ export function BookStory() {
             {reduced
               ? "CHOOSE YOUR CHAPTER"
               : mobileBook
-                ? "SWIPE THE BOOK OR USE THE ARROWS"
+                ? "SCROLL TO TURN · SWIPE OR TAP ARROWS"
                 : "SCROLL TO TURN THE PAGE"}
           </span>
           <div
