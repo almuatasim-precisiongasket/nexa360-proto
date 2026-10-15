@@ -12,6 +12,7 @@ import { BackgroundBeams } from "./ui/background-beams";
 import { TuitionQuestions } from "./TuitionQuestions";
 import { TuitionScene } from "./TuitionScene";
 import { SectionHandoff } from "./SectionHandoff";
+import { HoldingArt } from "./HoldingArt";
 function SectionLabel({
   number,
   title,
@@ -98,7 +99,7 @@ export function Information() {
         <SectionHandoff previous="#0b1b2d" light />
         <SectionLabel
           number="02"
-          title="YOUR PATHWAYS"
+          title="OUR SERVICES"
           note="YOUR CURIOSITY. YOUR DIRECTION."
         />
         <div className="section-head">
@@ -185,6 +186,7 @@ export function Information() {
               Ask about our products <Arrow />
             </a>
           </div>
+          <HoldingArt kind="products" />
         </div>
       </section>
       <section id="team" className="section team-section">
@@ -205,7 +207,7 @@ export function Information() {
         <AmbientField />
         <SectionLabel
           number="05"
-          title="IDEAS IN ACTION"
+          title="OUR PROJECTS"
           note="LEARNING MADE MEANINGFUL"
         />
         <div className="section-head">
@@ -336,6 +338,7 @@ export function Information() {
               Ask about upcoming events <Arrow />
             </a>
           </div>
+          <HoldingArt kind="events" />
         </div>
       </section>
       <section id="contact" className="section contact ambient-section">
@@ -388,14 +391,16 @@ export function Footer() {
         <nav aria-label="Explore NEXA360">
           <span className="kicker">EXPLORE</span>
           <a href="#about">The NEXA360 story</a>
-          <a href="#pathways">Learning pathways</a>
+          <a href="#pathways">Our Services</a>
+          <a href="#products">Our Products</a>
           <a href="#tuition">IGCSE & GCSE tutoring</a>
           <a href="#team">Meet our team</a>
-          <a href="#initiatives">Our initiatives</a>
+          <a href="#initiatives">Our Projects</a>
         </nav>
         <nav aria-label="Connect with NEXA360">
           <span className="kicker">CONNECT</span>
           <a href="#collaboration">Collaboration</a>
+          <a href="#events">Events</a>
           <a href="#contact">Start a conversation ↗</a>
           <a href="#home">Back to the beginning ↑</a>
           <ReplayIntro />

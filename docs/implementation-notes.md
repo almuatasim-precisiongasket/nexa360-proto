@@ -169,3 +169,27 @@ Events and Contact Us. Services points to Pathways, Projects to Initiatives, and
 Contact Us is the right-hand contact action. Products and Events have compact
 on-page destinations awaiting content, as requested. No products, dates or
 availability have been invented. The contact action also closes the mobile menu.
+
+## Asset and services refinement — 16 October 2026
+
+Replaced the six pathway line drawings with original dimensional SVG artwork in
+blue enamel, cream paper and brass. The services now use two-column illustrated
+cards, becoming a single column below 760px, with larger body text and artwork.
+Existing detail dialogs, enquiry selection and scoped GSAP art tilt are retained.
+No additional animation system or dependency was introduced.
+
+Products and Events now have matching decorative paper and calendar artwork.
+Their content remains explicitly awaiting information; no catalogue, dates or
+availability were invented. Footer links match the primary navigation, and the
+header groups tuition under Services, team under About, and collaboration under
+Projects when indicating the current section. The restored WebGL book pop-outs
+and page physics were not edited in this pass.
+
+The optimized production build and TypeScript completed successfully. No
+automated tests were added or run.
+
+The updated Services, Products and Events were visually reviewed in the existing
+browser viewport. Screenshots are saved in output/v2-assets-services.jpg and
+output/v2-assets-products.jpg. The updated tab reported no console errors during
+this review. Preview is running at 127.0.0.1:3000.
+

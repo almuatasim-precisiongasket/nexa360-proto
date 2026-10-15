@@ -1,4 +1,10 @@
+import { useId } from "react";
+
+/** Original objects in the book's paper, blue enamel and brass palette. */
 export function PathArt({ kind }: { kind: string }) {
+  const id = useId();
+  const blue = `url(#${id}-blue)`,
+    paper = `url(#${id}-paper)`;
   return (
     <svg
       className={`path-art art-${kind}`}
@@ -6,91 +12,179 @@ export function PathArt({ kind }: { kind: string }) {
       aria-hidden="true"
       fill="none"
     >
-      <g stroke="currentColor" strokeWidth="1.2">
-        {kind === "academic" && (
-          <>
-            <circle cx="90" cy="70" r="51" opacity=".3" />
-            <path d="M28 100h125M45 35v75M55 80l13 10 18-50h49" />
-            <text
-              x="84"
-              y="91"
-              fill="currentColor"
-              stroke="none"
-              fontFamily="Georgia"
-              fontSize="50"
-              fontStyle="italic"
-            >
-              x
-            </text>
-          </>
-        )}
-        {kind === "competitive" && (
-          <>
-            <path d="M32 110V87h28V65h28V43h28V22h28" />
-            <circle cx="139" cy="35" r="20" />
-            <circle cx="139" cy="35" r="10" />
-            <path d="m129 46 24-24M39 119h114" opacity=".4" />
-          </>
-        )}
-        {kind === "cyber" && (
-          <>
-            <path d="m90 18 36 15v34c0 24-36 48-36 48S54 91 54 67V33Z" />
-            <path d="m73 64 12 12 25-29M19 67h35m72 0h35" />
-            <circle cx="18" cy="67" r="5" />
-            <circle cx="162" cy="67" r="5" />
-            <path
-              d="M31 24 54 40m72 0 23-16M31 115l30-21m58 0 30 21"
-              opacity=".4"
-            />
-          </>
-        )}
-        {kind === "ai" && (
-          <>
-            <path
-              d="M35 38 90 26l55 17M35 38l55 32 55-27M35 96l55-26 55 28M35 96l55 22 55-20M90 26v92"
-              opacity=".55"
-            />
-            {[
-              [35, 38],
-              [35, 96],
-              [90, 26],
-              [90, 70],
-              [90, 118],
-              [145, 43],
-              [145, 98],
-            ].map(([x, y], i) => (
-              <circle
-                key={i}
-                cx={x}
-                cy={y}
-                r={i === 3 ? 11 : 6}
-                fill={i === 3 ? "currentColor" : "none"}
-              />
-            ))}
-          </>
-        )}
-        {kind === "robotics" && (
-          <>
-            <path d="M47 118h66M60 111v-17h41v17M70 92 50 51l13-9 25 44M63 42l48-21 8 15-49 27M116 23l24 18-7 12-25-16" />
-            <circle cx="60" cy="52" r="10" />
-            <circle cx="113" cy="30" r="9" />
-            <circle cx="81" cy="91" r="10" />
-            <path
-              d="m138 46 14 8-3 17-10 4m-1-29-7 17-11 2M19 125h142M35 117h111"
-              opacity=".5"
-            />
-          </>
-        )}
-        {kind === "career" && (
-          <>
-            <path
-              d="M30 115h125M39 108V91h18v17m12 0V73h18v35m12 0V55h18v53"
-              opacity=".5"
-            />
-            <path d="m40 65 43-20 18 12 46-40m-26 0h26v26" />
-          </>
-        )}
-      </g>
+      <defs>
+        <linearGradient
+          id={`${id}-blue`}
+          x1="35"
+          y1="20"
+          x2="140"
+          y2="125"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#5a9df1" />
+          <stop offset=".48" stopColor="#175cdb" />
+          <stop offset="1" stopColor="#123b70" />
+        </linearGradient>
+        <linearGradient
+          id={`${id}-paper`}
+          x1="45"
+          y1="32"
+          x2="130"
+          y2="120"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#fffef5" />
+          <stop offset="1" stopColor="#c8dae3" />
+        </linearGradient>
+      </defs>
+      <ellipse cx="91" cy="121" rx="56" ry="8" fill="#193d6812" />
+      {kind === "academic" && (
+        <g strokeLinejoin="round">
+          <path d="M35 91l48-13 64 20-48 17-64-18Z" fill="#123b70" />
+          <path
+            d="M37 86l47-13 61 20-47 16-61-18Z"
+            fill={paper}
+            stroke="#9fb9cd"
+          />
+          <path d="M34 79l50-14 65 21-51 17-64-19Z" fill={blue} />
+          <path d="M42 48l47-9 45 11 4 35-48-13-46 11Z" fill="#b7cad6" />
+          <path
+            d="M40 42l48-10 45 12 4 35-48-13-46 12Z"
+            fill={paper}
+            stroke="#829fb8"
+          />
+          <path
+            d="M88 32l1 34M51 47l25-5m-24 12 24-5m25-2 22 6m-21 2 22 6"
+            stroke="#698ca9"
+            strokeWidth="1.3"
+          />
+          <path d="M116 31l17-13 4 5-18 13-7 2Z" fill="#d8b25a" />
+          <path d="M112 38l4-7 3 5Z" fill="#173b61" />
+        </g>
+      )}
+      {kind === "competitive" && (
+        <g strokeLinejoin="round">
+          <path d="M35 104l54-17 60 20-54 17Z" fill="#123b70" />
+          <path d="M35 95l54-17 60 20-54 17Z" fill="#d5e4ec" />
+          <path d="M45 87l23-7v18l-23 7Z" fill="#163e79" />
+          <path d="M45 79l23-7 13 4-23 8Z" fill="#5b9ef2" />
+          <path d="M75 68l24-7v34l-24 8Z" fill="#175cdb" />
+          <path d="M75 60l24-7 14 4-24 8Z" fill="#70b5f7" />
+          <path d="M107 49l24-7v50l-24 8Z" fill={blue} />
+          <path d="M107 41l24-7 14 4-24 8Z" fill="#9bd0ff" />
+          <circle
+            cx="112"
+            cy="38"
+            r="23"
+            fill="#f3eddf"
+            stroke="#d8b25a"
+            strokeWidth="3"
+          />
+          <circle cx="112" cy="38" r="14" stroke="#b2914a" />
+          <circle cx="112" cy="38" r="5" fill="#175cdb" />
+          <path d="M111 39l26-20m-5 0h5v5" stroke="#123b70" strokeWidth="2" />
+        </g>
+      )}
+      {kind === "cyber" && (
+        <g strokeLinejoin="round">
+          <path
+            d="M95 18l41 16v36c0 25-40 48-40 48L54 97l-8-53Z"
+            fill="#123b70"
+          />
+          <path
+            d="M87 15l41 16v36c0 25-41 48-41 48S46 92 46 67V31Z"
+            fill={blue}
+            stroke="#7fb8ef"
+          />
+          <path
+            d="M87 28l29 12v26c0 16-29 35-29 35S58 82 58 66V40Z"
+            stroke="#a6d8ff"
+            strokeOpacity=".65"
+          />
+          <rect x="72" y="56" width="30" height="27" rx="4" fill={paper} />
+          <path
+            d="M79 56v-8a8 8 0 0 1 16 0v8"
+            stroke="#f3eddf"
+            strokeWidth="4"
+          />
+          <circle cx="87" cy="67" r="3" fill="#175cdb" />
+          <path d="M87 68v6" stroke="#175cdb" strokeWidth="2" />
+          <path
+            d="M24 54h14m103 25h18M34 102l12-7m88-65 12-8"
+            stroke="#759dbb"
+          />
+          <circle cx="22" cy="54" r="4" fill="#d8b25a" />
+          <circle cx="161" cy="79" r="4" fill="#d8b25a" />
+        </g>
+      )}
+      {kind === "ai" && (
+        <g strokeLinejoin="round">
+          <path d="M38 68l52-28 52 28v24l-52 29-52-29Z" fill="#123b70" />
+          <path d="M38 62l52-28 52 28-52 29Z" fill={blue} stroke="#8fc5fa" />
+          <path d="M58 62l32-17 32 17-32 18Z" fill={paper} stroke="#9bb9cf" />
+          <path
+            d="M38 78l-13-7m13 19-13-7m117-5 13-7m-13 19 13-7M65 47l-11-6m25-1-11-6m33 6 11-6m3 13 11-6"
+            stroke="#819db2"
+            strokeWidth="3"
+          />
+          <path d="M73 62l17-9 17 9-17 10Z" fill="#175cdb" />
+          <circle cx="90" cy="22" r="7" fill="#d8b25a" />
+          <path
+            d="M90 29v15m-29-25 15 16m43-16-15 16"
+            stroke="#d8b25a"
+            strokeWidth="1.5"
+          />
+          <circle cx="58" cy="16" r="4" fill="#82bdf0" />
+          <circle cx="122" cy="16" r="4" fill="#82bdf0" />
+        </g>
+      )}
+      {kind === "robotics" && (
+        <g strokeLinejoin="round">
+          <path d="M45 111l43-13 44 13-43 15Z" fill="#123b70" />
+          <path d="M45 103l43-13 44 13-43 15Z" fill="#c4dae7" />
+          <path d="M72 78h29v27H72Z" fill={blue} />
+          <ellipse cx="87" cy="79" rx="14" ry="6" fill="#82bdf0" />
+          <path d="M76 78 51 51l12-11 27 29Z" fill={paper} stroke="#8faec7" />
+          <path d="M59 40l46-23 10 17-46 25Z" fill={blue} stroke="#78b6f0" />
+          <circle
+            cx="59"
+            cy="49"
+            r="11"
+            fill="#123b70"
+            stroke="#9cd1f5"
+            strokeWidth="2"
+          />
+          <circle cx="59" cy="49" r="4" fill="#d8b25a" />
+          <circle
+            cx="109"
+            cy="27"
+            r="10"
+            fill="#123b70"
+            stroke="#9cd1f5"
+            strokeWidth="2"
+          />
+          <circle cx="109" cy="27" r="4" fill="#d8b25a" />
+          <path d="M116 29l25 18-8 12-25-18Z" fill={paper} stroke="#8faec7" />
+          <path
+            d="M136 53l12 8-3 14-9 5m0-27-7 14-10 2"
+            stroke="#123b70"
+            strokeWidth="4"
+          />
+        </g>
+      )}
+      {kind === "career" && (
+        <g strokeLinejoin="round">
+          <path d="M42 52l61-13 33 17v47l-61 16-33-17Z" fill="#123b70" />
+          <path d="M42 49l61-13 33 17-61 15Z" fill="#5a9df1" />
+          <path d="M42 49l33 19v48l-33-17Z" fill="#164ba1" />
+          <path d="M75 68l61-15v47l-61 16Z" fill={blue} />
+          <path d="M75 80l61-15" stroke="#91c8f6" />
+          <path d="M68 43V32l21-5 13 6v7" stroke="#123b70" strokeWidth="6" />
+          <path d="M69 32l20-5 13 6" stroke="#6ca7e8" strokeWidth="2" />
+          <path d="M99 76l12-3v12l-12 3Z" fill="#d8b25a" />
+          <path d="M28 90l-8 4m123-65 11-4m-2 62 10 3" stroke="#8faec7" />
+        </g>
+      )}
     </svg>
   );
 }

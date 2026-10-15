@@ -35,7 +35,12 @@ export function Header() {
           const r = section.getBoundingClientRect();
           if (r.top < innerHeight * 0.35 && r.bottom > 0) current = section.id;
         });
-      setActive(current);
+      const sectionGroup: Record<string, string> = {
+        tuition: "pathways",
+        team: "about",
+        collaboration: "initiatives",
+      };
+      setActive(sectionGroup[current] ?? current);
       // The book has its own chapter control; this line follows the content below.
       const about = document.getElementById("about");
       if (about) {

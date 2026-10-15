@@ -155,3 +155,11 @@ Restored the pop-outs' previous world-space placement and upright orientation.
 The last page-motion change parented them to the tilted book and folded their
 whole geometry, which changed the approved objects' appearance. The established
 vertical reveal is restored; the page curl and damped settling remain in place.
+
+## Illustrated services — 16 October 2026
+
+Service artwork is now original layered SVG, sharing the book's paper, blue and
+brass materials. The existing fine-pointer GSAP tilt moves only the illustration;
+card text remains steady. The previous CSS transform transition was removed from
+these SVGs so it does not compete with GSAP. Coarse-pointer and reduced-motion
+views retain static artwork. Products and Events artwork is static and decorative.
