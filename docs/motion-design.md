@@ -130,3 +130,21 @@ Tablet canvas height increases from 65% to 70%; desktop framing stays within the
 right edge and reserves space for the chapter controls. The production build
 passed and the academic resting spread was visually reviewed in the current
 browser window. Preview: output/v2-book-expanded.jpg.
+
+## Page mechanics refinement
+
+The sheet surface now integrates equal-length strips across its width. The
+spine remains fixed while the outer edge trails the hinge and each corner gets a
+small differential twist. Hard covers use a rigid surface with the same turning
+hinge. Paper curl relaxes as the sheet lands; it does not use radial stretching.
+
+A critically damped progress response (frequency 18) adds short inertial settling
+after input. The closed-form update caps frame delta, snaps direct jumps greater
+than 1.2 chapters, and stops requesting frames below a position/velocity threshold.
+The existing scroll timeline remains the input; no physics engine was added.
+
+Pop-up objects are children of the book, so their bases follow the page plane.
+They rotate up from the paper instead of squashing vertically. A soft gutter
+strip reinforces the spine depth. Existing page-turn shadows remain active.
+The production build and TypeScript passed; a partial turn was visually reviewed.
+No automated tests were run, following the refinement prompt's instruction.

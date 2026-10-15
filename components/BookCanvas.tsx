@@ -110,7 +110,10 @@ function BookScene({
     const smoothing = 1 - Math.exp(-Math.min(delta, 0.05) * 5);
     pointer.x = THREE.MathUtils.lerp(pointer.x, pointer.targetX, smoothing);
     pointer.y = THREE.MathUtils.lerp(pointer.y, pointer.targetY, smoothing);
-    const { distance, transition } = model.update(bridgeRef.current.progress);
+    const { distance, transition, needsFrame } = model.update(
+      bridgeRef.current.progress,
+      delta,
+    );
     // Use the resting canvas more fully, then make room for the upright leaf.
     const framing =
       (size.width / size.height > 1.05 ? 0.92 : 1) * (1 + transition * 0.3);
@@ -128,7 +131,8 @@ function BookScene({
     if (
       Math.abs(pointer.x - pointer.targetX) +
         Math.abs(pointer.y - pointer.targetY) >
-      0.001
+        0.001 ||
+      needsFrame
     )
       invalidate();
     if (!didRender.current) {

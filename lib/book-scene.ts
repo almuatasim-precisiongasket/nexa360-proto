@@ -119,11 +119,59 @@ export function createBookScene(mobile: boolean, logo: THREE.Texture) {
   shadowMesh.rotation.x = -Math.PI / 2;
   shadowMesh.position.y = -1.35;
   world.add(shadowMesh);
+  const gutterTexture = paintedTexture(
+    (c) => {
+      const gradient = c.createLinearGradient(0, 0, 1024, 0);
+      gradient.addColorStop(0, "#07101f00");
+      gradient.addColorStop(0.5, "#07101f75");
+      gradient.addColorStop(1, "#07101f00");
+      c.fillStyle = gradient;
+      c.fillRect(0, 0, 1024, 1365);
+    },
+    64,
+    32,
+  );
+  const gutter = new THREE.Mesh(
+    new THREE.PlaneGeometry(0.2, 3.27),
+    new THREE.MeshBasicMaterial({
+      map: gutterTexture,
+      transparent: true,
+      depthWrite: false,
+      opacity: 0.6,
+    }),
+  );
+  gutter.rotation.x = -Math.PI / 2;
+  gutter.position.y = 0.177;
+  book.add(gutter);
   const propGroups = new Map<number, THREE.Group>();
-  const anchor = new THREE.Vector3();
   let lastAngle = -10,
     lastBend = -10;
-  function update(progress: number) {
+  let physicalProgress = 0,
+    velocity = 0;
+  function update(target: number, delta = 0) {
+    const goal = clamp(target, 0, 7);
+    // Exact critically damped response; large chapter jumps snap to their target.
+    // This remains stable at low frame rates and stops requesting frames at rest.
+    if (!delta || Math.abs(goal - physicalProgress) > 1.2) {
+      physicalProgress = goal;
+      velocity = 0;
+    } else {
+      const dt = Math.min(delta, 0.05),
+        frequency = 18;
+      const offset = physicalProgress - goal;
+      const decay = Math.exp(-frequency * dt);
+      const impulse = (velocity + frequency * offset) * dt;
+      physicalProgress = goal + (offset + impulse) * decay;
+      velocity = (velocity - frequency * impulse) * decay;
+    }
+    const needsFrame =
+      Math.abs(goal - physicalProgress) > 0.00005 ||
+      Math.abs(velocity) > 0.0002;
+    if (!needsFrame) {
+      physicalProgress = goal;
+      velocity = 0;
+    }
+    const progress = physicalProgress;
     const f = storyFrame(progress);
     const transition = Math.max(
       Math.sin(f.turn * Math.PI),
@@ -136,6 +184,9 @@ export function createBookScene(mobile: boolean, logo: THREE.Texture) {
     leftBlock.visible = f.opening > 0.01 && f.closing < 0.99;
     leftNavy.opacity = leftEdge.opacity = 1 - f.closing;
     left.visible = leftBlock.visible;
+    gutter.visible = leftBlock.visible;
+    (gutter.material as THREE.MeshBasicMaterial).opacity =
+      0.6 * (1 - f.closing);
     right.visible = true;
     left.material = resources.material(`left-${f.from}`);
     left.material.transparent = true;
@@ -157,11 +208,12 @@ export function createBookScene(mobile: boolean, logo: THREE.Texture) {
       const t = f.turn;
       const settled = t * t * t * (t * (t * 6 - 15) + 10);
       angle = settled * Math.PI;
-      bend = Math.sin(settled * Math.PI) * 0.85;
+      // Paper trails the hinge and relaxes as the sheet lands on the left stack.
+      bend = Math.sin(settled * Math.PI) * 0.9;
       turn.material = resources.material(`right-${f.from}`, `left-${f.to}`);
     } else turn.visible = false;
     if (turn.visible && (angle !== lastAngle || bend !== lastBend)) {
-      deformPage(turn.geometry, angle, bend);
+      deformPage(turn.geometry, angle, bend, progress < 1 || f.closing > 0);
       lastAngle = angle;
       lastBend = bend;
       rim.update();
@@ -171,16 +223,16 @@ export function createBookScene(mobile: boolean, logo: THREE.Texture) {
     const index = Math.max(0, f.chapter - 1);
     if (f.visibility > 0.005 && !propGroups.has(index)) {
       const prop = createProp(index, logo);
-      world.add(prop);
+      book.add(prop);
       propGroups.set(index, prop);
     }
     for (const [n, prop] of propGroups) {
       prop.visible = n === index && f.visibility > 0.005;
       if (prop.visible) {
-        anchor.set(1.13, 0.18, -0.07).applyMatrix4(book.matrixWorld);
-        prop.position.copy(anchor);
-        prop.rotation.y = -0.04;
-        prop.scale.set(1, Math.max(0.001, f.visibility), 1);
+        prop.position.set(1.13, 0.18, -0.07);
+        const rise = ease(f.visibility);
+        prop.rotation.set((-Math.PI / 2) * (1 - rise), -0.04, 0);
+        prop.scale.setScalar(0.94 + 0.06 * rise);
         for (const signal of prop.userData.signals ?? []) {
           const reveal = clamp(
             (f.visibility - signal.delay) / (1 - signal.delay),
@@ -192,7 +244,7 @@ export function createBookScene(mobile: boolean, logo: THREE.Texture) {
         }
       }
     }
-    return { distance: 0.8 + f.opening * 0.2, transition };
+    return { distance: 0.8 + f.opening * 0.2, transition, needsFrame };
   }
   update(0);
   return {

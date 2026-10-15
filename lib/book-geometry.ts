@@ -35,6 +35,7 @@ export function deformPage(
   geometry: THREE.BufferGeometry,
   angle: number,
   bend: number,
+  rigid = false,
 ) {
   const { cols, rows, left } = geometry.userData as {
     cols: number;
@@ -42,22 +43,37 @@ export function deformPage(
     left: boolean;
   };
   const position = geometry.getAttribute("position") as THREE.BufferAttribute;
-  for (let j = 0; j <= rows; j++)
+  for (let j = 0; j <= rows; j++) {
+    // Integrate equal-length strips rather than rotating each vertex radius.
+    // The hinge stays fixed while the outer edge trails and the corners twist.
+    const v = j / rows;
+    let x = 0,
+      y = 0;
     for (let i = 0; i <= cols; i++) {
-      const u = i / cols,
-        v = j / rows;
-      const theta =
-        angle +
-        bend * Math.sin(u * Math.PI) * 0.34 +
-        Math.sin(angle) * Math.pow(u, 4) * Math.pow(v, 3) * 0.22;
-      const d = 2.3 * u;
+      const u = i / cols;
+      if (i > 0) {
+        const mid = (i - 0.5) / cols;
+        const flex = rigid ? 0 : bend;
+        const theta = Math.max(
+          0,
+          Math.min(
+            Math.PI,
+            angle -
+              flex * (0.15 * mid + 0.65 * mid * mid) +
+              flex * (v - 0.5) * mid * mid * 0.18,
+          ),
+        );
+        x += (2.3 / cols) * Math.cos(theta);
+        y += (2.3 / cols) * Math.sin(theta);
+      }
       position.setXYZ(
         j * (cols + 1) + i,
-        (left ? -1 : 1) * d * Math.cos(theta),
-        0.15 + d * Math.sin(theta) + Math.sin(u * Math.PI) * 0.018,
+        (left ? -1 : 1) * x,
+        0.15 + y + (rigid ? 0 : Math.sin(u * Math.PI) * 0.012),
         v * 3.28 - 1.64,
       );
     }
+  }
   position.needsUpdate = true;
   geometry.computeVertexNormals();
   geometry.computeBoundingSphere();
