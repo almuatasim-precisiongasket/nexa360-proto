@@ -148,3 +148,10 @@ They rotate up from the paper instead of squashing vertically. A soft gutter
 strip reinforces the spine depth. Existing page-turn shadows remain active.
 The production build and TypeScript passed; a partial turn was visually reviewed.
 No automated tests were run, following the refinement prompt's instruction.
+
+## Pop-out correction — 16 October 2026
+
+Restored the pop-outs' previous world-space placement and upright orientation.
+The last page-motion change parented them to the tilted book and folded their
+whole geometry, which changed the approved objects' appearance. The established
+vertical reveal is restored; the page curl and damped settling remain in place.

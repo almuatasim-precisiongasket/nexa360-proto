@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { pageGeometry, deformPage, coverRim } from "./book-geometry";
 import { createBookResources, paintedTexture } from "./book-textures";
 import { createProp } from "./book-props";
-import { storyFrame, ease, clamp } from "./story";
+import { storyFrame, clamp } from "./story";
 export function createBookScene(mobile: boolean, logo: THREE.Texture) {
   const world = new THREE.Group(),
     book = new THREE.Group(),
@@ -144,6 +144,7 @@ export function createBookScene(mobile: boolean, logo: THREE.Texture) {
   gutter.position.y = 0.177;
   book.add(gutter);
   const propGroups = new Map<number, THREE.Group>();
+  const anchor = new THREE.Vector3();
   let lastAngle = -10,
     lastBend = -10;
   let physicalProgress = 0,
@@ -223,16 +224,16 @@ export function createBookScene(mobile: boolean, logo: THREE.Texture) {
     const index = Math.max(0, f.chapter - 1);
     if (f.visibility > 0.005 && !propGroups.has(index)) {
       const prop = createProp(index, logo);
-      book.add(prop);
+      world.add(prop);
       propGroups.set(index, prop);
     }
     for (const [n, prop] of propGroups) {
       prop.visible = n === index && f.visibility > 0.005;
       if (prop.visible) {
-        prop.position.set(1.13, 0.18, -0.07);
-        const rise = ease(f.visibility);
-        prop.rotation.set((-Math.PI / 2) * (1 - rise), -0.04, 0);
-        prop.scale.setScalar(0.94 + 0.06 * rise);
+        anchor.set(1.13, 0.18, -0.07).applyMatrix4(book.matrixWorld);
+        prop.position.copy(anchor);
+        prop.rotation.set(0, -0.04, 0);
+        prop.scale.set(1, Math.max(0.001, f.visibility), 1);
         for (const signal of prop.userData.signals ?? []) {
           const reveal = clamp(
             (f.visibility - signal.delay) / (1 - signal.delay),
