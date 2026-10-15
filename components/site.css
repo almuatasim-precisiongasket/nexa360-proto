@@ -4003,3 +4003,66 @@
     height: calc(100% - 155px);
   }
 }
+
+/* On-page destinations for the updated primary navigation. */
+.holding-section {
+  padding-block: 60px;
+}
+.products-section {
+  background: #e7edea;
+  color: #142b45;
+  color-scheme: light;
+}
+.events-section {
+  background: #0d2035;
+}
+.holding-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10%;
+  align-items: center;
+  border-top: 1px solid var(--line);
+  padding-top: 32px;
+}
+.products-section .holding-content {
+  border-color: #1737542b;
+}
+.holding-content .kicker {
+  color: var(--muted);
+  font-size: 9px;
+}
+.products-section .kicker {
+  color: #536c82;
+}
+.holding-content h2 {
+  font-size: clamp(45px, 5vw, 70px);
+  margin-top: 18px;
+}
+.holding-copy p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+  margin-bottom: 22px;
+}
+.products-section .holding-copy p {
+  color: #536c82;
+}
+.products-section .text-link {
+  color: var(--blue);
+}
+.products-section a:focus-visible {
+  outline-color: var(--blue);
+}
+.header-contact[aria-current="location"] {
+  color: var(--blue);
+  border-color: #175cdb66;
+}
+@media (max-width: 600px) {
+  .holding-section {
+    padding-block: 42px;
+  }
+  .holding-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}

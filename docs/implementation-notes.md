@@ -161,3 +161,11 @@ saved in output/v2-book-cover.jpg and output/v2-book-spread.jpg. The screenshots
 are local review artifacts and are excluded by .gitignore. No automated tests
 were added or run, as requested. Physical-device and cross-browser performance
 have not been measured; no field performance claim is made.
+
+## Header navigation — 16 October 2026
+
+The primary header now presents About, Our Services, Our Products, Our Projects,
+Events and Contact Us. Services points to Pathways, Projects to Initiatives, and
+Contact Us is the right-hand contact action. Products and Events have compact
+on-page destinations awaiting content, as requested. No products, dates or
+availability have been invented. The contact action also closes the mobile menu.

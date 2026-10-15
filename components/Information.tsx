@@ -170,6 +170,23 @@ export function Information() {
           </TuitionEnquiry>
         </div>
       </section>
+      <section
+        id="products"
+        className="section holding-section products-section"
+      >
+        <div className="holding-content">
+          <div>
+            <span className="kicker">OUR PRODUCTS</span>
+            <h2>Our products.</h2>
+          </div>
+          <div className="holding-copy">
+            <p>Product information will be added here.</p>
+            <a href="#contact" className="text-link">
+              Ask about our products <Arrow />
+            </a>
+          </div>
+        </div>
+      </section>
       <section id="team" className="section team-section">
         <SectionHandoff previous="#e7edea" />
         <BackgroundBeams className="team-background-beams" />
@@ -305,6 +322,20 @@ export function Information() {
               )}
             </div>
           ))}
+        </div>
+      </section>
+      <section id="events" className="section holding-section events-section">
+        <div className="holding-content">
+          <div>
+            <span className="kicker">EVENTS</span>
+            <h2>Events.</h2>
+          </div>
+          <div className="holding-copy">
+            <p>No event details have been published here yet.</p>
+            <a href="#contact" className="text-link">
+              Ask about upcoming events <Arrow />
+            </a>
+          </div>
         </div>
       </section>
       <section id="contact" className="section contact ambient-section">

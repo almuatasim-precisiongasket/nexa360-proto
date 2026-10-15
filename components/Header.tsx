@@ -10,11 +10,10 @@ import {
 import * as m from "motion/react-m";
 const links = [
   ["about", "About"],
-  ["pathways", "Pathways"],
-  ["tuition", "Tuition"],
-  ["team", "Team"],
-  ["initiatives", "Initiatives"],
-  ["collaboration", "Collaboration"],
+  ["pathways", "Our Services"],
+  ["products", "Our Products"],
+  ["initiatives", "Our Projects"],
+  ["events", "Events"],
 ];
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -137,8 +136,10 @@ export function Header() {
         <a
           href="#contact"
           className="header-contact spotlight-surface react-border-glow"
+          aria-current={active === "contact" ? "location" : undefined}
+          onClick={() => setOpen(false)}
         >
-          Let’s talk <Arrow />
+          Contact Us <Arrow />
         </a>
         <button
           ref={toggle}
