@@ -312,6 +312,17 @@
   color: var(--ink);
   color-scheme: light;
 }
+.products .chapterTarget {
+  scroll-margin-top: max(
+    0px,
+    calc(var(--chapter-offset, 166px) - var(--page-scroll-padding, 100px))
+  );
+  min-width: 0;
+}
+.chapterTarget:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 8px;
+}
 .products :global(.section-label) {
   border-color: var(--rule);
 }

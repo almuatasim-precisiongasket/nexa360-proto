@@ -14,10 +14,14 @@ export function ParentPreview() {
   const [view, setView] = useState<(typeof views)[number]>("Progress");
   return (
     <>
-      <div id="parent-preview" className={styles.parentSection}>
+      <div
+        id="parent-preview"
+        tabIndex={-1}
+        className={`${styles.parentSection} ${styles.chapterTarget}`}
+      >
         <div className={styles.parentCopy}>
           <span className={styles.previewBadge}>
-            Parent dashboard / Concept preview
+            03 / Parent dashboard · Concept preview
           </span>
           <h3>
             See the progress
@@ -153,9 +157,13 @@ export function ParentPreview() {
           Enquire about a consultation <Arrow />
         </a>
       </div>
-      <div className={styles.future}>
+      <div
+        id="future-skills"
+        tabIndex={-1}
+        className={`${styles.future} ${styles.chapterTarget}`}
+      >
         <div>
-          <span className="kicker">BEYOND YOUR EXAMS / FUTURE SKILLS</span>
+          <span className="kicker">04 / BEYOND YOUR EXAMS</span>
           <h3>Exam ready. Future curious.</h3>
           <p>
             Connect academic foundations with the possibilities beyond them.

@@ -32,7 +32,18 @@ export function SiteEffects() {
         sectionNavigation = gsap.to(window, {
           scrollTo: {
             y: section,
-            offsetY: hash === "#home" ? 0 : 74,
+            offsetY:
+              hash === "#home"
+                ? 0
+                : Math.max(
+                    74,
+                    (parseFloat(getComputedStyle(section).scrollMarginTop) ||
+                      0) +
+                      (parseFloat(
+                        getComputedStyle(document.documentElement)
+                          .scrollPaddingTop,
+                      ) || 0),
+                  ),
             autoKill: true,
           },
           duration: 1.8,
