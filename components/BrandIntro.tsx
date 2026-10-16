@@ -73,11 +73,11 @@ export function BrandIntro() {
       minimumElapsed = true;
       if (ready) setPrepared(true);
       complete();
-    }, 1600);
+    }, 1920);
     const maximum = setTimeout(() => {
       if (!ready) emitSiteEvent("nexa:book-fallback");
       dismiss();
-    }, 6500);
+    }, 7800);
     return () => {
       clearTimeout(minimum);
       clearTimeout(maximum);
@@ -86,7 +86,7 @@ export function BrandIntro() {
   }, [active, dismiss]);
   useEffect(() => {
     if (!leaving) return;
-    const exit = setTimeout(() => setVisible(false), reduced ? 0 : 600);
+    const exit = setTimeout(() => setVisible(false), reduced ? 0 : 720);
     return () => clearTimeout(exit);
   }, [leaving, reduced]);
   useEffect(() => {
@@ -127,17 +127,22 @@ export function BrandIntro() {
   useGSAP(
     () => {
       if (active && !reduced) {
+        if (root.current) root.current.dataset.introState = "entering";
         gsap.from(".intro-mark", {
           y: 14,
           opacity: 0.25,
-          duration: 1.5,
+          duration: 1.8,
           ease: "power3.out",
         });
         gsap.from(".intro-words", {
           y: 8,
           autoAlpha: 0,
-          duration: 1.3,
-          delay: 0.4,
+          duration: 1.2,
+          delay: 0.24,
+          ease: "power3.out",
+          onComplete: () => {
+            if (root.current) root.current.dataset.introState = "revealed";
+          },
         });
       }
     },
@@ -155,17 +160,18 @@ export function BrandIntro() {
         Skip intro ↗
       </button>
       <div className="intro-inner">
-        <span className="kicker intro-words">THE BOOK OF BECOMING</span>
+        <span className="kicker intro-words">UNFAIR ADVANTAGE</span>
         <div className="intro-mark">
           <Logo />
         </div>
         <p className="intro-words">
-          A bridge between education
+          <span>Leverage</span>
           <br />
-          and professionalism.
+          <strong>Your Unfair Advantage</strong>
         </p>
       </div>
-      <div className="intro-loading" role="status">
+      <div className="intro-loading" role="status" data-ready={prepared}>
+        <span className="intro-status-light" aria-hidden="true" />
         <span>
           {prepared
             ? "Your next chapter is ready"

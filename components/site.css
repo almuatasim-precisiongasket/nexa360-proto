@@ -1389,12 +1389,22 @@
     #ffffff0b 48%,
     transparent 63%
   );
-  animation: intro-light 1.3s ease-out both;
+  animation: intro-light 1.56s ease-out both;
 }
 .intro-inner > p {
   font-size: 13px;
   color: #a4bfd7;
   line-height: 1.8;
+}
+.intro-inner > p > span {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+.intro-inner > p > strong {
+  display: inline-block;
+  margin-top: 6px;
+  font: 400 clamp(24px, 4.5vw, 36px)/1.2 var(--serif);
+  color: #edf5ff;
 }
 .intro-skip {
   position: absolute;
@@ -4002,8 +4012,8 @@
 .brand-intro {
   opacity: 1;
   transition:
-    opacity 0.6s ease,
-    visibility 0.6s;
+    opacity 0.72s ease,
+    visibility 0.72s;
 }
 .brand-intro.intro-leaving {
   opacity: 0;
@@ -4023,10 +4033,11 @@
   display: block;
   position: relative;
   overflow: hidden;
-  width: 160px;
-  height: 2px;
+  width: 184px;
+  height: 3px;
   margin: 16px auto 0;
   background: #70c8ff20;
+  border-radius: 3px;
 }
 .intro-loading i::after {
   content: "";
@@ -4034,7 +4045,26 @@
   inset: 0;
   background: #70c8ff;
   transform: scaleX(0.3);
-  animation: intro-loading 1.8s ease-in-out infinite alternate;
+  animation: intro-loading 2.16s ease-in-out infinite alternate;
+}
+.intro-status-light {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: #70c8ff;
+  box-shadow: 0 0 10px #70c8ff55;
+  transition: background 0.6s ease;
+}
+.intro-loading[data-ready="true"] .intro-status-light {
+  background: #d8b25a;
+}
+.intro-loading[data-ready="true"] i::after {
+  animation: none;
+  transform: none;
+  background: #d8b25a;
+  transition: background 0.6s ease;
 }
 @keyframes intro-loading {
   from {

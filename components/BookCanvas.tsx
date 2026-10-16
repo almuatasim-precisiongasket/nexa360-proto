@@ -226,7 +226,7 @@ export default function BookCanvas({
           powerPreference: "high-performance",
         }}
         fallback={null}
-        aria-label="The Book of Becoming, a three-dimensional book"
+        aria-label="Unfair Advantage, a three-dimensional book"
         role="img"
       >
         <Suspense fallback={null}>

@@ -119,13 +119,13 @@ export const pathways: Pathway[] = [
 export const chapters = [
   {
     label: "Cover",
-    tag: "THE BOOK OF BECOMING",
+    tag: "UNFAIR ADVANTAGE",
     title: "Every future begins with",
     accent: "a page.",
     copy: "London tuition and online learning to help you build knowledge, confidence and new possibilities.",
     note: "A bridge between education and professionalism.",
     cta: "Open your future",
-    pageTitle: ["The Book of", "Becoming"],
+    pageTitle: ["Unfair", "Advantage"],
     pageCopy: ["Your journey begins."],
     path: "",
   },

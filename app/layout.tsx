@@ -6,7 +6,7 @@ import "@fontsource/instrument-serif/400.css";
 import "@fontsource/instrument-serif/400-italic.css";
 import "./globals.css";
 export const metadata: Metadata = {
-  title: "NEXA360 — The Book of Becoming",
+  title: "NEXA360 — Unfair Advantage",
   description:
     "One-to-one IGCSE and GCSE tuition in Barking, London and online learning. A bridge between education and professionalism.",
   icons: { icon: "/mark.svg" },

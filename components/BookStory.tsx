@@ -225,7 +225,7 @@ export function BookStory() {
       id="home"
       ref={root}
       className={`book-story ${reduced ? "reduced-story" : ""}`}
-      aria-label="The Book of Becoming"
+      aria-label="Unfair Advantage"
     >
       <div
         ref={stage}
@@ -358,9 +358,9 @@ export function BookStory() {
               <div className="fallback-cover-face">
                 <span>NEXA360</span>
                 <p>
-                  The Book of
+                  Unfair
                   <br />
-                  <em>Becoming</em>
+                  <em>Advantage</em>
                 </p>
                 <small>A WORLD OF POSSIBILITIES</small>
               </div>

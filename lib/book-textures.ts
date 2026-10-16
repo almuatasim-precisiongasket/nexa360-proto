@@ -67,17 +67,8 @@ export function createBookResources(mobile: boolean) {
         c.lineWidth = 3;
         c.strokeRect(50, 50, 924, 1265);
         text(c, "NEXA360", 512, 280, 85, ink, "DM Sans", "center");
-        text(
-          c,
-          "The Book of",
-          512,
-          640,
-          112,
-          ink,
-          "Instrument Serif",
-          "center",
-        );
-        text(c, "Becoming", 512, 795, 180, ink, "Instrument Serif", "center");
+        text(c, "Unfair", 512, 640, 160, ink, "Instrument Serif", "center");
+        text(c, "Advantage", 512, 795, 164, ink, "Instrument Serif", "center");
       },
       width,
       height,
@@ -107,20 +98,20 @@ export function createBookResources(mobile: boolean) {
           rule(c, 402, 372, 220, "#70c8ff88");
           text(
             c,
-            "The Book of",
+            "Unfair",
             512,
             640,
-            112,
+            160,
             "#e7d4a3",
             "Instrument Serif",
             "center",
           );
           text(
             c,
-            "Becoming",
+            "Advantage",
             512,
             795,
-            180,
+            164,
             "#e7d4a3",
             "Instrument Serif",
             "center",
@@ -201,7 +192,7 @@ export function createBookResources(mobile: boolean) {
                 ? "FUTURE EDUCATIONAL VISION"
                 : index === 5
                   ? "A SYMBOLIC CELEBRATION"
-                  : "THE BOOK OF BECOMING",
+                  : "UNFAIR ADVANTAGE",
               90,
               1240,
               24,
