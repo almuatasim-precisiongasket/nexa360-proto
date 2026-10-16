@@ -154,8 +154,10 @@ export function LearningSystemExploded() {
 
   return (
     <figure
+      id="learning-system"
       ref={root}
-      className={styles.systemExploded}
+      tabIndex={-1}
+      className={`${styles.systemExploded} ${styles.chapterTarget}`}
       aria-labelledby="learning-system-title"
     >
       <figcaption className={styles.systemHeading}>

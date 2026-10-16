@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type MouseEvent } from "react";
 import styles from "./learning-guide.module.css";
 
 const chapters = [
-  ["learning-tools", "Learning tools"],
+  ["learning-tools", "Learning system"],
   ["exam-practice", "Exam practice"],
   ["parent-preview", "Parent view"],
   ["future-skills", "Future skills"],

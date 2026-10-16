@@ -17,7 +17,7 @@ export function LearningExperience() {
         <span>LEARNING PLATFORM PREVIEW</span>
       </div>
       <LearningGuide />
-      <div id="learning-tools" tabIndex={-1} className={styles.chapterTarget}>
+      <div>
         <div className={styles.productIntro}>
           <div>
             <span className={styles.previewBadge}>
@@ -35,6 +35,13 @@ export function LearningExperience() {
             week direction. Try a sample of that connected experience.
           </p>
         </div>
+        <span
+          id="learning-tools"
+          tabIndex={-1}
+          className={styles.chapterTarget}
+          style={{ display: "block", height: 0 }}
+          aria-label="Connected learning system"
+        />
         <LearningSystemExploded />
         <LearningPreview />
       </div>

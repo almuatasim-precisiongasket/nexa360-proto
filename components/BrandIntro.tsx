@@ -14,7 +14,9 @@ import { REDUCED_MOTION_QUERY } from "@/lib/media";
 import { emitSiteEvent, onSiteEvent } from "@/lib/site-events";
 gsap.registerPlugin(useGSAP);
 const isHomeEntry = () => !location.hash || location.hash === "#home";
-const serverHomeEntry = () => true;
+// The server cannot see a URL fragment. Defaulting to a home entry caused the
+// full-screen intro to briefly block every deep link until hydration completed.
+const serverHomeEntry = () => false;
 function subscribeEntryChange(notify: () => void) {
   window.addEventListener("hashchange", notify);
   window.addEventListener("popstate", notify);

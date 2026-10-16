@@ -124,7 +124,7 @@ export function LearningPreview() {
             ))}
           </div>
           <div className={styles.toolSurface}>
-            <AnimatePresence initial={false} mode="wait" custom={direction}>
+            <AnimatePresence initial={false} mode="popLayout" custom={direction}>
               <m.div
                 key={tool}
                 id={`learning-preview-${tool}`}
@@ -138,7 +138,12 @@ export function LearningPreview() {
                 exit={
                   reduced
                     ? { opacity: 0 }
-                    : { opacity: 0, x: direction * -18, scale: 0.99 }
+                    : {
+                        opacity: 0,
+                        x: direction * -18,
+                        scale: 0.99,
+                        transition: { duration: 0.22, ease: "easeOut" },
+                      }
                 }
                 transition={{
                   duration: reduced ? 0 : 0.72,
