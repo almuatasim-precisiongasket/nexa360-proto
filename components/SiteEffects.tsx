@@ -95,6 +95,33 @@ export function SiteEffects() {
           scrub: 1.5,
         },
       });
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: ".initiative-art",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1.8,
+          },
+        })
+        .fromTo(
+          ".initiative-art .blueprint-grid",
+          { yPercent: -4, scale: 1.04 },
+          { yPercent: 5, scale: 1.1, ease: "none" },
+          0,
+        )
+        .fromTo(
+          ".initiative-art .possibility-pixels",
+          { yPercent: 5 },
+          { yPercent: -7, ease: "none" },
+          0,
+        )
+        .fromTo(
+          ".initiative-art .brand-logo",
+          { yPercent: 7, rotate: -1.5 },
+          { yPercent: -8, rotate: 1.5, ease: "none" },
+          0,
+        );
       // React Bits AnimatedContent adaptation: reveal each row near the viewport.
       gsap.utils.toArray<HTMLElement>(".pathway").forEach((row) => {
         gsap.from(row, {
@@ -138,6 +165,45 @@ export function SiteEffects() {
           scrub: true,
         },
       });
+      gsap.from(".journey > div", {
+        y: 22,
+        opacity: 0,
+        duration: 1.25,
+        stagger: 0.16,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".journey",
+          start: "top 86%",
+          once: true,
+        },
+        clearProps: "transform,opacity",
+      });
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: "#contact",
+            start: "top 88%",
+            end: "top 48%",
+            scrub: 1.35,
+          },
+        })
+        .fromTo(
+          ".contact-paper-fold",
+          { clipPath: "inset(0 0 100% 0)", y: -42, opacity: 0.2 },
+          {
+            clipPath: "inset(0 0 0% 0)",
+            y: 0,
+            opacity: 1,
+            ease: "none",
+          },
+          0,
+        )
+        .fromTo(
+          ".contact-paper-fold i",
+          { xPercent: -115 },
+          { xPercent: 145, ease: "none" },
+          0,
+        );
       return () => {
         sectionNavigation?.kill();
         document.removeEventListener("click", followSection);

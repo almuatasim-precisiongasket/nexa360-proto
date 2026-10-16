@@ -319,6 +319,9 @@ export function Information() {
       <section id="contact" className="section contact ambient-section">
         <SectionHandoff previous="#0d2035" />
         <AmbientField />
+        <div className="contact-paper-fold" aria-hidden="true">
+          <i />
+        </div>
         <SectionLabel
           number="07"
           title="THE NEXT CHAPTER"

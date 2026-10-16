@@ -42,6 +42,18 @@ export function SectionHandoff({
             { opacity: 0, y: 28 },
             { opacity: 0.7, y: 0, ease: "power2.out" },
             0,
+          )
+          .fromTo(
+            ".handoff-depth",
+            { y: -24, scaleY: 0.7, opacity: 0 },
+            { y: 8, scaleY: 1, opacity: 0.72, ease: "power2.out" },
+            0,
+          )
+          .fromTo(
+            ".handoff-trace-secondary",
+            { strokeDashoffset: 1, opacity: 0 },
+            { strokeDashoffset: 0, opacity: 0.3, ease: "none" },
+            0.12,
           );
       });
       return () => media.revert();
@@ -56,6 +68,7 @@ export function SectionHandoff({
       aria-hidden="true"
     >
       <div className="handoff-glow" />
+      <div className="handoff-depth" />
       <svg viewBox="0 0 1440 70" preserveAspectRatio="none">
         <defs>
           <linearGradient id={id} x1="0%" x2="100%" y1="0%" y2="0%">
@@ -67,6 +80,12 @@ export function SectionHandoff({
         </defs>
         <path className="handoff-paper" d="M0 0H1440V12C1000 48 580 6 0 32Z" />
         <path className="handoff-edge" d="M0 37C580 11 1000 53 1440 17" />
+        <path
+          className="handoff-trace-secondary"
+          d="M0 48C460 18 1010 66 1440 27"
+          pathLength="1"
+          style={{ stroke: `url(#${id})` }}
+        />
         <path
           className="handoff-trace"
           d="M0 32C580 6 1000 48 1440 12"

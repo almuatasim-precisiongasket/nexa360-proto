@@ -28,6 +28,9 @@ export function useIllustrationMotion(root: RefObject<HTMLElement | null>) {
         if (entered.current) return;
         const layers = scene.querySelectorAll("[data-art-enter]");
         const drawing = scene.querySelectorAll("[data-art-draw]");
+        const pieces = scene.querySelectorAll<SVGGraphicsElement>(
+          "[data-art-piece]",
+        );
         const timeline = gsap.timeline({
           onStart: () => {
             entered.current = true;
@@ -46,6 +49,33 @@ export function useIllustrationMotion(root: RefObject<HTMLElement | null>) {
             clearProps: "transform,opacity",
           },
         );
+        if (pieces.length)
+          timeline.fromTo(
+            pieces,
+            {
+              x: (_, element) =>
+                Number((element as SVGGraphicsElement).dataset.pieceX) || 0,
+              y: (_, element) =>
+                Number((element as SVGGraphicsElement).dataset.pieceY) || 0,
+              rotation: (_, element) =>
+                (element as SVGGraphicsElement).dataset.artPiece === "subject"
+                  ? 2.4
+                  : -1.2,
+              transformOrigin: "50% 50%",
+              opacity: 0.35,
+            },
+            {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              opacity: 1,
+              duration: 1.65,
+              stagger: 0.11,
+              ease: "power3.out",
+              clearProps: "transform,opacity",
+            },
+            0.12,
+          );
         if (drawing.length)
           timeline.fromTo(
             drawing,

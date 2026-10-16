@@ -45,15 +45,53 @@ export function Team() {
         gsap.utils
           .toArray<HTMLElement>(".team-card-scene")
           .forEach((card, index) => {
-            gsap.from(card, {
-              y: 38,
-              opacity: 0,
-              duration: 1.6,
+            const timeline = gsap.timeline({
               delay: (index % 2) * 0.12,
-              ease: "power3.out",
               scrollTrigger: { trigger: card, start: "top 96%", once: true },
-              clearProps: "transform,opacity",
             });
+            timeline
+              .from(card, {
+                y: 38,
+                opacity: 0,
+                duration: 1.55,
+                ease: "power3.out",
+                clearProps: "transform,opacity",
+              })
+              .from(
+                card.querySelector(".team-portrait"),
+                {
+                  y: 22,
+                  scale: 0.94,
+                  rotateZ: index % 2 ? 1.4 : -1.4,
+                  opacity: 0,
+                  duration: 1.35,
+                  ease: "power3.out",
+                  clearProps: "transform,opacity",
+                },
+                0.16,
+              )
+              .from(
+                card.querySelector(".team-card-index"),
+                {
+                  x: index % 2 ? 14 : -14,
+                  opacity: 0,
+                  duration: 1,
+                  ease: "power3.out",
+                  clearProps: "transform,opacity",
+                },
+                0.34,
+              )
+              .from(
+                card.querySelector(".team-identity"),
+                {
+                  y: 16,
+                  opacity: 0,
+                  duration: 1.1,
+                  ease: "power3.out",
+                  clearProps: "transform,opacity",
+                },
+                0.42,
+              );
           });
       });
       media.add(

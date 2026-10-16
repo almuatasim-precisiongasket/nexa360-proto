@@ -15,12 +15,28 @@ export function PathArt({ kind }: { kind: PathwayId }) {
       fill="none"
     >
       <IllustrationMaterials id={id} />
-      <ellipse cx="91" cy="123" rx="65" ry="12" fill={`url(#${id}-ground)`} />
-      <g stroke="#486f8c" strokeWidth=".55" opacity=".32">
+      <ellipse
+        data-art-piece="shadow"
+        data-piece-x="-10"
+        data-piece-y="9"
+        cx="91"
+        cy="123"
+        rx="65"
+        ry="12"
+        fill={`url(#${id}-ground)`}
+      />
+      <g
+        data-art-piece="frame"
+        data-piece-x="12"
+        data-piece-y="-8"
+        stroke="#486f8c"
+        strokeWidth=".55"
+        opacity=".32"
+      >
         <path d="M12 30V18h12M156 120h12v-12M12 124h16M152 18h16" />
       </g>
       {kind === "academic" && (
-        <g strokeLinejoin="round">
+        <g data-art-piece="subject" data-piece-x="-18" data-piece-y="-12" strokeLinejoin="round">
           <path d="M35 91l48-13 64 20-48 17-64-18Z" fill="#123b70" />
           <path
             d="M37 86l47-13 61 20-47 16-61-18Z"
@@ -44,7 +60,7 @@ export function PathArt({ kind }: { kind: PathwayId }) {
         </g>
       )}
       {kind === "competitive" && (
-        <g strokeLinejoin="round">
+        <g data-art-piece="subject" data-piece-x="16" data-piece-y="-14" strokeLinejoin="round">
           <path d="M35 104l54-17 60 20-54 17Z" fill="#123b70" />
           <path d="M35 95l54-17 60 20-54 17Z" fill="#d5e4ec" />
           <path d="M45 87l23-7v18l-23 7Z" fill="#163e79" />
@@ -67,7 +83,7 @@ export function PathArt({ kind }: { kind: PathwayId }) {
         </g>
       )}
       {kind === "cyber" && (
-        <g strokeLinejoin="round">
+        <g data-art-piece="subject" data-piece-x="-16" data-piece-y="-10" strokeLinejoin="round">
           <path
             d="M95 18l41 16v36c0 25-40 48-40 48L54 97l-8-53Z"
             fill="#123b70"
@@ -99,7 +115,7 @@ export function PathArt({ kind }: { kind: PathwayId }) {
         </g>
       )}
       {kind === "ai" && (
-        <g strokeLinejoin="round">
+        <g data-art-piece="subject" data-piece-x="18" data-piece-y="-12" strokeLinejoin="round">
           <path d="M38 68l52-28 52 28v24l-52 29-52-29Z" fill="#123b70" />
           <path d="M38 62l52-28 52 28-52 29Z" fill={blue} stroke="#8fc5fa" />
           <path d="M58 62l32-17 32 17-32 18Z" fill={paper} stroke="#9bb9cf" />
@@ -120,7 +136,7 @@ export function PathArt({ kind }: { kind: PathwayId }) {
         </g>
       )}
       {kind === "robotics" && (
-        <g strokeLinejoin="round">
+        <g data-art-piece="subject" data-piece-x="-18" data-piece-y="-13" strokeLinejoin="round">
           <path d="M45 111l43-13 44 13-43 15Z" fill="#123b70" />
           <path d="M45 103l43-13 44 13-43 15Z" fill="#c4dae7" />
           <path d="M72 78h29v27H72Z" fill={blue} />
@@ -154,7 +170,7 @@ export function PathArt({ kind }: { kind: PathwayId }) {
         </g>
       )}
       {kind === "career" && (
-        <g strokeLinejoin="round">
+        <g data-art-piece="subject" data-piece-x="16" data-piece-y="-11" strokeLinejoin="round">
           <path d="M42 52l61-13 33 17v47l-61 16-33-17Z" fill="#123b70" />
           <path d="M42 49l61-13 33 17-61 15Z" fill="#5a9df1" />
           <path d="M42 49l33 19v48l-33-17Z" fill="#164ba1" />
