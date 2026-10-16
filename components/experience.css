@@ -18,6 +18,23 @@
 .scene-registration {
   pointer-events: none;
 }
+.handoff-edge {
+  fill: none;
+  stroke: #07101f;
+  stroke-opacity: 0.08;
+  stroke-width: 0.8;
+  vector-effect: non-scaling-stroke;
+}
+.handoff-trace {
+  stroke-width: 0.85;
+  stroke-opacity: 0.6;
+}
+.handoff-glow {
+  background: radial-gradient(ellipse at 60% 0, #70c8ff0f, transparent 70%);
+}
+.handoff-on-light .handoff-glow {
+  background: radial-gradient(ellipse at 60% 0, #175cdb07, transparent 70%);
+}
 @media (max-width: 600px) {
   .tuition-scene.illustration-scene {
     margin-block: 12px 18px;

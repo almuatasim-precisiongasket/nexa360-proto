@@ -80,9 +80,13 @@ Polish the existing section edge and ink trace to connect the illustration style
 across the page while retaining ordinary document scrolling.
 
 Acceptance criteria:
-- [ ] Each boundary has a subtle continuous edge with correct adjacent colours.
-- [ ] The trace follows a bounded scroll interval and settles without hiding content.
-- [ ] Mobile and reduced-motion layouts show complete, stable boundaries.
+- [x] Each boundary has a subtle continuous edge with correct adjacent colours.
+- [x] The trace follows a bounded scroll interval and settles without hiding content.
+- [x] Mobile and reduced-motion layouts retain complete, stable boundary geometry.
+
+Transition checks: lint, TypeScript and production build passed. The existing
+boundary geometry and surface inputs are retained; the second hairline and
+fading ink gradient are decorative. Integrated browser review follows Task 5.
 
 Verification: lint, typecheck, build; scroll across light/dark boundaries and use
 navigation anchors after viewport resizing has settled.
