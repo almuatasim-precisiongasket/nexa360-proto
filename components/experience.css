@@ -18,12 +18,23 @@
 .scene-registration {
   pointer-events: none;
 }
+.holding-visual svg {
+  overflow: hidden;
+}
+.holding-visual-events {
+  filter: drop-shadow(0 12px 10px #030d1820);
+}
 .handoff-edge {
   fill: none;
   stroke: #07101f;
   stroke-opacity: 0.08;
   stroke-width: 0.8;
   vector-effect: non-scaling-stroke;
+}
+/* Ambient content stacking must not pull decorative edges into document flow. */
+.section > .section-handoff {
+  position: absolute;
+  z-index: -1;
 }
 .handoff-trace {
   stroke-width: 0.85;

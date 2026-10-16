@@ -98,6 +98,7 @@ export function useIllustrationMotion(root: RefObject<HTMLElement | null>) {
               ease: illustrationMotion.ease,
             }),
           }));
+          if (!layers.length) return;
           const reset = (immediate = false) =>
             layers.forEach((layer) => {
               if (immediate) {

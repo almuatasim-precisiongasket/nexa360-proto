@@ -1,43 +1,42 @@
-import { useId } from "react";
+"use client";
+
+import { useId, useRef } from "react";
+import { useIllustrationMotion } from "@/lib/illustration-motion";
+import { IllustrationMaterials } from "./illustrations/Materials";
 
 export function HoldingArt({ kind }: { kind: "products" | "events" }) {
   const id = useId();
+  const root = useRef<HTMLDivElement>(null);
+  useIllustrationMotion(root);
   return (
-    <div className={`holding-visual holding-visual-${kind}`} aria-hidden="true">
-      <svg viewBox="0 0 360 240" fill="none">
-        <defs>
-          <linearGradient
-            id={id}
-            x1="80"
-            y1="30"
-            x2="260"
-            y2="210"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor="#6daaf4" />
-            <stop offset="1" stopColor="#123b70" />
-          </linearGradient>
-        </defs>
+    <div
+      ref={root}
+      className={`holding-visual holding-visual-${kind}`}
+      aria-hidden="true"
+    >
+      <svg viewBox="0 0 360 240" fill="none" focusable="false">
+        <IllustrationMaterials id={id} />
         <ellipse
           cx="180"
           cy="211"
           rx="111"
-          ry="12"
-          fill={kind === "products" ? "#193d6812" : "#02081455"}
+          ry="20"
+          fill={`url(#${id}-ground)`}
         />
-        <g stroke="#79a8cf" strokeWidth=".7" opacity=".25">
+        <g data-art-enter="" stroke="#79a8cf" strokeWidth=".7" opacity=".25">
           <circle cx="180" cy="121" r="101" />
           <path d="M42 121h276M180 14v212" />
+          <path d="M47 44V32h12M301 204h12v-12" />
         </g>
         {kind === "products" ? (
-          <g strokeLinejoin="round">
+          <g data-art-enter="" strokeLinejoin="round">
             <path d="M74 170l113-32 99 34-113 35Z" fill="#123b70" />
             <path d="M74 162l113-32 99 34-113 35Z" fill="#d2e2eb" />
-            <path d="M91 79l57-19v103l-57 18Z" fill={`url(#${id})`} />
+            <path d="M91 79l57-19v103l-57 18Z" fill={`url(#${id}-enamel)`} />
             <path d="M148 60l40 23v102l-40-22Z" fill="#123b70" />
             <path
               d="M160 50l56-17v103l-56 18Z"
-              fill="#f6f0e3"
+              fill={`url(#${id}-paper)`}
               stroke="#9cb7cb"
             />
             <path d="M216 33l42 23v103l-42-23Z" fill="#c2d6e4" />
@@ -49,14 +48,14 @@ export function HoldingArt({ kind }: { kind: "products" | "events" }) {
             <path d="M160 50l56-17" stroke="#d8b25a" strokeWidth="3" />
           </g>
         ) : (
-          <g strokeLinejoin="round">
+          <g data-art-enter="" strokeLinejoin="round">
             <path d="M96 52l162 15v139l-162-14Z" fill="#071a31" />
             <path
               d="M85 44l162 15v139l-162-14Z"
-              fill="#e9f0f1"
+              fill={`url(#${id}-paper)`}
               stroke="#91b6d2"
             />
-            <path d="M85 44l162 15v39L85 83Z" fill={`url(#${id})`} />
+            <path d="M85 44l162 15v39L85 83Z" fill={`url(#${id}-enamel)`} />
             <path
               d="M116 38v28m100-18v28"
               stroke="#d8b25a"
@@ -68,7 +67,7 @@ export function HoldingArt({ kind }: { kind: "products" | "events" }) {
                 <path
                   key={`${row}-${col}`}
                   d={`M${105 + col * 33} ${105 + row * 25}l18 2v13l-18-2Z`}
-                  fill={row === 1 && col === 2 ? "#175cdb" : "#b8cedd"}
+                  fill="#b8cedd"
                 />
               )),
             )}

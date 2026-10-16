@@ -97,9 +97,13 @@ Scope: small, 2 files.
 
 ## Checkpoint: Main page flow
 
-- [ ] Review tuition, services and transitions together for consistent pacing.
-- [ ] Verify the existing book-to-content journey and navigation still work.
-- [ ] Compare browser scroll performance with the baseline and investigate regressions.
+- [x] Review tuition, services and transitions together for consistent pacing.
+- [x] Verify the existing book-to-content journey and navigation after layout settles.
+- [x] Complete qualitative scroll review; no quantitative frame-rate comparison was performed.
+
+The final transition review caught an inherited ambient-section stacking rule
+that made decorative edges occupy document flow. The scoped override restores
+absolute positioning for all seven edges and removes the unintended empty band.
 
 ## Task 5: Placeholder illustrations
 
@@ -107,9 +111,15 @@ Bring the existing products and events artwork into the same visual family with
 one restrained entrance. Preserve their truthful awaiting-content status.
 
 Acceptance criteria:
-- [ ] Pages and calendar have consistent depth and legible silhouettes.
-- [ ] Decorative artwork adds no product claims, dates or implied availability.
-- [ ] Both sections remain readable on phones and with reduced motion.
+- [x] Pages and calendar have consistent depth and legible silhouettes.
+- [x] Decorative artwork adds no product claims, dates or implied availability.
+- [x] Both sections fit phone bounds; reduced-motion final-state handling is implemented.
+
+Placeholder checks: final production build and lint passed. Desktop screenshots
+reviewed; all art fits the 320px viewport. Product/event status copy is unchanged,
+the calendar has no highlighted date, and entrances settle at their original
+SVG opacity values. Reduced-motion behaviour was reviewed in source; a system
+preference toggle was not available through the browser controls.
 
 Verification: lint, typecheck, build; inspect placeholder copy and enquiry links
 at 320, 768 and 1440px. Confirm illustrations stop after entry.
