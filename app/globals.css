@@ -1,4 +1,5 @@
 @import url("../components/site.css");
+@import url("../components/book-mobile.css");
 :root {
   --navy: #07101f;
   --deep: #0e2242;

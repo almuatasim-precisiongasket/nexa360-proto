@@ -15,6 +15,11 @@ const links = [
   ["initiatives", "Our Projects"],
   ["events", "Events"],
 ];
+const sectionGroups: Record<string, string> = {
+  tuition: "pathways",
+  team: "about",
+  collaboration: "initiatives",
+};
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -26,23 +31,19 @@ export function Header() {
   const readingProgress = useMotionValue(0);
   useEffect(() => {
     let frame = 0;
+    const sections = [
+      ...document.querySelectorAll<HTMLElement>("main>.section"),
+    ];
+    const about = document.getElementById("about");
     const update = () => {
       setScrolled(window.scrollY > 35);
       let current = "";
-      document
-        .querySelectorAll<HTMLElement>("main>.section")
-        .forEach((section) => {
-          const r = section.getBoundingClientRect();
-          if (r.top < innerHeight * 0.35 && r.bottom > 0) current = section.id;
-        });
-      const sectionGroup: Record<string, string> = {
-        tuition: "pathways",
-        team: "about",
-        collaboration: "initiatives",
-      };
-      setActive(sectionGroup[current] ?? current);
+      sections.forEach((section) => {
+        const r = section.getBoundingClientRect();
+        if (r.top < innerHeight * 0.35 && r.bottom > 0) current = section.id;
+      });
+      setActive(sectionGroups[current] ?? current);
       // The book has its own chapter control; this line follows the content below.
-      const about = document.getElementById("about");
       if (about) {
         const start = about.getBoundingClientRect().top + window.scrollY - 80;
         const end = document.documentElement.scrollHeight - innerHeight;
