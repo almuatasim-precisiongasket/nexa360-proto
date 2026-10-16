@@ -38,6 +38,9 @@ Both servers bind to the local computer by default. Deploy with a Node.js host t
 - `components/TextReveal.tsx`, `components/SiteEffects.tsx`: scoped heading reveals and fine-pointer interaction details.
 - `components/motion-primitives/text-effect.tsx`: Motion Primitives word-reveal adaptation with readable server output and reduced-motion support.
 - `components/ui/folded-card.tsx`, `components/experience.css`: Cult UI paper-card adaptation and its NEXA360 styling.
+- `components/TuitionScene.tsx`, `components/illustrations/Materials.tsx`: original London/online learning scenes and shared SVG paper, enamel, gold and ground materials.
+- `lib/illustration-motion.ts`: scoped, bounded illustration entrances, short drawing sequences and fine-pointer depth; final SVG markup remains visible without JavaScript.
+- `components/illustrations/ServiceIllustration.tsx`, `components/HoldingArt.tsx`: service and placeholder illustrations using the shared motion behaviour.
 - `public/assets/nexa-logo.png`: unmodified supplied logo.
 - `dist/`: original static website, retained as a reference.
 

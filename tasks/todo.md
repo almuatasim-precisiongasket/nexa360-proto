@@ -1,6 +1,7 @@
 # SVG illustration implementation tasks
 
-Plan: [plan.md](plan.md). Implementation is in progress on v3.
+Plan: [plan.md](plan.md). Implementation is complete locally on v3. Review limits
+are recorded in `docs/svg-illustration-review.md`.
 
 ## Task 1: London tuition scene
 
@@ -135,9 +136,9 @@ Review the completed illustration pass across the page and document practical
 limits. Record source/module responsibilities and final screenshots.
 
 Acceptance criteria:
-- [ ] All tasks and motion-contract conditions are satisfied without document overflow.
-- [ ] Navigation, service dialogs, enquiry formats and book controls still work.
-- [ ] Validation results and any untested physical-device cases are recorded.
+- [x] Planned artwork and motion conditions are implemented; sampled widths have no overflow.
+- [x] Navigation after layout settles, service dialogs, enquiry formats and book controls work.
+- [x] Validation results and untested physical-device cases are recorded.
 
 Verification: final lint, typecheck and production build; browser checks at
 320/390/768/1024/1440px; reduced-motion review where supported; console and
@@ -150,6 +151,6 @@ Scope: small review task; split any substantial correction into its own slice.
 
 ## Checkpoint: Complete
 
-- [ ] Final review evidence is saved and the working changes are reviewable.
-- [ ] Completed implementation slices are saved on v3.
-- [ ] Publication is handled separately from the local visual refinement.
+- [x] Final review evidence is saved and the working changes are reviewable.
+- [x] Completed implementation slices are saved on v3.
+- [x] Publication is handled separately from the local visual refinement.

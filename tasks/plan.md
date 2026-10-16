@@ -1,6 +1,7 @@
 # NEXA360 — SVG illustration and motion refinement
 
-Status: implementation in progress on v3. The tuition pair is implemented and reviewed.
+Status: implemented and reviewed locally on v3. Validation and practical limits
+are recorded in `docs/svg-illustration-review.md`.
 Tasks and acceptance criteria: [todo.md](todo.md).
 
 ## Objective

@@ -13,11 +13,11 @@ engine. It retains the approved team identities and source photos/monograms.
 
 Source: https://github.com/DavidHDev/react-bits/blob/main/src/ts-default/Components/ProfileCard/ProfileCard.tsx
 
-Additional adaptations use BlurText's staggered blur-to-sharp text reveal,
-AnimatedContent's viewport-triggered entrances, and TiltedCard's normalized
-pointer-to-rotation mapping. These are implemented with the existing GSAP
-runtime, scoped cleanup and reduced-motion handling. Tilt applies to decorative
-pathway artwork only; interactive text and buttons remain stable.
+AnimatedContent informs the bounded viewport entrances in SiteEffects. BlurText
+and TiltedCard were earlier visual references. Current section headings use the
+Motion Primitives adaptation below; current SVG illustration depth uses local
+GSAP translation on separate wrappers with scoped cleanup and reduced-motion
+handling. Interactive text and buttons remain stable.
 
 Sources:
 
