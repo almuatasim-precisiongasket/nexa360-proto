@@ -3,13 +3,15 @@ import { LearningPreview } from "./LearningPreview";
 import { ParentPreview } from "./ParentPreview";
 import { TuitionEnquiry } from "../TuitionEnquiry";
 import styles from "./tuition-experience.module.css";
+import { SupportArtwork } from "./SupportArtwork";
+import artwork from "./support-artwork.module.css";
 
 export function LearningExperience() {
   return (
     <section id="products" className={`section ${styles.products}`}>
       <SectionHandoff previous="#e7edea" light />
       <div className="section-label">
-        <span>OUR PRODUCTS / THE NEXT CHAPTER</span>
+        <span>OUR PRODUCTS / LEARNING TOOLS</span>
         <span>LEARNING PLATFORM PREVIEW</span>
       </div>
       <div className={styles.productIntro}>
@@ -31,13 +33,18 @@ export function LearningExperience() {
       </div>
       <LearningPreview />
       <div className={styles.practice}>
-        <div>
-          <span className="kicker">FROM KNOWING TO APPLYING</span>
-          <h3>
-            Exam practice.
-            <br />
-            <em>With the reasoning.</em>
-          </h3>
+        <div className={artwork.practiceHeading}>
+          <div className={artwork.practiceArt}>
+            <SupportArtwork kind="practice" />
+          </div>
+          <div>
+            <span className="kicker">FROM KNOWING TO APPLYING</span>
+            <h3>
+              Exam practice.
+              <br />
+              <em>With the reasoning.</em>
+            </h3>
+          </div>
         </div>
         <div>
           <p>

@@ -308,7 +308,7 @@
   outline-offset: 5px;
 }
 .products {
-  background: #f5f3eb;
+  background: #ffffff;
   color: var(--ink);
   color-scheme: light;
 }
@@ -330,17 +330,25 @@
   align-items: end;
   gap: 48px;
   margin-bottom: 48px;
+  padding: 48px;
+  background: #175cdb;
+  color: #ffffff;
+  border-top: 4px solid #d8b25a;
 }
 .productIntro h2 {
   font-size: clamp(52px, 5.5vw, 80px);
 }
 .productIntro em {
-  color: var(--accent);
+  color: #d9eeff;
 }
 .productIntro p {
   max-width: 36ch;
-  color: var(--soft-ink);
+  color: #eef5ff;
   font-size: 13px;
+}
+.productIntro .previewBadge {
+  color: #ffffff;
+  border-color: #ffffff66;
 }
 .previewBadge {
   display: inline-flex;
@@ -719,6 +727,7 @@
   padding-block: 40px;
   margin-top: 32px;
   border-bottom: 1px solid var(--rule);
+  align-items: center;
 }
 .practice h3 {
   font: 36px/1.1 var(--serif);
@@ -744,6 +753,9 @@
   margin-top: 100px;
   align-items: center;
   scroll-margin-top: 100px;
+  padding: 40px;
+  background: #edf4fb;
+  border-top: 3px solid #175cdb;
 }
 .parentCopy h3 {
   font: 49px/1.05 var(--serif);
@@ -807,6 +819,7 @@
 }
 .dashboardFilters {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin-block: 20px;
 }
@@ -920,12 +933,16 @@
   justify-content: space-between;
   gap: 32px;
   margin-top: 48px;
+  padding: 40px;
+  background: #0d223b;
+  color: #ffffff;
+  border-top: 3px solid #d8b25a;
 }
 .future h3 {
   font: 32px/1.2 var(--serif);
 }
 .future p {
-  color: var(--soft-ink);
+  color: #c5d6e7;
   font-size: 12px;
   margin-top: 12px;
 }
@@ -937,17 +954,24 @@
 }
 .futureLinks button {
   background: transparent;
-  color: var(--ink);
+  color: #ffffff;
   padding: 14px 18px;
   min-height: 48px;
-  border: 1px solid var(--rule);
+  border: 1px solid #91d0ff55;
   font-size: 11px;
 }
 .futureLinks small {
   display: block;
-  color: var(--soft-ink);
+  color: #c5d6e7;
   font-size: 8px;
   margin-top: 5px;
+}
+.futureLinks button:hover {
+  background: #ffffff0d;
+  border-color: #91d0ff;
+}
+.futureLinks button:focus-visible {
+  outline-color: #91d0ff;
 }
 @media (max-width: 1100px) {
   .lead {
@@ -1092,9 +1116,10 @@
   .productIntro {
     display: block;
     margin-bottom: 32px;
+    padding: 28px 24px;
   }
   .productIntro h2 {
-    font-size: 54px;
+    font-size: clamp(38px, 8vw, 54px);
   }
   .productIntro > p {
     margin-top: 24px;
@@ -1148,6 +1173,13 @@
   .parentSection {
     grid-template-columns: 1fr;
     margin-top: 64px;
+    padding: 24px 0;
+  }
+  .parentCopy {
+    padding-inline: 20px;
+  }
+  .future {
+    padding: 28px 24px;
   }
   .practice {
     grid-template-columns: 1fr;
@@ -1159,7 +1191,7 @@
     font-size: 12px;
   }
   .parentCopy h3 {
-    font-size: 44px;
+    font-size: clamp(32px, 6vw, 44px);
   }
   .dashboard {
     padding: 22px;

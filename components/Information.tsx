@@ -165,7 +165,7 @@ export function Information() {
       </section>
       <LearningExperience />
       <section id="team" className="section team-section">
-        <SectionHandoff previous="#f5f3eb" />
+        <SectionHandoff previous="#ffffff" />
         <BackgroundBeams className="team-background-beams" />
         <SectionLabel
           number="04"

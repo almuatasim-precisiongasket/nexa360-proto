@@ -5,6 +5,8 @@ import { emitSiteEvent } from "@/lib/site-events";
 import { Arrow } from "../Logo";
 import { TuitionEnquiry } from "../TuitionEnquiry";
 import styles from "./tuition-experience.module.css";
+import { SupportArtwork } from "./SupportArtwork";
+import artwork from "./support-artwork.module.css";
 
 const views = ["Progress", "Attendance", "Tutor notes"] as const;
 
@@ -121,13 +123,18 @@ export function ParentPreview() {
         </div>
       </div>
       <div id="education-partners" className={styles.partners}>
-        <div>
-          <span className="kicker">FOR SCHOOLS, TRUSTS & TUTORS</span>
-          <h3>A shared ambition for every learner.</h3>
-          <p>
-            Discuss tuition support, learning resources and the role NEXA360
-            could play alongside your teaching.
-          </p>
+        <div className={artwork.partnerIntro}>
+          <div className={artwork.partnerArt}>
+            <SupportArtwork kind="classroom" />
+          </div>
+          <div>
+            <span className="kicker">FOR SCHOOLS, TRUSTS & TUTORS</span>
+            <h3>A shared ambition for every learner.</h3>
+            <p>
+              Discuss tuition support, learning resources and the role NEXA360
+              could play alongside your teaching.
+            </p>
+          </div>
         </div>
         <a
           href="#contact"
@@ -148,6 +155,7 @@ export function ParentPreview() {
       </div>
       <div className={styles.future}>
         <div>
+          <span className="kicker">BEYOND YOUR EXAMS / FUTURE SKILLS</span>
           <h3>Exam ready. Future curious.</h3>
           <p>
             Connect academic foundations with the possibilities beyond them.
