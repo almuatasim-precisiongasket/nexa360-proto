@@ -31,8 +31,13 @@ const programmes = [
   },
 ] as const;
 
-export function ProgrammeFinder() {
-  const [selected, setSelected] = useState(0);
+export function ProgrammeFinder({
+  selected,
+  onSelect,
+}: {
+  selected: number;
+  onSelect: (value: number) => void;
+}) {
   const [subject, setSubject] = useState("");
   const [examBoard, setExamBoard] = useState("");
   const [format, setFormat] = useState<TuitionFormat | "">("");
@@ -59,7 +64,7 @@ export function ProgrammeFinder() {
             key={item.title}
             type="button"
             aria-pressed={selected === index}
-            onClick={() => setSelected(index)}
+            onClick={() => onSelect(index)}
             className={styles.programme}
           >
             <span className={styles.programmeTop}>

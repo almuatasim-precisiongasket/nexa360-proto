@@ -1,142 +1,131 @@
-# NEXA360 — SVG illustration and motion refinement
+# NEXA360 v4 — Rive experience plan
 
-Status: implemented and reviewed locally on v3. Validation and practical limits
-are recorded in `docs/svg-illustration-review.md`.
-Tasks and acceptance criteria: [todo.md](todo.md).
+Status: proposed. No Rive runtime, CLI or artwork installed in this planning pass.
+Tasks: [todo.md](todo.md). Completed v3 work is preserved in
+[the archived plan](../docs/v3-svg-illustration-plan.md) and
+[checklist](../docs/v3-svg-illustration-tasks.md).
 
 ## Objective
 
-Give the existing page a coherent set of custom illustrations that explain the
-learning options and extend the book's paper-and-blue visual identity. Prioritize
-the tuition section, then the service illustrations and the transitions between
-sections. Use the installed SVG, Motion, GSAP and Tailwind setup.
+Add an original interactive tuition illustration, then consider an explanatory
+diagram inside the learning companion. Use the existing navy ink, blue enamel,
+warm paper and restrained gold vocabulary. The existing Three.js book remains
+the opening visual; Motion/GSAP continue handling page layout and text.
 
-## Current foundation
+The v4 learning tools and parent dashboard are concept previews. Their status
+must remain clear: animation does not provide an AI backend or learner accounts.
 
-- `TuitionScene.tsx` already draws separate London and online scenes with three
-  depth layers. Its entrance and pointer animation currently run only for fine
-  pointers, so phone visitors receive static art.
-- `PathArt.tsx` supplies the six service illustrations. `SiteEffects.tsx` owns
-  their current pointer tilt; Cult folded-card surfaces surround them.
-- `SectionHandoff.tsx` supplies the existing curved paper edge and scroll trace.
-- `HoldingArt.tsx` supplies product and event placeholder illustrations.
-- Motion Primitives heading reveals are already integrated and should keep
-  ownership of heading transforms.
+## Recommended placements
 
-## Art direction
-
-Use navy ink, NEXA blue enamel, warm ivory paper, pale blue glass and restrained
-gold accents. Match the existing book and folded service cards.
-
-Every scene uses the same composition rules:
-
-1. Background: faint drafting lines or an architectural outline.
-2. Middle: one clearly recognizable object with consistent perspective.
-3. Foreground: one or two relevant details, such as a pencil or open notebook.
-4. Ground: a restrained vector shadow; use large blur filters sparingly.
-
-Artwork is decorative where nearby text already conveys the meaning. It should
-support the section's purpose and leave its heading, copy and enquiry action easy
-to read. Use original vector geometry and the approved brand assets and content.
-London imagery is a stylized learning space, not a representation of the actual
-Barking premises. Product and event artwork must continue to read as placeholders.
-
-## Proposed illustrations
-
-| Area | Visual concept | Intended interaction | Priority |
+| Priority | Placement | Proposed experience | Value / effort |
 | --- | --- | --- | --- |
-| Barking tuition | Open workbook on a desk, pencil, architectural backdrop | Scene assembles on entry; two drawn notebook marks; small pointer depth | 1 |
-| Online tuition | Laptop lesson diagram with a notebook and pencil | Screen and notebook enter together; diagram draws once; same depth response | 1 |
-| Services | Refine the six existing objects with matching perspective, grounding and detail | One entrance per card; restrained artwork response inside the folded surface | 2 |
-| Section boundaries | Existing paper edge with a thin ink trace | Slow trace follows a short scroll interval without pinning the section | 3 |
-| Products / Events | Existing stacked pages and blank calendar motif | One soft entrance; static resting composition | 4 |
+| 1 | Tuition introduction's approach note | A paper learning desk responds to GCSE/IGCSE, A Level and entrance-exam selection | High visual value / medium-to-high art effort |
+| 2 | Tutor preview's diffusion example | A concentration diagram responds to an HTML control and illustrates particle movement | High teaching value / medium-to-high effort |
+| 3 | Learning companion identity detail | A small bookmark responds once when moving between Understand, Remember and Plan | Modest value / low effort after shared art exists |
 
-Retain the two separate tuition cards and their existing format-specific enquiry
-links. This plan does not add a duplicate format selector.
+The parent dashboard's information remains readable HTML. Account functionality
+and clearer information have higher value there than decorative Rive work.
+The first delivery is placement 1; later placements depend on its review.
 
-## Motion contract
+## Asset creation route
 
-These are starting values for visual review, not measured performance promises.
+Current official Rive docs describe a Windows-compatible CLI and Rive Markup
+Language (RML). They provide a route to author editable scenes as text, compile
+runtime assets and render local previews. We can version original artwork beside
+the application code.
 
-| Behaviour | Proposed treatment |
-| --- | --- |
-| Scene entrance | Once per mount; 1.6–2 seconds with roughly 120ms between layers |
-| Line drawing | 1.8–2.4 seconds; at most two short details per scene |
-| Desktop pointer depth | Fine pointers only; about 3–6px of travel; 0.9–1.2 second easing |
-| Phone / tablet touch | Small one-time entrance; complete artwork and actions available without hover |
-| Reduced motion | Immediate final composition, no drawing, parallax or continuous loops |
-| Offscreen / hidden tab | No ongoing decorative animation; reset transient pointer offsets |
+First prove a small script-free scene on this Windows machine and in the chosen
+React runtime. Use RML for original shapes and transitions, and the Editor for
+visual refinement if useful. Keep source in `art/rive/`, runtime files in
+`public/assets/rive/`, and render captures in ignored `output/`. Read generated
+Rive project instructions before following them.
 
-Use a shared easing and duration definition. Keep all scene entrances bounded;
-avoid perpetual floating or pulsing. After entry, each illustration should settle.
+Local CLI builds can run signed out. Official docs distinguish script-bearing
+web assets, which require publishing/signing. Keep the pilot script-free and
+confirm actual export behavior before release. Free exports currently include a
+Rive splash screen; a paid authoring plan removes it. This plan does not purchase
+a subscription or publish assets to an account.
 
-## Ownership and structure
+## First asset: the learning desk
 
-- SVG components own paths, viewBoxes, gradients and decorative grouping.
-- GSAP owns illustration entrance, line drawing and pointer-depth wrappers.
-- Motion continues to own heading reveals and existing UI state transitions.
-- Each animated property has one owner. Separate the entrance wrapper from the
-  pointer-depth wrapper, as the current tuition scenes already do.
-- Keep GSAP selectors scoped to each illustration. Clean up observers, listeners
-  and tweens on unmount and when media conditions change.
-- Use `useId()` for SVG gradients, masks and clipping paths; two copies must not
-  share document IDs.
-- Define final SVG geometry in server-rendered markup. Client animation enhances
-  it; text and enquiry controls remain usable before animation is ready.
-- Share a small frame and timing constants where they remove real duplication.
-  Avoid a general animation engine or a global pointer listener per illustration.
+An open paper book, enamel-blue desk, gold pencil and fine drafting marks form a
+compact composition within the current tuition approach note. Use a subtle
+vector ground shadow and simple shapes instead of textures or audio.
 
-Book page mechanics, scroll controls and camera changes are outside this plan.
-No new animation runtime, external asset service or paid subscription is required.
+Three distinguishable states:
 
-## Implementation order and checkpoints
+- GCSE/IGCSE: a practice sheet and a simple learning diagram.
+- A Level: reference pages and a more developed diagram.
+- Entrance preparation: stepping paper shapes, notebook and pencil.
 
-1. Finish the London tuition scene and its motion, including touch behaviour.
-2. Apply the same visual rules to the online scene and verify both enquiry links.
-3. Review the tuition pair before extending its visual vocabulary.
-4. Refine service objects and transfer their artwork motion ownership deliberately.
-5. Polish the existing paper handoffs and the lower-priority placeholder artwork.
-6. Review the whole page at desktop, tablet and phone sizes.
+Qualification selection updates HTML immediately, then the illustration moves
+to the corresponding state. Rapid selection targets the latest choice instead
+of queuing transitions. All qualification labels and availability wording remain
+in HTML; artwork does not imply confirmed subject or exam-board coverage.
 
-Each slice should remain independently reviewable and leave the page working.
-Implementation review should happen before committing each completed slice.
-Production publishing is a separate action after the completed work is reviewed.
+Proposed pacing: first entrance 1.8–2.2 seconds; state changes 1.0–1.4 seconds;
+then a resting frame. No perpetual idle loop. Native buttons provide the same
+selection on phones. Fine-pointer hover is optional decoration.
 
-## Acceptance and verification
+## Architecture
 
-- At 320, 390, 768, 1024 and 1440px, illustrations fit their containers and do not
-  cover copy, controls or touch targets.
-- Scroll entry works on coarse pointers; pointer movement is limited to fine
-  pointers. Native vertical scrolling remains uninterrupted.
-- Reduced motion shows the complete final scene. Re-entering a section does not
-  repeatedly hide its content.
-- Each tuition enquiry selects Academic tuition and its correct lesson format.
-- Service details and enquiries still work, including keyboard activation and
-  focus restoration.
-- No new console errors, retained event listeners after unmount, or duplicate SVG
-  IDs. Check multiple scene instances together.
-- Run lint, TypeScript and a production build for implementation changes. Browser
-  inspection is the primary check for this artwork; add logic tests only if new
-  non-trivial state or calculations require them.
-- Check Chromium and a physical mobile browser when available. Record any device
-  limitations and do not equate a resized desktop viewport with physical touch.
-- Save before/after screenshots and compare scroll performance with the existing
-  page. Measure any suspected regression instead of assuming SVG is always cheap.
+- One local client composition owns selected qualification and passes it to the
+  existing finder and illustration. Avoid another global decorative event.
+- Use current data-binding/view-model APIs. Rive's React repository marks the
+  older state-machine-input hook deprecated; verify the installed version.
+- Evaluate the renderer against this exact scene and the existing Three.js page.
+  Select it from compatibility and measured cost, rather than assuming WebGL is
+  automatically faster.
+- Rive owns its artboard. Motion/GSAP own the outer wrapper and page transitions.
+  Each animated transform has one owner.
+- The decorative canvas is hidden from assistive technology. All actions,
+  teaching explanations and feedback remain native HTML.
+- Proposed `.riv` target: <=250 KB. Measure runtime/WASM downloads separately;
+  this is a target, not a demonstrated performance claim.
 
-## Risks
+## Loading and lifecycle
 
-| Risk | Mitigation |
-| --- | --- |
-| Motion and GSAP overwrite the same transform | Assign ownership and use separate wrapper layers |
-| New drawing effects compete with text | Animate only short decorative details; keep text outside drawings |
-| Large filters or intricate paths become expensive | Prefer vector shapes, bounded detail and simple shadows |
-| Scene layouts shift during loading | Reserve aspect ratio and dimensions in CSS |
-| Pointer-only behaviour excludes phones | Separate viewport entrance from pointer parallax media conditions |
-| Artwork suggests unverified services or premises | Use approved content and visibly illustrative, generic scenes |
-| A broad refactor destabilizes the book | Keep changes in illustration components and their scoped styles |
+Reserve dimensions and show an SVG poster in server output. Load the runtime and
+asset when the section approaches the viewport; the intro and enquiry controls
+never wait for Rive. Crossfade after a valid first frame.
 
-## Decisions for review
+Reduced motion shows a complete static state reflecting the selected programme.
+Asset, WASM, renderer and network failures preserve the poster and HTML controls.
+Stop rendering offscreen, in a hidden tab and after decorative animation settles.
+Clean up on unmount. Start with one Rive instance, and evaluate any second scene
+before increasing the number of active canvases.
 
-Recommended first delivery: the London and online tuition illustration pair.
-It provides a complete, useful visual improvement before spreading the style
-through the rest of the page. No unanswered content question blocks this plan.
+## Sequence
+
+1. Prove CLI-to-browser compilation and data binding with a tiny custom asset.
+2. Author and visually review three learning-desk states and static posters.
+3. Add a lazy runtime wrapper with loading, failure and reduced-motion handling.
+4. Connect qualification selection and verify the complete tuition/enquiry flow.
+5. Review quality, payload and phone behavior before the optional diffusion scene.
+6. Document measurements, authoring/export workflow, licensing and practical limits.
+
+The learning-desk pilot is implemented locally on v4. Tasks and remaining
+device/publication checks are in `todo.md`; measurements and authoring steps are
+in `docs/v4-rive-learning-desk.md`. The diffusion scene remains optional.
+
+## Acceptance
+
+- Artwork fits at 320/390/768/1024/1440px without crowding text or actions.
+- Mouse, keyboard and touch selection match; normal scrolling is uninterrupted.
+- Enquiry selections and a visitor's existing message remain intact.
+- Reduced motion and unavailable resources show complete static content.
+- Re-entry, tab backgrounding and remounts leave no duplicate canvases, listeners
+  or continuing decorative render loop.
+- Compare initial downloads, asset size and frame timings with v4. Investigate
+  layout shifts or suspected regressions rather than assuming Rive is cheaper.
+- Review actual iPhone/Safari and Android/Chrome when available; explicitly record
+  unavailable devices. Viewport emulation does not establish physical behavior.
+
+## Official sources
+
+- [Rive CLI](https://rive.app/docs/cli/overview)
+- [Windows setup and publication rules](https://rive.app/docs/cli/getting-started)
+- [RML and compile/inspect/render checks](https://rive.app/docs/runtimes/advanced-topic/rml)
+- [React runtime](https://rive.app/docs/runtimes/react/react)
+- [Data binding and hook deprecation](https://github.com/rive-app/rive-react/blob/main/_autodocs/api-reference/useStateMachineInput.md)
+- [Pricing and splash-screen exports](https://rive.app/pricing)

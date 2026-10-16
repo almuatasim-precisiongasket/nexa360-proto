@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "art:learning-desk": "node scripts/build-learning-desk.mjs",
     "dev": "next dev --hostname 127.0.0.1",
     "build": "next build",
     "start": "next start --hostname 127.0.0.1",
@@ -15,6 +16,7 @@
     "@fontsource/instrument-serif": "5.3.0",
     "@gsap/react": "2.1.2",
     "@react-three/fiber": "9.8.2",
+    "@rive-app/react-canvas": "^4.36.0",
     "clsx": "2.1.1",
     "gsap": "3.15.0",
     "motion": "14.2.0",

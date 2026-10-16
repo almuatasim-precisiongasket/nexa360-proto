@@ -13,8 +13,7 @@ import { TuitionQuestions } from "./TuitionQuestions";
 import { TuitionScene } from "./TuitionScene";
 import { SectionHandoff } from "./SectionHandoff";
 import { HoldingArt } from "./HoldingArt";
-import { TuitionLead } from "./tuition/TuitionLead";
-import { ProgrammeFinder } from "./tuition/ProgrammeFinder";
+import { TuitionJourney } from "./tuition/TuitionJourney";
 import { LearningExperience } from "./tuition/LearningExperience";
 function SectionLabel({
   number,
@@ -126,8 +125,7 @@ export function Information() {
           title="ACADEMIC TUITION"
           note="BARKING, LONDON + ONLINE"
         />
-        <TuitionLead />
-        <ProgrammeFinder />
+        <TuitionJourney />
         <div className="delivery-grid">
           <article className="editorial-reveal delivery-card delivery-card-london">
             <MovingBorder />

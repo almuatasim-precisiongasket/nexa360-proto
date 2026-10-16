@@ -1,8 +1,9 @@
 import { Arrow } from "../Logo";
 import { TextReveal } from "../TextReveal";
 import styles from "./tuition-experience.module.css";
+import type { ReactNode } from "react";
 
-export function TuitionLead() {
+export function TuitionLead({ learningDesk }: { learningDesk: ReactNode }) {
   return (
     <div className={styles.lead}>
       <div>
@@ -31,12 +32,7 @@ export function TuitionLead() {
       <aside className={styles.learningNote}>
         <span className={styles.noteCorner} aria-hidden="true" />
         <span className="kicker">THE NEXA360 APPROACH</span>
-        <p>
-          Human guidance.
-          <br />
-          <em>Intelligent possibilities.</em>
-        </p>
-        <div className={styles.noteRule} />
+        {learningDesk}
         <span>
           In-person and online tuition today. Explore our vision for AI
           explanations, revision cards and a clearer view of progress.
