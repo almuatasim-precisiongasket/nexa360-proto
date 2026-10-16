@@ -32,3 +32,4 @@ export function storyFrame(value: number) {
     visibility: emerging * (1 - closing),
   };
 }
+export type StoryBridge = { progress: number; invalidate: () => void };

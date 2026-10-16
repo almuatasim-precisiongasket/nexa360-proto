@@ -1,38 +1,65 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Logo } from "./Logo";
+import { useMediaQuery } from "@/lib/use-media-query";
+import { REDUCED_MOTION_QUERY } from "@/lib/media";
+import { emitSiteEvent, onSiteEvent } from "@/lib/site-events";
 gsap.registerPlugin(useGSAP);
+const isHomeEntry = () => !location.hash || location.hash === "#home";
+const serverHomeEntry = () => true;
+function subscribeEntryChange(notify: () => void) {
+  window.addEventListener("hashchange", notify);
+  window.addEventListener("popstate", notify);
+  return () => {
+    window.removeEventListener("hashchange", notify);
+    window.removeEventListener("popstate", notify);
+  };
+}
+function bookIsPrepared() {
+  return Boolean(
+    document.querySelector(
+      '[data-book-status="ready"],[data-book-status="illustrated"]',
+    ),
+  );
+}
 export function BrandIntro() {
   const [visible, setVisible] = useState(true);
   const [leaving, setLeaving] = useState(false);
   const [prepared, setPrepared] = useState(false);
+  const [replayed, setReplayed] = useState(false);
+  const homeEntry = useSyncExternalStore(
+    subscribeEntryChange,
+    isHomeEntry,
+    serverHomeEntry,
+  );
+  const reduced = useMediaQuery(REDUCED_MOTION_QUERY);
+  const active = visible && (replayed || (homeEntry && !reduced));
   const root = useRef<HTMLDivElement>(null);
   const skip = useRef<HTMLButtonElement>(null);
   const previous = useRef<HTMLElement | null>(null);
   const dismiss = useCallback(() => setLeaving(true), []);
   useEffect(() => {
-    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if ((location.hash && location.hash !== "#home") || reduced)
-      setVisible(false);
     const replay = () => {
       previous.current = document.activeElement as HTMLElement;
+      setPrepared(bookIsPrepared());
+      setReplayed(true);
       setLeaving(false);
       setVisible(true);
     };
-    window.addEventListener("nexa:replay-intro", replay);
-    return () => window.removeEventListener("nexa:replay-intro", replay);
+    return onSiteEvent("nexa:replay-intro", replay);
   }, []);
   useEffect(() => {
-    if (!visible) return;
+    if (!active) return;
     let minimumElapsed = false;
-    let ready = Boolean(
-      document.querySelector(
-        '[data-book-status="ready"],[data-book-status="illustrated"]',
-      ),
-    );
-    setPrepared(ready);
+    let ready = bookIsPrepared();
     const complete = () => {
       if (minimumElapsed && ready) dismiss();
     };
@@ -41,33 +68,36 @@ export function BrandIntro() {
       setPrepared(true);
       complete();
     };
-    window.addEventListener("nexa:book-ready", receive);
+    const unsubscribe = onSiteEvent("nexa:book-ready", receive);
     const minimum = setTimeout(() => {
       minimumElapsed = true;
+      if (ready) setPrepared(true);
       complete();
     }, 1600);
     const maximum = setTimeout(() => {
-      if (!ready) window.dispatchEvent(new Event("nexa:book-fallback"));
+      if (!ready) emitSiteEvent("nexa:book-fallback");
       dismiss();
     }, 6500);
     return () => {
       clearTimeout(minimum);
       clearTimeout(maximum);
-      window.removeEventListener("nexa:book-ready", receive);
+      unsubscribe();
     };
-  }, [visible, dismiss]);
+  }, [active, dismiss]);
   useEffect(() => {
     if (!leaving) return;
-    const exit = setTimeout(() => setVisible(false), 600);
+    const exit = setTimeout(() => setVisible(false), reduced ? 0 : 600);
     return () => clearTimeout(exit);
-  }, [leaving]);
+  }, [leaving, reduced]);
   useEffect(() => {
-    if (!visible) return;
+    if (!active) return;
     previous.current ??= document.activeElement as HTMLElement;
     const content = [
-      ...document.querySelectorAll<HTMLElement>("header,main,footer"),
-    ];
-    content.forEach((el) => (el.inert = true));
+      ...document.querySelectorAll<HTMLElement>(
+        "header,main,footer,.skip-link",
+      ),
+    ].map((element) => ({ element, inert: element.inert }));
+    content.forEach(({ element }) => (element.inert = true));
     const oldOverflow = document.documentElement.style.overflow;
     document.documentElement.style.overflow = "hidden";
     skip.current?.focus();
@@ -84,18 +114,19 @@ export function BrandIntro() {
     document.addEventListener("keydown", key);
     return () => {
       document.removeEventListener("keydown", key);
-      content.forEach((el) => (el.inert = false));
+      content.forEach(({ element, inert }) => (element.inert = inert));
       document.documentElement.style.overflow = oldOverflow;
-      const target = previous.current?.isConnected
-        ? previous.current
-        : document.querySelector<HTMLElement>("#open-future");
+      const target =
+        previous.current?.isConnected && previous.current !== document.body
+          ? previous.current
+          : document.querySelector<HTMLElement>("#open-future");
       target?.focus({ preventScroll: true });
       previous.current = null;
     };
-  }, [visible, dismiss]);
+  }, [active, dismiss]);
   useGSAP(
     () => {
-      if (visible && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      if (active && !reduced) {
         gsap.from(".intro-mark", {
           y: 14,
           opacity: 0.25,
@@ -110,9 +141,9 @@ export function BrandIntro() {
         });
       }
     },
-    { scope: root, dependencies: [visible], revertOnUpdate: true },
+    { scope: root, dependencies: [active, reduced], revertOnUpdate: true },
   );
-  return visible ? (
+  return active ? (
     <div
       ref={root}
       className={`brand-intro ${leaving ? "intro-leaving" : ""}`}
@@ -156,7 +187,7 @@ export function ReplayIntro() {
     <button
       type="button"
       className="footer-replay"
-      onClick={() => window.dispatchEvent(new Event("nexa:replay-intro"))}
+      onClick={() => emitSiteEvent("nexa:replay-intro")}
     >
       Replay introduction ↗
     </button>

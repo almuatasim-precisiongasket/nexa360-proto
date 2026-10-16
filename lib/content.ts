@@ -1,13 +1,15 @@
+export type PathwayId =
+  "academic" | "competitive" | "cyber" | "ai" | "robotics" | "career";
 export type Pathway = {
-  id: string;
+  id: PathwayId;
   title: string;
   tag: string;
   description: string;
   detail: string;
   points: string[];
   note: string;
-  interest: string;
-  symbol: string;
+  interest: Interest;
+  symbol: PathwayId;
 };
 export const pathways: Pathway[] = [
   {
@@ -208,4 +210,16 @@ export const interests = [
   "Career development",
   "Commun-E-quest",
   "Collaboration",
-];
+] as const;
+export type Interest = (typeof interests)[number];
+export function isInterest(value: unknown): value is Interest {
+  return interests.some((interest) => interest === value);
+}
+export const tuitionFormats = [
+  "In person — Barking, London",
+  "Online tuition",
+] as const;
+export type TuitionFormat = (typeof tuitionFormats)[number];
+export function isTuitionFormat(value: unknown): value is TuitionFormat {
+  return tuitionFormats.some((format) => format === value);
+}

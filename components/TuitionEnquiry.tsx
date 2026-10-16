@@ -1,7 +1,8 @@
 "use client";
 import { Arrow } from "./Logo";
+import type { TuitionFormat } from "@/lib/content";
+import { emitSiteEvent } from "@/lib/site-events";
 
-export type TuitionFormat = "In person — Barking, London" | "Online tuition";
 export function TuitionEnquiry({
   format,
   children,
@@ -19,9 +20,7 @@ export function TuitionEnquiry({
       className={`${className}${interactive ? " magic-hover-button" : ""}`}
       data-focus-target="inquiry-name"
       onClick={() => {
-        window.dispatchEvent(
-          new CustomEvent("nexa:tuition", { detail: format ?? "" }),
-        );
+        emitSiteEvent("nexa:tuition", format ?? "");
         if (matchMedia("(prefers-reduced-motion: reduce)").matches)
           requestAnimationFrame(() =>
             document

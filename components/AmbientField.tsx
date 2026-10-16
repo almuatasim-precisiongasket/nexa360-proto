@@ -50,9 +50,20 @@ export function AmbientField() {
     let timeLocation: WebGLUniformLocation | null = null;
     let pointerLocation: WebGLUniformLocation | null = null;
     let travelLocation: WebGLUniformLocation | null = null;
+    const disposeGpu = () => {
+      if (gl) {
+        if (buffer) gl.deleteBuffer(buffer);
+        if (program) gl.deleteProgram(program);
+        shaders.forEach((shader) => gl!.deleteShader(shader));
+      }
+      buffer = program = null;
+      shaders.length = 0;
+      timeLocation = pointerLocation = travelLocation = null;
+      gl = null;
+    };
 
     const resize = () => {
-      if (!gl || !program) return;
+      if (failed || !gl || !program || gl.isContextLost()) return;
       const rect = section.getBoundingClientRect();
       const ratio = Math.min(devicePixelRatio || 1, 1.25);
       surface.width = Math.max(
@@ -98,6 +109,7 @@ export function AmbientField() {
       if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return false;
       gl.useProgram(program);
       buffer = gl.createBuffer();
+      if (!buffer) return false;
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
       gl.bufferData(
         gl.ARRAY_BUFFER,
@@ -105,6 +117,7 @@ export function AmbientField() {
         gl.STATIC_DRAW,
       );
       const position = gl.getAttribLocation(program, "position");
+      if (position < 0) return false;
       gl.enableVertexAttribArray(position);
       gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
       timeLocation = gl.getUniformLocation(program, "time");
@@ -130,6 +143,7 @@ export function AmbientField() {
       if (failed || !visible || document.hidden || reduced.matches) return;
       if (!initialize()) {
         failed = true;
+        disposeGpu();
         return;
       }
       last = performance.now();
@@ -150,6 +164,11 @@ export function AmbientField() {
       failed = true;
       cancelAnimationFrame(raf);
     };
+    const restored = () => {
+      disposeGpu();
+      failed = false;
+      sync();
+    };
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       sync();
@@ -160,6 +179,7 @@ export function AmbientField() {
     section.addEventListener("pointermove", move, { passive: true });
     section.addEventListener("pointerleave", reset);
     surface.addEventListener("webglcontextlost", lost);
+    surface.addEventListener("webglcontextrestored", restored);
     reduced.addEventListener("change", sync);
     document.addEventListener("visibilitychange", sync);
     return () => {
@@ -169,13 +189,10 @@ export function AmbientField() {
       section.removeEventListener("pointermove", move);
       section.removeEventListener("pointerleave", reset);
       surface.removeEventListener("webglcontextlost", lost);
+      surface.removeEventListener("webglcontextrestored", restored);
       reduced.removeEventListener("change", sync);
       document.removeEventListener("visibilitychange", sync);
-      if (gl) {
-        if (buffer) gl.deleteBuffer(buffer);
-        if (program) gl.deleteProgram(program);
-        shaders.forEach((shader) => gl!.deleteShader(shader));
-      }
+      disposeGpu();
     };
   }, []);
   return <canvas ref={canvas} className="ambient-field" aria-hidden="true" />;

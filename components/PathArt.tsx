@@ -1,7 +1,8 @@
 import { useId } from "react";
+import type { PathwayId } from "@/lib/content";
 
 /** Original objects in the book's paper, blue enamel and brass palette. */
-export function PathArt({ kind }: { kind: string }) {
+export function PathArt({ kind }: { kind: PathwayId }) {
   const id = useId();
   const blue = `url(#${id}-blue)`,
     paper = `url(#${id}-paper)`;

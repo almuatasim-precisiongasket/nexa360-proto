@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { pathways, type Pathway } from "@/lib/content";
 import { Arrow } from "./Logo";
 import { PathArt } from "./PathArt";
+import { emitSiteEvent, onSiteEvent } from "@/lib/site-events";
 import {
   AnimatePresence,
   LazyMotion,
@@ -23,24 +24,18 @@ export function Pathways() {
     dialog.current?.showModal();
   }
   useEffect(() => {
-    const receive = (event: Event) => {
-      const path = pathways.find(
-        (item) => item.id === (event as CustomEvent<string>).detail,
-      );
+    return onSiteEvent("nexa:open-path", (id) => {
+      const path = pathways.find((item) => item.id === id);
       if (path) {
         setSelected(path);
         setOpen(true);
         dialog.current?.showModal();
       }
-    };
-    window.addEventListener("nexa:open-path", receive);
-    return () => window.removeEventListener("nexa:open-path", receive);
+    });
   }, []);
   function inquire() {
     dialog.current?.close();
-    window.dispatchEvent(
-      new CustomEvent("nexa:interest", { detail: selected.interest }),
-    );
+    emitSiteEvent("nexa:interest", selected.interest);
     document.getElementById("contact")?.scrollIntoView({
       behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
         ? "instant"

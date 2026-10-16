@@ -246,3 +246,29 @@ receives pointer hits, and canvas wrappers allow pan-y and pinch zoom.
 At 390x844, native scrolling advanced cover to Ambition, a horizontal drag advanced
 to Cyber, and the Next control advanced to AI. Browser pointer input is not a
 physical phone touch check. No automated tests were added or run.
+
+## Codebase reliability and maintenance review — 16 October 2026
+
+Reviewed the current App Router page, client components, book geometry/props/
+textures, editorial content, styling, configuration, asset references and existing
+test source. Archived dist/ remains a reference. The architecture and detailed
+findings are recorded in docs/codebase-review.md.
+
+Centralized typed browser events, pathway/interest/tuition types and the shared
+mobile media query. Moved book scene/environment ownership into a committed R3F
+effect with paired disposal. Fixed the intro's two baseline lint errors without
+suppressions, preserved pre-existing inert states and included the skip link in
+modal isolation. Ambient WebGL setup now releases partial allocations and handles
+context restoration. Enquiry edits invalidate stale drafts; temporary download
+links and object URLs have explicit cleanup. Cached stable header section lookups.
+Removed unused MagicGrid/legacy beam code and CSS, and extracted the final mobile
+book rules verbatim into components/book-mobile.css with preserved import order.
+
+Validation: npm run lint and npm run typecheck passed. The optimized production
+build, including TypeScript and static prerendering, passed. In the local browser,
+3D loaded, switched to illustration and recreated a ready scene. The online
+lesson link selected Academic tuition + Online tuition. A synthetic local draft
+was prepared; editing the message restored the draft panel's hidden attribute.
+Reloading cleared review form values. No browser console errors were observed in
+the final review. No automated tests were added or run, as instructed. WebGL loss
+and restoration were reviewed in source, not forced on a physical device.

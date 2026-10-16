@@ -16,11 +16,11 @@ import { readingPosition, storyFrame, clamp } from "@/lib/story";
 import { useMediaQuery } from "@/lib/use-media-query";
 import { Logo, Arrow } from "./Logo";
 import { PathArt } from "./PathArt";
-import type { StoryBridge } from "./BookCanvas";
+import type { StoryBridge } from "@/lib/story";
+import { MOBILE_BOOK_QUERY } from "@/lib/media";
+import { emitSiteEvent, onSiteEvent } from "@/lib/site-events";
 const BookCanvas = dynamic(() => import("./BookCanvas"), { ssr: false });
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, useGSAP);
-const mobileBookQuery =
-  "(max-width: 600px), (max-width: 900px) and (pointer: coarse), (max-width: 900px) and (max-height: 500px)";
 export function BookStory() {
   const root = useRef<HTMLElement>(null),
     stage = useRef<HTMLDivElement>(null);
@@ -31,7 +31,7 @@ export function BookStory() {
     [failed, setFailed] = useState(false),
     [illustrated, setIllustrated] = useState(false);
   const reduced = useMediaQuery("(prefers-reduced-motion: reduce)");
-  const mobileBook = useMediaQuery(mobileBookQuery);
+  const mobileBook = useMediaQuery(MOBILE_BOOK_QUERY);
   useEffect(() => {
     if (!mobileBook) return;
     const tab = root.current?.querySelector<HTMLButtonElement>(
@@ -51,18 +51,16 @@ export function BookStory() {
     horizontal: boolean;
   } | null>(null);
   useEffect(() => {
-    const fallback = () => setIllustrated(true);
-    window.addEventListener("nexa:book-fallback", fallback);
-    return () => window.removeEventListener("nexa:book-fallback", fallback);
+    return onSiteEvent("nexa:book-fallback", () => setIllustrated(true));
   }, []);
   const onReady = useCallback(() => {
       setReady(true);
-      window.dispatchEvent(new Event("nexa:book-ready"));
+      emitSiteEvent("nexa:book-ready");
     }, []),
     onFailure = useCallback(() => {
       setFailed(true);
       setReady(false);
-      window.dispatchEvent(new Event("nexa:book-ready"));
+      emitSiteEvent("nexa:book-ready");
     }, []);
   useGSAP(
     (_, contextSafe) => {
@@ -71,7 +69,7 @@ export function BookStory() {
         {
           motion: "(prefers-reduced-motion: no-preference)",
           reduced: "(prefers-reduced-motion: reduce)",
-          mobile: mobileBookQuery,
+          mobile: MOBILE_BOOK_QUERY,
         },
         (context) => {
           const isReduced = context.conditions?.reduced;
@@ -211,15 +209,17 @@ export function BookStory() {
     drag.current = null;
   }
   const data = chapters[chapter];
-  const kind = [
-    "academic",
-    "academic",
-    "competitive",
-    "cyber",
-    "ai",
-    "robotics",
-    "career",
-  ][chapter];
+  const kind = (
+    [
+      "academic",
+      "academic",
+      "competitive",
+      "cyber",
+      "ai",
+      "robotics",
+      "career",
+    ] as const
+  )[chapter];
   return (
     <section
       id="home"
@@ -286,9 +286,7 @@ export function BookStory() {
                   navigate.current(1);
                 } else if (data.path) {
                   event.preventDefault();
-                  window.dispatchEvent(
-                    new CustomEvent("nexa:open-path", { detail: data.path }),
-                  );
+                  emitSiteEvent("nexa:open-path", data.path);
                 }
               }}
             >

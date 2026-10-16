@@ -3,7 +3,6 @@ import {
   Component,
   Suspense,
   useEffect,
-  useMemo,
   useRef,
   useState,
   type ReactNode,
@@ -14,7 +13,8 @@ import * as THREE from "three";
 import { createBookScene } from "@/lib/book-scene";
 import { studioEnvironment } from "@/lib/book-textures";
 import { useMediaQuery } from "@/lib/use-media-query";
-export type StoryBridge = { progress: number; invalidate: () => void };
+import { MOBILE_BOOK_QUERY } from "@/lib/media";
+import type { StoryBridge } from "@/lib/story";
 class CanvasBoundary extends Component<
   { children: ReactNode; onFailure: () => void },
   { failed: boolean }
@@ -40,11 +40,10 @@ function BookScene({
   onFailure: () => void;
 }) {
   const logo = useLoader(THREE.TextureLoader, "/assets/nexa-logo.png");
-  const { size, invalidate, camera, gl } = useThree();
+  const { size, invalidate, camera, gl, get } = useThree();
   const mobile = size.width < 650;
-  const model = useMemo(() => createBookScene(mobile, logo), [mobile, logo]);
+  const model = useRef<ReturnType<typeof createBookScene> | null>(null);
   const didRender = useRef(false);
-  const environment = useMemo(() => studioEnvironment(), []);
   const keyLight = useRef<THREE.DirectionalLight>(null);
   const gaze = useRef({ x: 0, y: 0, targetX: 0, targetY: 0, visible: true });
   useEffect(() => {
@@ -100,18 +99,35 @@ function BookScene({
     canvas.addEventListener("webglcontextlost", lost);
     return () => {
       bridge.invalidate = () => {};
-      environment.dispose();
       canvas.removeEventListener("webglcontextlost", lost);
     };
-  }, [bridgeRef, invalidate, gl, onFailure, environment]);
-  useEffect(() => () => model.dispose(), [model]);
+  }, [bridgeRef, invalidate, gl, onFailure]);
+  useEffect(() => {
+    // GPU resources belong to a committed scene, never to a speculative render.
+    const { scene } = get();
+    const ownedModel = createBookScene(mobile, logo);
+    const environment = studioEnvironment();
+    const previousEnvironment = scene.environment;
+    model.current = ownedModel;
+    didRender.current = false;
+    scene.add(ownedModel.world);
+    scene.environment = environment;
+    invalidate();
+    return () => {
+      model.current = null;
+      scene.remove(ownedModel.world);
+      scene.environment = previousEnvironment;
+      ownedModel.dispose();
+      environment.dispose();
+    };
+  }, [mobile, logo, get, invalidate]);
   useFrame((_, delta) => {
-    if (document.hidden || !gaze.current.visible) return;
+    if (document.hidden || !gaze.current.visible || !model.current) return;
     const pointer = gaze.current;
     const smoothing = 1 - Math.exp(-Math.min(delta, 0.05) * 5);
     pointer.x = THREE.MathUtils.lerp(pointer.x, pointer.targetX, smoothing);
     pointer.y = THREE.MathUtils.lerp(pointer.y, pointer.targetY, smoothing);
-    const { distance, transition, needsFrame } = model.update(
+    const { distance, transition, needsFrame } = model.current.update(
       bridgeRef.current.progress,
       delta,
     );
@@ -146,7 +162,6 @@ function BookScene({
   });
   return (
     <>
-      <primitive object={environment} attach="environment" />
       <hemisphereLight args={["#e4f2ff", "#112643", 1.25]} />
       <directionalLight
         ref={keyLight}
@@ -168,7 +183,6 @@ function BookScene({
         intensity={1.25}
         color="#70c8ff"
       />
-      <primitive object={model.world} />
     </>
   );
 }
@@ -182,9 +196,7 @@ export default function BookCanvas({
   onFailure: () => void;
 }) {
   const [fontsReady, setFontsReady] = useState(false);
-  const mobile = useMediaQuery(
-    "(max-width: 600px), (max-width: 900px) and (pointer: coarse), (max-width: 900px) and (max-height: 500px)",
-  );
+  const mobile = useMediaQuery(MOBILE_BOOK_QUERY);
   useEffect(() => {
     let mounted = true;
     Promise.all([

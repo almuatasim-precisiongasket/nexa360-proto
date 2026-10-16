@@ -1,13 +1,20 @@
 "use client";
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { interests } from "@/lib/content";
+import {
+  interests,
+  isInterest,
+  isTuitionFormat,
+  tuitionFormats,
+  type Interest,
+  type TuitionFormat,
+} from "@/lib/content";
+import { onSiteEvent } from "@/lib/site-events";
 import { Arrow } from "./Logo";
 import { LazyMotion, domAnimation, useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
-import type { TuitionFormat } from "./TuitionEnquiry";
 export function Inquiry() {
   const reduced = useReducedMotion();
-  const [interest, setInterest] = useState("");
+  const [interest, setInterest] = useState<Interest | "">("");
   const [tuitionFormat, setTuitionFormat] = useState<TuitionFormat | "">("");
   const [message, setMessage] = useState("");
   const [draft, setDraft] = useState("");
@@ -18,6 +25,21 @@ export function Inquiry() {
     return () => cancelAnimationFrame(frame);
   }, []);
   const result = useRef<HTMLDivElement>(null);
+  const downloads = useRef(new Map<string, ReturnType<typeof setTimeout>>());
+  function clearDraft() {
+    setDraft("");
+    setStatus("");
+  }
+  useEffect(() => {
+    const pending = downloads.current;
+    return () => {
+      pending.forEach((timer, url) => {
+        clearTimeout(timer);
+        URL.revokeObjectURL(url);
+      });
+      pending.clear();
+    };
+  }, []);
   useEffect(() => {
     if (draft)
       result.current?.scrollIntoView({
@@ -28,24 +50,20 @@ export function Inquiry() {
       });
   }, [draft]);
   useEffect(() => {
-    const receive = (event: Event) => {
-      const value = (event as CustomEvent<string>).detail;
-      if (interests.includes(value)) setInterest(value);
-    };
-    const tuition = (event: Event) => {
-      const format = (event as CustomEvent<string>).detail;
+    const unsubscribeInterest = onSiteEvent("nexa:interest", (value) => {
+      if (isInterest(value)) {
+        setInterest(value);
+        clearDraft();
+      }
+    });
+    const unsubscribeTuition = onSiteEvent("nexa:tuition", (format) => {
       setInterest("Academic tuition");
-      setTuitionFormat(
-        format === "In person — Barking, London" || format === "Online tuition"
-          ? format
-          : "",
-      );
-    };
-    window.addEventListener("nexa:interest", receive);
-    window.addEventListener("nexa:tuition", tuition);
+      setTuitionFormat(isTuitionFormat(format) ? format : "");
+      clearDraft();
+    });
     return () => {
-      window.removeEventListener("nexa:interest", receive);
-      window.removeEventListener("nexa:tuition", tuition);
+      unsubscribeInterest();
+      unsubscribeTuition();
     };
   }, []);
   function prepare(event: FormEvent<HTMLFormElement>) {
@@ -81,12 +99,21 @@ export function Inquiry() {
     const link = document.createElement("a");
     link.href = url;
     link.download = "NEXA360-inquiry.txt";
-    link.click();
-    setTimeout(() => URL.revokeObjectURL(url), 2000);
+    document.body.append(link);
+    try {
+      link.click();
+    } finally {
+      link.remove();
+    }
+    const timer = setTimeout(() => {
+      URL.revokeObjectURL(url);
+      downloads.current.delete(url);
+    }, 2000);
+    downloads.current.set(url, timer);
     setStatus("Draft downloaded. It has not been sent.");
   }
   return (
-    <form className="inquiry" onSubmit={prepare}>
+    <form className="inquiry" onSubmit={prepare} onChange={clearDraft}>
       <fieldset className="inquiry-fields" disabled={!interactive}>
         <legend className="sr-only">Prepare an inquiry draft</legend>
         <div className="inquiry-heading kicker">
@@ -119,7 +146,9 @@ export function Inquiry() {
           name="interest"
           value={interest}
           required
-          onChange={(e) => setInterest(e.target.value)}
+          onChange={(e) =>
+            setInterest(isInterest(e.target.value) ? e.target.value : "")
+          }
         >
           <option value="">Choose your next chapter</option>
           {interests.map((value) => (
@@ -134,12 +163,15 @@ export function Inquiry() {
               name="tuition-format"
               value={tuitionFormat}
               onChange={(event) =>
-                setTuitionFormat(event.target.value as TuitionFormat | "")
+                setTuitionFormat(
+                  isTuitionFormat(event.target.value) ? event.target.value : "",
+                )
               }
             >
               <option value="">Please advise me</option>
-              <option>In person — Barking, London</option>
-              <option>Online tuition</option>
+              {tuitionFormats.map((format) => (
+                <option key={format}>{format}</option>
+              ))}
             </select>
           </>
         )}

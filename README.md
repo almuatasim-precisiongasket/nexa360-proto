@@ -30,9 +30,11 @@ Both servers bind to the local computer by default. Deploy with a Node.js host t
 - `lib/book-geometry.ts`: curved paper attached to the spine.
 - `lib/book-scene.ts`, `lib/book-props.ts`, `lib/book-textures.ts`: book construction, approved arm, chapter props, page textures and explicit trophy lettering.
 - `lib/content.ts`: approved chapter and pathway copy.
+- `lib/media.ts`, `lib/site-events.ts`: shared responsive settings and typed browser event contracts.
 - `components/Information.tsx`: editorial sections, tuition details, collaboration and footer.
 - `components/Pathways.tsx`, `components/Inquiry.tsx`: native details dialog and inquiry drafts.
-- `components/BrandIntro.tsx`: session intro, Skip/Escape and replay.
+- `components/BrandIntro.tsx`: home-entry intro, book readiness, bounded fallback, Skip/Escape and replay.
+- `components/book-mobile.css`: phone and landscape book layout, imported after the main stylesheet to preserve its overrides.
 - `components/TextReveal.tsx`, `components/SiteEffects.tsx`: scoped heading reveals and fine-pointer interaction details.
 - `public/assets/nexa-logo.png`: unmodified supplied logo.
 - `dist/`: original static website, retained as a reference.
@@ -60,3 +62,9 @@ The form prepares a draft that visitors can review, copy or download. It has no 
 - `THIRD_PARTY_NOTICES.md`: React Bits adaptation, GSAP and font notices.
 
 Context7 was used for current documentation. Other researched MCP servers are optional development tools and are not required to run the website.
+
+## Maintenance
+
+See [the codebase review](docs/codebase-review.md) for module responsibilities,
+resource ownership, event contracts, review findings and remaining limitations.
+`dist/` is an archived reference; edit the Next.js source for the deployed site.
