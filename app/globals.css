@@ -1,5 +1,29 @@
-@import url("../components/site.css");
-@import url("../components/book-mobile.css");
+/* Keep the existing reset; utilities intentionally override legacy styles. */
+@layer theme, base, legacy, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+@import "../components/site.css" layer(legacy);
+@import "../components/book-mobile.css" layer(legacy);
+
+/* Limit generation to the active Next.js app, excluding the archived dist site. */
+@source "./";
+@source "../components";
+@source "../lib";
+
+@theme inline {
+  --color-nexa-navy: var(--navy);
+  --color-nexa-deep: var(--deep);
+  --color-nexa-blue: var(--blue);
+  --color-nexa-cyan: var(--cyan);
+  --color-nexa-white: var(--white);
+  --color-nexa-gold: var(--gold);
+  --color-nexa-muted: var(--muted);
+  --color-nexa-line: var(--line);
+  --font-sans: var(--sans);
+  --font-serif: var(--serif);
+}
+
+@layer legacy {
 :root {
   --navy: #07101f;
   --deep: #0e2242;
@@ -232,4 +256,5 @@ img {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
 }

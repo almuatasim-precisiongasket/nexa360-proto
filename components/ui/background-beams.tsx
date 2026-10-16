@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { cn } from "@/lib/utils";
 import {
   LazyMotion,
   domAnimation,
@@ -85,11 +86,14 @@ export const BackgroundBeams = React.memo(
       <LazyMotion features={domAnimation} strict>
         <div
           ref={root}
-          className={`aceternity-background-beams ${className ?? ""}`}
+          className={cn(
+            "aceternity-background-beams pointer-events-none absolute inset-0 z-0 h-full w-full overflow-hidden",
+            className,
+          )}
           aria-hidden="true"
         >
           <svg
-            className="background-beams-svg"
+            className="background-beams-svg block h-full w-full opacity-[0.85]"
             width="100%"
             height="100%"
             viewBox="0 0 696 316"

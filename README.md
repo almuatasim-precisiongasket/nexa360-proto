@@ -68,3 +68,28 @@ Context7 was used for current documentation. Other researched MCP servers are op
 See [the codebase review](docs/codebase-review.md) for module responsibilities,
 resource ownership, event contracts, review findings and remaining limitations.
 `dist/` is an archived reference; edit the Next.js source for the deployed site.
+
+## Tailwind and gradual style migration
+
+Tailwind CSS v4 runs through `@tailwindcss/postcss`. The app retains its existing
+reset instead of importing Preflight. `app/globals.css` declares the layer order
+`theme, base, legacy, components, utilities`; existing styles share `legacy` in
+their original order, and explicit utility classes can override them.
+
+Generation scans `app/`, `components/` and `lib/` only. Use literal class names
+(including full alternatives for conditional styles); archived `dist/` files
+are excluded. Existing colours are available as `bg-nexa-navy`, `text-nexa-cyan`,
+`border-nexa-line`, etc. `font-sans` and `font-serif` use the locally served
+DM Sans and Instrument Serif fonts.
+
+The team background beams are the first migrated component. Keep custom masks,
+book geometry, animation hooks and specialized responsive rules in CSS where
+appropriate. Migrate one component at a time and remove only its replaced rules.
+Tailwind defaults use their own breakpoints; preserve existing 600px/900px rules
+explicitly when converting layouts. GSAP owns animated inline transforms.
+
+Registry components may assume Preflight, semantic theme tokens or additional
+packages. Review their styles and dependencies before adding them; explicitly
+set border styles (for example `border border-solid`) where needed.
+`lib/utils.ts` exports `cn()` using `clsx` and `tailwind-merge`, matching the
+existing shadcn alias and allowing component callers to override utility classes.
