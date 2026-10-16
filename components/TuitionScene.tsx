@@ -1,233 +1,256 @@
 "use client";
 
-import { useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+import { useId, useRef } from "react";
+import { useIllustrationMotion } from "@/lib/illustration-motion";
+import { IllustrationMaterials } from "./illustrations/Materials";
 
 export function TuitionScene({ format }: { format: "london" | "online" }) {
   const root = useRef<HTMLDivElement>(null);
-  useGSAP(
-    () => {
-      const media = gsap.matchMedia();
-      media.add(
-        "(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)",
-        () => {
-          const scene = root.current!;
-          const card = scene.closest("article")!;
-          gsap.from(".scene-enter-layer", {
-            y: 22,
-            opacity: 0,
-            duration: 1.6,
-            stagger: 0.16,
-            ease: "power3.out",
-            scrollTrigger: { trigger: scene, start: "top 95%", once: true },
-            clearProps: "transform,opacity",
-          });
-          const layers = gsap.utils
-            .toArray<HTMLElement>(".scene-depth-layer")
-            .map((layer) => ({
-              depth: Number(layer.dataset.depth),
-              x: gsap.quickTo(layer, "x", {
-                duration: 1.2,
-                ease: "power3.out",
-              }),
-              y: gsap.quickTo(layer, "y", {
-                duration: 1.2,
-                ease: "power3.out",
-              }),
-            }));
-          const move = (event: PointerEvent) => {
-            if (event.pointerType !== "mouse") return;
-            const rect = card.getBoundingClientRect();
-            const x = Math.max(
-              -1,
-              Math.min(1, ((event.clientX - rect.left) / rect.width) * 2 - 1),
-            );
-            const y = Math.max(
-              -1,
-              Math.min(1, ((event.clientY - rect.top) / rect.height) * 2 - 1),
-            );
-            layers.forEach((layer) => {
-              layer.x(x * layer.depth * 12);
-              layer.y(y * layer.depth * 8);
-            });
-          };
-          const reset = () =>
-            layers.forEach((layer) => {
-              layer.x(0);
-              layer.y(0);
-            });
-          card.addEventListener("pointermove", move, { passive: true });
-          card.addEventListener("pointerleave", reset);
-          window.addEventListener("blur", reset);
-          return () => {
-            card.removeEventListener("pointermove", move);
-            card.removeEventListener("pointerleave", reset);
-            window.removeEventListener("blur", reset);
-          };
-        },
-      );
-      return () => media.revert();
-    },
-    { scope: root },
-  );
-
+  const id = useId();
+  const paper = `url(#${id}-paper)`;
+  const enamel = `url(#${id}-enamel)`;
+  const gold = `url(#${id}-gold)`;
+  const london = format === "london";
+  useIllustrationMotion(root);
   return (
     <div
       ref={root}
-      className={`tuition-scene tuition-scene-${format}`}
+      className={`tuition-scene tuition-scene-${format} illustration-scene`}
       aria-hidden="true"
     >
-      <svg className="scene-ground" viewBox="0 0 360 240">
-        <ellipse cx="180" cy="211" rx="134" ry="12" />
-      </svg>
-      <div className="scene-enter-layer">
-        <div className="scene-depth-layer" data-depth="0.25">
-          <svg viewBox="0 0 360 240" fill="none">
-            {format === "london" ? (
-              <g stroke="currentColor" strokeWidth="1.2">
+      <svg
+        viewBox="0 0 420 280"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        focusable="false"
+      >
+        <IllustrationMaterials id={id} />
+        <ellipse
+          cx="210"
+          cy="248"
+          rx="164"
+          ry="22"
+          fill={`url(#${id}-ground)`}
+        />
+        <g data-art-enter="">
+          <g
+            data-art-depth="-0.25"
+            className="scene-blueprint"
+            stroke="currentColor"
+            strokeWidth=".8"
+          >
+            <path
+              d="M32 233H388M47 72H373M67 46V246M353 46V246"
+              strokeDasharray="2 7"
+              opacity=".3"
+            />
+            {london ? (
+              <>
                 <path
-                  d="M70 144V48l80-30 80 30v96M150 18v126M75 67h150"
-                  opacity=".35"
-                />
-                <rect
-                  x="88"
-                  y="75"
-                  width="43"
-                  height="53"
-                  rx="2"
-                  fill="var(--scene-window)"
-                />
-                <rect
-                  x="166"
-                  y="75"
-                  width="43"
-                  height="53"
-                  rx="2"
-                  fill="var(--scene-window)"
-                />
-                <path
-                  d="M109 75v53m-21-27h43m56-26v53m-21-27h43M260 54h34m-17-17v34"
+                  d="M77 184V66l98-33 98 33v99M175 33v140M77 90h196"
                   opacity=".55"
                 />
-              </g>
+                <path
+                  d="M101 105h49v53h-49zM201 105h48v53h-48zM125 105v53m-24-27h49m75-26v53m-24-27h48"
+                  opacity=".5"
+                />
+                <path
+                  d="M305 61h32m-16-16v32M50 178h22m-11-11v22"
+                  opacity=".6"
+                />
+              </>
             ) : (
-              <g stroke="currentColor" strokeWidth="1.1" opacity=".4">
-                <circle cx="180" cy="106" r="90" />
-                <path d="M53 106h254M180 15v182" />
-                <path d="M290 29h27m-13-13v27M35 178h23m-11-11v23" />
-              </g>
+              <>
+                <circle cx="211" cy="128" r="101" opacity=".35" />
+                <path
+                  d="M99 128h224M211 25v205M323 49h28m-14-14v28"
+                  opacity=".4"
+                />
+              </>
             )}
-          </svg>
-        </div>
-      </div>
-      <div className="scene-enter-layer">
-        <div className="scene-depth-layer" data-depth="0.65">
-          <svg
-            viewBox="0 0 360 240"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            {format === "london" ? (
-              <g stroke="currentColor" strokeWidth="1.3">
+          </g>
+        </g>
+        <g data-art-enter="">
+          <g data-art-depth="0.55">
+            <path
+              d="M47 196l209-42 119 55-209 43Z"
+              fill="#102e4b"
+              opacity=".22"
+            />
+            <path
+              d="M47 185l209-42 119 55-209 43Z"
+              fill={paper}
+              stroke="#9ebaca"
+              strokeWidth=".8"
+            />
+            <path d="M47 185v9l119 56 209-43v-9l-209 43Z" fill="#92afbf" />
+            <path d="M166 241v9l209-43v-9Z" fill="#6e91ac" />
+            {london ? (
+              <>
                 <path
-                  d="M54 146l224-13 30 26-228 18Z"
-                  fill="var(--scene-desk)"
+                  d="M75 210v31m269-19v21"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  opacity=".6"
                 />
-                <path d="M80 177v31m208-48v42M57 149v42m37-18v27" />
-                <path d="M54 146v7l26 30 228-18v-6" opacity=".5" />
-              </g>
+                <path
+                  d="M83 190l165-33 91 42"
+                  stroke="#fffef5"
+                  strokeOpacity=".8"
+                />
+              </>
             ) : (
-              <g stroke="var(--scene-frame)" strokeWidth="1.5">
-                <rect
-                  x="69"
-                  y="48"
-                  width="222"
-                  height="140"
-                  rx="9"
-                  fill="var(--scene-frame)"
-                />
-                <rect
-                  x="78"
-                  y="57"
-                  width="204"
-                  height="119"
-                  rx="3"
-                  fill="#e6eff1"
-                />
-                <path d="M69 188l-23 19h268l-23-19Z" fill="#b1c9da" />
-                <path d="M153 194h54l8 6h-70Z" fill="#e6eff1" />
-                <rect
-                  x="90"
-                  y="69"
-                  width="69"
-                  height="94"
-                  rx="3"
-                  fill="#c2d9e7"
-                  stroke="none"
-                />
-                <circle cx="124" cy="95" r="13" fill="#175cdb" stroke="none" />
+              <>
                 <path
-                  d="M104 143v-12a20 20 0 0 1 40 0v12"
-                  fill="#175cdb"
-                  stroke="none"
+                  d="M104 174V66a6 6 0 0 1 6-6h197a6 6 0 0 1 6 6v108Z"
+                  fill={enamel}
+                  stroke="#7aabd1"
+                />
+                <path d="M113 69h191v96H113Z" fill="#eaf1f0" />
+                <path
+                  d="M104 174l-29 21h267l-29-21Z"
+                  fill="#b3cedc"
+                  stroke="#6e91ac"
+                />
+                <path d="M75 195v5h267v-5" fill="#527895" />
+                <path
+                  d="M101 181h214M93 187h231"
+                  stroke="#6e91ac"
+                  strokeWidth=".7"
+                  opacity=".7"
+                />
+                <path d="M189 181h42l8 9h-57Z" fill="#eaf1f0" />
+                <circle cx="209" cy="64" r="1.3" fill="#b9ddf3" />
+                <rect
+                  x="125"
+                  y="81"
+                  width="61"
+                  height="71"
+                  rx="2"
+                  fill="#d3e2e5"
                 />
                 <path
-                  d="M175 84h88m-88 10h59m-59 50h88M184 135l21-19 22 8 29-20"
+                  d="M137 96h36m-36 9h27m-27 31h36m-36 7h22"
+                  stroke="#5c7d94"
+                  strokeWidth="1.4"
+                />
+                <path d="M210 143h78M214 143V89" stroke="#91abb7" />
+                <path
+                  d="M220 132l29-38 31 38Z"
                   stroke="#175cdb"
+                  strokeWidth="2"
+                  pathLength="1"
+                  strokeDasharray="1"
+                  strokeDashoffset="0"
+                  data-art-draw=""
                 />
-                <circle cx="205" cy="116" r="3" fill="#175cdb" stroke="none" />
-              </g>
+                <path
+                  d="M234 151h31"
+                  stroke="#b38a39"
+                  strokeWidth="2"
+                  pathLength="1"
+                  strokeDasharray="1"
+                  strokeDashoffset="0"
+                  data-art-draw=""
+                />
+                <circle cx="249" cy="94" r="3" fill="#d8b25a" />
+              </>
             )}
-          </svg>
-        </div>
-      </div>
-      <div className="scene-enter-layer">
-        <div className="scene-depth-layer" data-depth="1">
-          <svg
-            viewBox="0 0 360 240"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            {format === "london" ? (
-              <g stroke="#315678" strokeWidth="1.2">
+          </g>
+        </g>
+        <g data-art-enter="">
+          <g data-art-depth="1">
+            {london ? (
+              <>
                 <path
-                  d="M105 142l57-8 33 15 49-12 23 29-69 18-43-20-38 7Z"
-                  fill="#b9cbd5"
+                  d="M102 177l79-22 55 24 65-16 19 38-84 23-58-25-62 17Z"
+                  fill="#123b70"
                 />
                 <path
-                  d="M105 136l58-10 34 15 49-12 19 30-67 17-42-20-40 8Z"
-                  fill="#f3eddf"
+                  d="M104 168l77-22 55 24 65-16 17 39-82 22-58-25-62 17Z"
+                  fill="#b1c7d2"
                 />
-                <path d="M163 126l-7 30m41-15 1 35M125 140l26-5m-23 12 24-4m55 7 29-8m-25 15 28-8" />
                 <path
-                  d="M270 125l8-27 5 2-8 27-5 5Z"
-                  fill="#d8b25a"
-                  stroke="#d8b25a"
+                  d="M103 161l78-22 55 24 65-16 17 39-82 22-58-25-62 17Z"
+                  fill={paper}
+                  stroke="#89a6b9"
                 />
-                <path d="M270 132l2-7 3 2Z" fill="#102a48" />
-              </g>
+                <path
+                  d="M181 139l-3 44m58-20v45"
+                  stroke="#6b8ca5"
+                  strokeWidth="1.3"
+                />
+                <path
+                  d="M120 166l44-12m-41 20 38-10m88 1 39-10m-36 18 39-10"
+                  stroke="#9bb2bd"
+                  strokeWidth="1.4"
+                />
+                <path
+                  d="M124 184l31-8"
+                  stroke="#175cdb"
+                  strokeWidth="2"
+                  pathLength="1"
+                  strokeDasharray="1"
+                  strokeDashoffset="0"
+                  data-art-draw=""
+                />
+                <path
+                  d="M257 182l28-8"
+                  stroke="#175cdb"
+                  strokeWidth="2"
+                  pathLength="1"
+                  strokeDasharray="1"
+                  strokeDashoffset="0"
+                  data-art-draw=""
+                />
+                <path
+                  d="M328 169l15-48 6 2-15 48-9 10Z"
+                  fill={gold}
+                  stroke="#b38a39"
+                />
+                <path d="M325 181l3-12 6 2Z" fill="#f3eddf" />
+                <path d="M325 181l2-5 3 2Z" fill="#123b70" />
+                <path d="M76 164l31-8 6 3-31 8Z" fill={gold} />
+              </>
             ) : (
-              <g stroke="#315678" strokeWidth="1.2">
-                <path d="M26 138l70-12 15 72-70 12Z" fill="#f3eddf" />
-                <path d="M42 151l41-7m-39 17 30-5m-27 17 39-7m-37 17 23-4" />
-                <path d="M279 151l36 4-6 47-34-3Z" fill="#f3eddf" />
-                <path d="M284 167l21 2m-23 9 17 2m-18 9 11 1" />
+              <>
+                <path d="M52 189l53-14 14 52-54 15Z" fill="#123b70" />
                 <path
-                  d="M117 194l35-28 4 5-35 28-9 3Z"
-                  fill="#d8b25a"
-                  stroke="#d8b25a"
+                  d="M49 183l54-14 14 52-54 15Z"
+                  fill={paper}
+                  stroke="#9cb4c2"
                 />
-              </g>
+                <path
+                  d="M62 188l31-8m-28 17 31-8m-29 18 24-6m-22 15 29-8"
+                  stroke="#6f8da2"
+                />
+                <path
+                  d="M291 222l50-20 3 5-50 20-11 1Z"
+                  fill={gold}
+                  stroke="#b38a39"
+                />
+                <path d="M283 228l8-6 3 5Z" fill="#f3eddf" />
+                <path
+                  d="M344 140l23-6v36l-23 6Z"
+                  fill={enamel}
+                  stroke="#82b4db"
+                />
+                <path d="M350 151l10-3m-10 9 10-3" stroke="#d8e9f2" />
+              </>
             )}
-          </svg>
-        </div>
-      </div>
+          </g>
+        </g>
+        <g
+          className="scene-registration"
+          stroke="currentColor"
+          strokeWidth=".8"
+          opacity=".5"
+        >
+          <path d="M25 49v-9h9M386 231h9v-9" />
+          <path d="M28 254h27m312 0h27" />
+        </g>
+      </svg>
     </div>
   );
 }

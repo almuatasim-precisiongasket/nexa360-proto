@@ -1,4 +1,38 @@
 /* Cult UI folded-paper surfaces, adapted to the Book of Becoming palette. */
+.tuition-scene.illustration-scene {
+  height: auto;
+  aspect-ratio: 3 / 2;
+  max-height: 310px;
+  margin-block: 18px 24px;
+  color: #456c89;
+}
+.tuition-scene-london.illustration-scene {
+  color: #a7d6f2;
+}
+.illustration-scene > svg {
+  overflow: hidden;
+}
+.scene-blueprint {
+  opacity: 0.65;
+}
+.scene-registration {
+  pointer-events: none;
+}
+@media (max-width: 600px) {
+  .tuition-scene.illustration-scene {
+    margin-block: 12px 18px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-art-enter],
+  [data-art-depth] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  [data-art-draw] {
+    stroke-dashoffset: 0 !important;
+  }
+}
 .pathway.cult-folded-card {
   border: 0;
   border-radius: 0;
