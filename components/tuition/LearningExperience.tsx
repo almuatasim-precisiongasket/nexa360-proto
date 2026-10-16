@@ -6,6 +6,7 @@ import styles from "./tuition-experience.module.css";
 import { SupportArtwork } from "./SupportArtwork";
 import artwork from "./support-artwork.module.css";
 import { LearningGuide } from "./LearningGuide";
+import { LearningSystemExploded } from "./LearningSystemExploded";
 
 export function LearningExperience() {
   return (
@@ -34,6 +35,7 @@ export function LearningExperience() {
             week direction. Try a sample of that connected experience.
           </p>
         </div>
+        <LearningSystemExploded />
         <LearningPreview />
       </div>
       <div

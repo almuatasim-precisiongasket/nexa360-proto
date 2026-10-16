@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { LazyMotion, domAnimation, useReducedMotion } from "motion/react";
+import {
+  AnimatePresence,
+  LazyMotion,
+  domAnimation,
+  useReducedMotion,
+} from "motion/react";
 import * as m from "motion/react-m";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TutorPreview } from "./TutorPreview";
@@ -33,6 +38,7 @@ type Tool = (typeof tools)[number]["id"];
 
 export function LearningPreview() {
   const [tool, setTool] = useState<Tool>("tutor");
+  const [direction, setDirection] = useState(1);
   const reduced = useReducedMotion();
   const root = useRef<HTMLDivElement>(null);
   const toolButtons = useRef<Record<Tool, HTMLButtonElement | null>>({
@@ -40,8 +46,18 @@ export function LearningPreview() {
     cards: null,
     plan: null,
   });
-  const followLearning = (next: Tool) => {
+  const selectTool = (next: Tool) => {
+    if (next === tool) return;
+    setDirection(
+      Math.sign(
+        tools.findIndex((item) => item.id === next) -
+          tools.findIndex((item) => item.id === tool),
+      ) || 1,
+    );
     setTool(next);
+  };
+  const followLearning = (next: Tool) => {
+    selectTool(next);
     toolButtons.current[next]?.focus({ preventScroll: true });
     root.current?.scrollIntoView({
       block: "start",
@@ -93,8 +109,10 @@ export function LearningPreview() {
                   toolButtons.current[item.id] = element;
                 }}
                 aria-pressed={tool === item.id}
-                aria-controls={`learning-preview-${item.id}`}
-                onClick={() => setTool(item.id)}
+                aria-controls={
+                  tool === item.id ? `learning-preview-${item.id}` : undefined
+                }
+                onClick={() => selectTool(item.id)}
               >
                 <span>
                   {item.label}
@@ -106,30 +124,36 @@ export function LearningPreview() {
             ))}
           </div>
           <div className={styles.toolSurface}>
-            {tools.map((item) => (
+            <AnimatePresence initial={false} mode="wait" custom={direction}>
               <m.div
-                key={item.id}
-                id={`learning-preview-${item.id}`}
-                hidden={tool !== item.id}
-                initial={false}
-                animate={{
-                  opacity: tool === item.id ? 1 : 0,
-                  y: reduced || tool !== item.id ? 0 : [12, 0],
-                }}
+                key={tool}
+                id={`learning-preview-${tool}`}
+                custom={direction}
+                initial={
+                  reduced
+                    ? false
+                    : { opacity: 0, x: direction * 28, scale: 0.985 }
+                }
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={
+                  reduced
+                    ? { opacity: 0 }
+                    : { opacity: 0, x: direction * -18, scale: 0.99 }
+                }
                 transition={{
-                  duration: reduced ? 0 : 0.8,
+                  duration: reduced ? 0 : 0.72,
                   ease: [0.22, 1, 0.36, 1],
                 }}
               >
-                {item.id === "tutor" ? (
+                {tool === "tutor" ? (
                   <TutorPreview onRevise={() => followLearning("cards")} />
-                ) : item.id === "cards" ? (
+                ) : tool === "cards" ? (
                   <FlashcardPreview onPlan={() => followLearning("plan")} />
                 ) : (
                   <StudyPlanPreview />
                 )}
               </m.div>
-            ))}
+            </AnimatePresence>
           </div>
         </div>
         <div className={styles.studioFoot}>

@@ -1,6 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import {
+  AnimatePresence,
+  LazyMotion,
+  domAnimation,
+  useReducedMotion,
+} from "motion/react";
+import * as m from "motion/react-m";
 import { emitSiteEvent } from "@/lib/site-events";
 import { Arrow } from "../Logo";
 import { TuitionEnquiry } from "../TuitionEnquiry";
@@ -12,6 +19,7 @@ const views = ["Progress", "Attendance", "Tutor notes"] as const;
 
 export function ParentPreview() {
   const [view, setView] = useState<(typeof views)[number]>("Progress");
+  const reduced = useReducedMotion();
   return (
     <>
       <div
@@ -65,60 +73,82 @@ export function ParentPreview() {
             ))}
           </div>
           <div id="parent-preview-content" className={styles.dashboardContent}>
-            <h4>
-              {view === "Progress"
-                ? "The learning picture."
-                : view === "Attendance"
-                  ? "Every lesson in view."
-                  : "A conversation with direction."}
-            </h4>
-            {view === "Progress" ? (
-              <>
-                {[
-                  ["Cell structure", "Reviewed"],
-                  ["Diffusion", "Practising"],
-                  ["Exam technique", "Next lesson"],
-                ].map(([topic, status]) => (
-                  <div className={styles.topicRow} key={topic}>
-                    <span>{topic}</span>
-                    <span>{status}</span>
-                  </div>
-                ))}
-                <p className={styles.dashboardNote}>
-                  A topic view would help distinguish what has been covered from
-                  what still needs practice.
-                </p>
-              </>
-            ) : view === "Attendance" ? (
-              <>
-                <div className={styles.attendanceWeek}>
-                  {["MON", "TUE", "WED", "THU", "FRI"].map((day, index) => (
-                    <div key={day}>
-                      <span>{day}</span>
-                      <i aria-hidden="true">
-                        {index === 0 || index === 3 ? "✓" : "—"}
-                      </i>
+            <LazyMotion features={domAnimation} strict>
+              <AnimatePresence initial={false} mode="wait">
+                <m.div
+                  key={view}
+                  initial={reduced ? false : { opacity: 0, y: 13, scale: 0.99 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={reduced ? { opacity: 0 } : { opacity: 0, y: -9 }}
+                  transition={{
+                    duration: reduced ? 0 : 0.62,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  <h4>
+                    {view === "Progress"
+                      ? "The learning picture."
+                      : view === "Attendance"
+                        ? "Every lesson in view."
+                        : "A conversation with direction."}
+                  </h4>
+                  {view === "Progress" ? (
+                    <>
+                      {[
+                        ["Cell structure", "Reviewed"],
+                        ["Diffusion", "Practising"],
+                        ["Exam technique", "Next lesson"],
+                      ].map(([topic, status]) => (
+                        <div className={styles.topicRow} key={topic}>
+                          <span>{topic}</span>
+                          <span>{status}</span>
+                        </div>
+                      ))}
+                      <p className={styles.dashboardNote}>
+                        A topic view would help distinguish what has been
+                        covered from what still needs practice.
+                      </p>
+                    </>
+                  ) : view === "Attendance" ? (
+                    <>
+                      <div className={styles.attendanceWeek}>
+                        {["MON", "TUE", "WED", "THU", "FRI"].map(
+                          (day, index) => (
+                            <div key={day}>
+                              <span>{day}</span>
+                              <i aria-hidden="true">
+                                {index === 0 || index === 3 ? "✓" : "—"}
+                              </i>
+                              <span>
+                                {index === 0 || index === 3
+                                  ? "Attended"
+                                  : "No lesson"}
+                              </span>
+                            </div>
+                          ),
+                        )}
+                      </div>
+                      <p className={styles.dashboardNote}>
+                        This example shows two attended lessons in a sample
+                        week. Actual attendance would come from the centre’s
+                        records.
+                      </p>
+                    </>
+                  ) : (
+                    <div className={styles.tutorNote}>
+                      <p>
+                        “In this sample lesson, the learner explained diffusion
+                        clearly. Next, practise using ‘net movement’ and
+                        ‘concentration gradient’ in an exam answer.”
+                      </p>
                       <span>
-                        {index === 0 || index === 3 ? "Attended" : "No lesson"}
+                        Example feedback / Next step: targeted practice
                       </span>
                     </div>
-                  ))}
-                </div>
-                <p className={styles.dashboardNote}>
-                  This example shows two attended lessons in a sample week.
-                  Actual attendance would come from the centre’s records.
-                </p>
-              </>
-            ) : (
-              <div className={styles.tutorNote}>
-                <p>
-                  “In this sample lesson, the learner explained diffusion
-                  clearly. Next, practise using ‘net movement’ and
-                  ‘concentration gradient’ in an exam answer.”
-                </p>
-                <span>Example feedback / Next step: targeted practice</span>
-              </div>
-            )}
+                  )}
+                </m.div>
+              </AnimatePresence>
+            </LazyMotion>
           </div>
           <p className={styles.dashboardNote}>
             Illustrative preview. Parent accounts and live tracking are planned
