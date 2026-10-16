@@ -1,10 +1,11 @@
 import { useId } from "react";
 import type { PathwayId } from "@/lib/content";
+import { IllustrationMaterials } from "./illustrations/Materials";
 
 /** Original objects in the book's paper, blue enamel and brass palette. */
 export function PathArt({ kind }: { kind: PathwayId }) {
   const id = useId();
-  const blue = `url(#${id}-blue)`,
+  const blue = `url(#${id}-enamel)`,
     paper = `url(#${id}-paper)`;
   return (
     <svg
@@ -13,32 +14,11 @@ export function PathArt({ kind }: { kind: PathwayId }) {
       aria-hidden="true"
       fill="none"
     >
-      <defs>
-        <linearGradient
-          id={`${id}-blue`}
-          x1="35"
-          y1="20"
-          x2="140"
-          y2="125"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stopColor="#5a9df1" />
-          <stop offset=".48" stopColor="#175cdb" />
-          <stop offset="1" stopColor="#123b70" />
-        </linearGradient>
-        <linearGradient
-          id={`${id}-paper`}
-          x1="45"
-          y1="32"
-          x2="130"
-          y2="120"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stopColor="#fffef5" />
-          <stop offset="1" stopColor="#c8dae3" />
-        </linearGradient>
-      </defs>
-      <ellipse cx="91" cy="121" rx="56" ry="8" fill="#193d6812" />
+      <IllustrationMaterials id={id} />
+      <ellipse cx="91" cy="123" rx="65" ry="12" fill={`url(#${id}-ground)`} />
+      <g stroke="#486f8c" strokeWidth=".55" opacity=".32">
+        <path d="M12 30V18h12M156 120h12v-12M12 124h16M152 18h16" />
+      </g>
       {kind === "academic" && (
         <g strokeLinejoin="round">
           <path d="M35 91l48-13 64 20-48 17-64-18Z" fill="#123b70" />
@@ -59,7 +39,7 @@ export function PathArt({ kind }: { kind: PathwayId }) {
             stroke="#698ca9"
             strokeWidth="1.3"
           />
-          <path d="M116 31l17-13 4 5-18 13-7 2Z" fill="#d8b25a" />
+          <path d="M116 31l17-13 4 5-18 13-7 2Z" fill={`url(#${id}-gold)`} />
           <path d="M112 38l4-7 3 5Z" fill="#173b61" />
         </g>
       )}
@@ -77,7 +57,7 @@ export function PathArt({ kind }: { kind: PathwayId }) {
             cx="112"
             cy="38"
             r="23"
-            fill="#f3eddf"
+            fill={paper}
             stroke="#d8b25a"
             strokeWidth="3"
           />
@@ -114,8 +94,8 @@ export function PathArt({ kind }: { kind: PathwayId }) {
             d="M24 54h14m103 25h18M34 102l12-7m88-65 12-8"
             stroke="#759dbb"
           />
-          <circle cx="22" cy="54" r="4" fill="#d8b25a" />
-          <circle cx="161" cy="79" r="4" fill="#d8b25a" />
+          <circle cx="22" cy="54" r="4" fill={`url(#${id}-gold)`} />
+          <circle cx="161" cy="79" r="4" fill={`url(#${id}-gold)`} />
         </g>
       )}
       {kind === "ai" && (
@@ -129,7 +109,7 @@ export function PathArt({ kind }: { kind: PathwayId }) {
             strokeWidth="3"
           />
           <path d="M73 62l17-9 17 9-17 10Z" fill="#175cdb" />
-          <circle cx="90" cy="22" r="7" fill="#d8b25a" />
+          <circle cx="90" cy="22" r="7" fill={`url(#${id}-gold)`} />
           <path
             d="M90 29v15m-29-25 15 16m43-16-15 16"
             stroke="#d8b25a"
@@ -155,7 +135,7 @@ export function PathArt({ kind }: { kind: PathwayId }) {
             stroke="#9cd1f5"
             strokeWidth="2"
           />
-          <circle cx="59" cy="49" r="4" fill="#d8b25a" />
+          <circle cx="59" cy="49" r="4" fill={`url(#${id}-gold)`} />
           <circle
             cx="109"
             cy="27"
@@ -164,7 +144,7 @@ export function PathArt({ kind }: { kind: PathwayId }) {
             stroke="#9cd1f5"
             strokeWidth="2"
           />
-          <circle cx="109" cy="27" r="4" fill="#d8b25a" />
+          <circle cx="109" cy="27" r="4" fill={`url(#${id}-gold)`} />
           <path d="M116 29l25 18-8 12-25-18Z" fill={paper} stroke="#8faec7" />
           <path
             d="M136 53l12 8-3 14-9 5m0-27-7 14-10 2"
@@ -182,7 +162,7 @@ export function PathArt({ kind }: { kind: PathwayId }) {
           <path d="M75 80l61-15" stroke="#91c8f6" />
           <path d="M68 43V32l21-5 13 6v7" stroke="#123b70" strokeWidth="6" />
           <path d="M69 32l20-5 13 6" stroke="#6ca7e8" strokeWidth="2" />
-          <path d="M99 76l12-3v12l-12 3Z" fill="#d8b25a" />
+          <path d="M99 76l12-3v12l-12 3Z" fill={`url(#${id}-gold)`} />
           <path d="M28 90l-8 4m123-65 11-4m-2 62 10 3" stroke="#8faec7" />
         </g>
       )}

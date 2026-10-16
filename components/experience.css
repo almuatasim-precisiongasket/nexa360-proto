@@ -92,7 +92,23 @@
 .cult-folded-card .pathway-artwork .path-art {
   width: min(74%, 265px);
   height: 195px;
-  filter: drop-shadow(0 14px 12px #25446114);
+  filter: none;
+}
+.service-illustration {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.service-illustration > [data-art-enter] {
+  position: absolute;
+  inset: 0;
+}
+.service-illustration [data-art-depth] {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
 }
 .cult-folded-card .path-number {
   font-family: var(--serif);

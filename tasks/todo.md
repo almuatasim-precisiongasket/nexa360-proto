@@ -57,9 +57,14 @@ Refine the six existing service objects to match the tuition pair. Keep the Cult
 folded-paper cards and approved service descriptions, including future-vision notes.
 
 Acceptance criteria:
-- [ ] All six objects use consistent grounding, perspective and colour treatment.
-- [ ] Each artwork transform has one owner; replace its earlier motion deliberately.
-- [ ] Title and Explore buttons still open the correct details with visible focus.
+- [x] All six objects use consistent grounding, perspective and colour treatment.
+- [x] Each artwork transform has one owner; replace its earlier motion deliberately.
+- [x] Title and Explore buttons still open the correct details with visible focus.
+
+Service checks: lint, TypeScript and production build passed. Reviewed desktop
+and 390px bounds for all six objects. Enter opened Academic details, Escape
+closed the dialog, and focus returned to its Explore button. SVG IDs were unique
+across the page, and no console errors were observed.
 
 Verification: lint, typecheck, build; review all six cards, keyboard open/close,
 mobile layout and focus restoration. Inspect pointer cleanup after leaving a card.

@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { pathways, type Pathway } from "@/lib/content";
 import { Arrow } from "./Logo";
-import { PathArt } from "./PathArt";
+import { ServiceIllustration } from "./illustrations/ServiceIllustration";
 import { FoldedCard } from "./ui/folded-card";
 import { emitSiteEvent, onSiteEvent } from "@/lib/site-events";
 import { LazyMotion, domAnimation, useReducedMotion } from "motion/react";
@@ -75,7 +75,7 @@ export function Pathways() {
               aria-hidden="true"
             >
               <span className="artwork-orbit" />
-              <PathArt kind={path.symbol} />
+              <ServiceIllustration kind={path.symbol} />
               <span className="artwork-caption">NEXA360 / 0{i + 1}</span>
             </div>
             <span className="pathway-arrow">

@@ -218,58 +218,6 @@ export function SiteEffects() {
               button.removeEventListener("pointerleave", leave);
             };
           });
-        // React Bits TiltedCard mapping, applied only to decorative art so
-        // the text and clickable row stay steady. GSAP supplies eased motion.
-        const tiltCleanup = gsap.utils
-          .toArray<HTMLElement>(".pathway")
-          .map((row) => {
-            const art = row.querySelector<SVGElement>(".path-art");
-            if (!art) return () => {};
-            const tiltX = gsap.quickTo(art, "rotationX", {
-              duration: 0.65,
-              ease: "power3.out",
-            });
-            const tiltY = gsap.quickTo(art, "rotationY", {
-              duration: 0.65,
-              ease: "power3.out",
-            });
-            const rise = gsap.quickTo(art, "y", {
-              duration: 0.65,
-              ease: "power3.out",
-            });
-            gsap.set(art, {
-              transformPerspective: 650,
-              transformOrigin: "50% 50%",
-            });
-            const tilt = (event: PointerEvent) => {
-              if (event.pointerType !== "mouse") return;
-              const rect = row.getBoundingClientRect();
-              const x = Math.max(
-                -1,
-                Math.min(1, ((event.clientX - rect.left) / rect.width) * 2 - 1),
-              );
-              const y = Math.max(
-                -1,
-                Math.min(1, ((event.clientY - rect.top) / rect.height) * 2 - 1),
-              );
-              tiltX(-y * 8);
-              tiltY(x * 10);
-              rise(-5);
-            };
-            const reset = () => {
-              tiltX(0);
-              tiltY(0);
-              rise(0);
-            };
-            row.addEventListener("pointermove", tilt);
-            row.addEventListener("pointerleave", reset);
-            row.addEventListener("focusout", reset);
-            return () => {
-              row.removeEventListener("pointermove", tilt);
-              row.removeEventListener("pointerleave", reset);
-              row.removeEventListener("focusout", reset);
-            };
-          });
         // Aceternity WobbleCard-inspired counter-motion on decorative layers.
         const wobbleCleanup = gsap.utils
           .toArray<HTMLElement>(".initiative-art")
@@ -343,7 +291,6 @@ export function SiteEffects() {
           window.removeEventListener("blur", hide);
           document.removeEventListener("keydown", keyboard);
           magnetCleanup.forEach((cleanup) => cleanup());
-          tiltCleanup.forEach((cleanup) => cleanup());
           wobbleCleanup.forEach((cleanup) => cleanup());
         };
       },
