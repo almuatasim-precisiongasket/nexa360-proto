@@ -36,6 +36,8 @@ Both servers bind to the local computer by default. Deploy with a Node.js host t
 - `components/BrandIntro.tsx`: home-entry intro, book readiness, bounded fallback, Skip/Escape and replay.
 - `components/book-mobile.css`: phone and landscape book layout, imported after the main stylesheet to preserve its overrides.
 - `components/TextReveal.tsx`, `components/SiteEffects.tsx`: scoped heading reveals and fine-pointer interaction details.
+- `components/motion-primitives/text-effect.tsx`: Motion Primitives word-reveal adaptation with readable server output and reduced-motion support.
+- `components/ui/folded-card.tsx`, `components/experience.css`: Cult UI paper-card adaptation and its NEXA360 styling.
 - `public/assets/nexa-logo.png`: unmodified supplied logo.
 - `dist/`: original static website, retained as a reference.
 

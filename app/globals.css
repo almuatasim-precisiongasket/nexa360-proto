@@ -4,6 +4,7 @@
 @import "tailwindcss/utilities.css" layer(utilities) source(none);
 @import "../components/site.css" layer(legacy);
 @import "../components/book-mobile.css" layer(legacy);
+@import "../components/experience.css" layer(components);
 
 /* Limit generation to the active Next.js app, excluding the archived dist site. */
 @source "./";

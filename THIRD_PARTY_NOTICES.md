@@ -13,13 +13,6 @@ engine. It retains the approved team identities and source photos/monograms.
 
 Source: https://github.com/DavidHDev/react-bits/blob/main/src/ts-default/Components/ProfileCard/ProfileCard.tsx
 
-The section-heading reveal adapts the word-reveal technique from React Bits'
-ScrollReveal component. The adaptation uses semantic heading markup, a scoped
-GSAP context and reduced-motion handling; it does not use the original global
-ScrollTrigger cleanup.
-
-Source: https://github.com/DavidHDev/react-bits/blob/main/src/ts-default/TextAnimations/ScrollReveal/ScrollReveal.tsx
-
 Additional adaptations use BlurText's staggered blur-to-sharp text reveal,
 AnimatedContent's viewport-triggered entrances, and TiltedCard's normalized
 pointer-to-rotation mapping. These are implemented with the existing GSAP
@@ -142,3 +135,49 @@ Local changes replace utility classes with scoped CSS, reuse Motion's LazyMotion
 bundle, use unique SVG IDs and deterministic timing, slow the gradient travel to
 24–34 seconds, stop animations offscreen/hidden, and provide a static reduced
 motion version. The source paths and moving SVG gradient technique are retained.
+
+## Cult UI and Motion Primitives
+
+The six service cards adapt Cult UI's FoldedCard, FoldedCardBorder and
+FoldedCardFold geometry and masked border. Local changes use semantic articles,
+NEXA360 paper colours, unique gradient IDs, a decorative clipping surface that
+preserves keyboard focus outlines, and slow CSS fold movement. Existing approved
+service illustrations and copy are retained.
+
+- https://www.cult-ui.com/docs/components/folded-card
+- https://www.cult-ui.com/r/folded-card.json
+- https://github.com/nolly-studio/cult-ui/blob/main/LICENSE.md
+
+Section headings adapt Motion Primitives' TextEffect word segmentation and
+container/item variants. The local subset uses LazyMotion, once-per-mount
+viewport triggering, slower shared timing, readable server HTML, reduced-motion
+handling and the existing semantic heading labels. It replaces the earlier GSAP
+word-reveal implementation.
+
+- https://motion-primitives.com/docs/text-effect
+- https://github.com/ibelick/motion-primitives/blob/main/components/core/text-effect.tsx
+- https://api.github.com/repos/ibelick/motion-primitives/license
+
+MIT License
+
+Cult UI: Copyright (c) 2023 Jordan-Gilliam
+
+Motion Primitives: Copyright (c) 2024 ibelick
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
