@@ -13,6 +13,9 @@ import { TuitionQuestions } from "./TuitionQuestions";
 import { TuitionScene } from "./TuitionScene";
 import { SectionHandoff } from "./SectionHandoff";
 import { HoldingArt } from "./HoldingArt";
+import { TuitionLead } from "./tuition/TuitionLead";
+import { ProgrammeFinder } from "./tuition/ProgrammeFinder";
+import { LearningExperience } from "./tuition/LearningExperience";
 function SectionLabel({
   number,
   title,
@@ -120,20 +123,11 @@ export function Information() {
         <TracingBeam />
         <SectionLabel
           number="03"
-          title="IGCSE & GCSE TUTORING"
-          note="PERSONAL ATTENTION. STEADY PROGRESS."
+          title="ACADEMIC TUITION"
+          note="BARKING, LONDON + ONLINE"
         />
-        <div className="tuition-heading">
-          <TextReveal
-            lines={["Understanding changes", "everything."]}
-            italicLast
-            effect="blur"
-          />
-          <p>
-            One-to-one, concept-focused tutoring aligned with the syllabus.
-            Guidance that meets your child where they are.
-          </p>
-        </div>
+        <TuitionLead />
+        <ProgrammeFinder />
         <div className="delivery-grid">
           <article className="editorial-reveal delivery-card delivery-card-london">
             <MovingBorder />
@@ -171,26 +165,9 @@ export function Information() {
           </TuitionEnquiry>
         </div>
       </section>
-      <section
-        id="products"
-        className="section holding-section products-section"
-      >
-        <div className="holding-content">
-          <div>
-            <span className="kicker">OUR PRODUCTS</span>
-            <h2>Our products.</h2>
-          </div>
-          <div className="holding-copy">
-            <p>Product information will be added here.</p>
-            <a href="#contact" className="text-link">
-              Ask about our products <Arrow />
-            </a>
-          </div>
-          <HoldingArt kind="products" />
-        </div>
-      </section>
+      <LearningExperience />
       <section id="team" className="section team-section">
-        <SectionHandoff previous="#e7edea" />
+        <SectionHandoff previous="#f5f3eb" />
         <BackgroundBeams className="team-background-beams" />
         <SectionLabel
           number="04"

@@ -1,5 +1,12 @@
 import type { Interest, PathwayId, TuitionFormat } from "./content";
 
+export type ProgrammeEnquiry = {
+  programme: string;
+  subject: string;
+  examBoard: string;
+  format: TuitionFormat | "";
+};
+
 /** Browser-only communication between the book, intro, dialog and enquiry form. */
 type SiteEvents = {
   "nexa:book-ready": void;
@@ -8,6 +15,7 @@ type SiteEvents = {
   "nexa:open-path": PathwayId;
   "nexa:interest": Interest;
   "nexa:tuition": TuitionFormat | "";
+  "nexa:programme": ProgrammeEnquiry;
 };
 
 export function emitSiteEvent<Name extends keyof SiteEvents>(

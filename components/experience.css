@@ -1,4 +1,24 @@
 /* Cult UI folded-paper surfaces, adapted to the Book of Becoming palette. */
+.inquiry-programme-summary {
+  margin-block: 20px 24px;
+  padding: 18px;
+  border: 1px solid #70c8ff40;
+  background: #15304d;
+}
+.inquiry-programme-summary p {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.inquiry-programme-summary button {
+  min-height: 44px;
+  padding: 10px 0 0;
+  background: transparent;
+  color: #b8dfff;
+  font-size: 10px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
 .tuition-scene.illustration-scene {
   height: auto;
   aspect-ratio: 3 / 2;

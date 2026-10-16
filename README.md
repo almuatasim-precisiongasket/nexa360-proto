@@ -32,6 +32,7 @@ Both servers bind to the local computer by default. Deploy with a Node.js host t
 - `lib/content.ts`: approved chapter and pathway copy.
 - `lib/media.ts`, `lib/site-events.ts`: shared responsive settings and typed browser event contracts.
 - `components/Information.tsx`: editorial sections, tuition details, collaboration and footer.
+- `components/tuition/`: v4 tuition introduction, programme enquiry finder, connected learning-tool demonstration and parent dashboard preview, with scoped CSS.
 - `components/Pathways.tsx`, `components/Inquiry.tsx`: native details dialog and inquiry drafts.
 - `components/BrandIntro.tsx`: home-entry intro, book readiness, bounded fallback, Skip/Escape and replay.
 - `components/book-mobile.css`: phone and landscape book layout, imported after the main stylesheet to preserve its overrides.
@@ -58,6 +59,13 @@ Tests exercise reversible story state, stable reading positions, paper geometry 
 ## Inquiry behavior
 
 The form prepares a draft that visitors can review, copy or download. It has no message delivery backend and never reports a message as sent. Form data is not stored by this application. AI and robotics are clearly identified as future educational visions.
+
+The programme finder carries the requested qualification, subject, exam board and
+lesson format into the enquiry without replacing the visitor's message. Course
+coverage and availability are confirmed by the team. The AI learning companion
+and parent dashboard are labelled concept previews with authored examples and
+fictional sample data; they do not call a model API or save learner progress.
+See [the v4 experience notes](docs/v4-learning-experience.md).
 
 ## Research and licensing
 

@@ -12,12 +12,17 @@ const questions = [
   {
     question: "Which qualifications do you support?",
     answer:
-      "Our academic tuition includes IGCSE and GCSE support, with concept-focused lessons aligned to the syllabus. Tell us the subjects and learning goals you would like to discuss.",
+      "Our academic tuition includes IGCSE and GCSE support. You can also enquire about A Level pathways and entrance preparation, including 7+, 8+, 9+, 10+, 11+, 13+ and Pre-Tests. We will confirm subjects, exam-board support and current availability with you.",
   },
   {
     question: "How will I hear about progress?",
     answer:
       "Progress is tracked against agreed targets, with weekly progress reports and a face-to-face parent meeting every month.",
+  },
+  {
+    question: "Can I use the AI tools and parent dashboard now?",
+    answer:
+      "The learning companion and parent dashboard shown here are interactive concept previews. The sample explanations, revision cards and progress information illustrate our plans; they are not a live AI tutor or student account. Enquire about platform availability and current tuition support.",
   },
   {
     question: "What happens when I make an enquiry?",

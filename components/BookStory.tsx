@@ -294,8 +294,8 @@ export function BookStory() {
               <Arrow />
             </a>
             {chapter === 0 && (
-              <a className="story-secondary" href="#about">
-                Explore NEXA360 <span aria-hidden="true">↓</span>
+              <a className="story-secondary" href="#tuition">
+                Tuition & learning tools <span aria-hidden="true">↗</span>
               </a>
             )}
           </div>

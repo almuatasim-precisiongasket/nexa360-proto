@@ -1,18 +1,20 @@
 "use client";
 import { Arrow } from "./Logo";
 import type { TuitionFormat } from "@/lib/content";
-import { emitSiteEvent } from "@/lib/site-events";
+import { emitSiteEvent, type ProgrammeEnquiry } from "@/lib/site-events";
 
 export function TuitionEnquiry({
   format,
   children,
   className = "text-link",
   interactive = false,
+  programme,
 }: {
   format?: TuitionFormat;
   children: React.ReactNode;
   className?: string;
   interactive?: boolean;
+  programme?: ProgrammeEnquiry;
 }) {
   return (
     <a
@@ -20,7 +22,8 @@ export function TuitionEnquiry({
       className={`${className}${interactive ? " magic-hover-button" : ""}`}
       data-focus-target="inquiry-name"
       onClick={() => {
-        emitSiteEvent("nexa:tuition", format ?? "");
+        if (programme) emitSiteEvent("nexa:programme", programme);
+        else emitSiteEvent("nexa:tuition", format ?? "");
         if (matchMedia("(prefers-reduced-motion: reduce)").matches)
           requestAnimationFrame(() =>
             document

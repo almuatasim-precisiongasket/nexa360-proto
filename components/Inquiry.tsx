@@ -8,7 +8,7 @@ import {
   type Interest,
   type TuitionFormat,
 } from "@/lib/content";
-import { onSiteEvent } from "@/lib/site-events";
+import { onSiteEvent, type ProgrammeEnquiry } from "@/lib/site-events";
 import { Arrow } from "./Logo";
 import { LazyMotion, domAnimation, useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
@@ -16,6 +16,7 @@ export function Inquiry() {
   const reduced = useReducedMotion();
   const [interest, setInterest] = useState<Interest | "">("");
   const [tuitionFormat, setTuitionFormat] = useState<TuitionFormat | "">("");
+  const [programme, setProgramme] = useState<ProgrammeEnquiry | null>(null);
   const [message, setMessage] = useState("");
   const [draft, setDraft] = useState("");
   const [status, setStatus] = useState("");
@@ -53,6 +54,7 @@ export function Inquiry() {
     const unsubscribeInterest = onSiteEvent("nexa:interest", (value) => {
       if (isInterest(value)) {
         setInterest(value);
+        if (value !== "Academic tuition") setProgramme(null);
         clearDraft();
       }
     });
@@ -61,9 +63,16 @@ export function Inquiry() {
       setTuitionFormat(isTuitionFormat(format) ? format : "");
       clearDraft();
     });
+    const unsubscribeProgramme = onSiteEvent("nexa:programme", (selection) => {
+      setInterest("Academic tuition");
+      setTuitionFormat(selection.format);
+      setProgramme(selection);
+      clearDraft();
+    });
     return () => {
       unsubscribeInterest();
       unsubscribeTuition();
+      unsubscribeProgramme();
     };
   }, []);
   function prepare(event: FormEvent<HTMLFormElement>) {
@@ -77,8 +86,21 @@ export function Inquiry() {
     );
     if (!form.reportValidity()) return;
     const values = new FormData(form);
+    const learningDetails =
+      interest === "Academic tuition"
+        ? [
+            `Preferred lesson format: ${tuitionFormat || "Please advise me"}`,
+            ...(programme
+              ? [
+                  `Programme: ${programme.programme}`,
+                  `Subject: ${programme.subject || "Please advise me"}`,
+                  `Exam board / school: ${programme.examBoard || "Please advise me"}`,
+                ]
+              : []),
+          ].join("\n")
+        : "";
     setDraft(
-      `NEXA360 — Inquiry\n\nName: ${String(values.get("name")).trim()}\nEmail: ${String(values.get("email")).trim()}\nArea of interest: ${interest}${interest === "Academic tuition" ? `\nPreferred lesson format: ${tuitionFormat || "Please advise me"}` : ""}\n\n${message.trim()}\n\nPlease share the current options, availability and next steps.`,
+      `NEXA360 — Inquiry\n\nName: ${String(values.get("name")).trim()}\nEmail: ${String(values.get("email")).trim()}\nArea of interest: ${interest}${learningDetails ? `\n${learningDetails}` : ""}\n\n${message.trim()}\n\nPlease share the current options, availability and next steps.`,
     );
     setStatus("");
   }
@@ -146,9 +168,10 @@ export function Inquiry() {
           name="interest"
           value={interest}
           required
-          onChange={(e) =>
-            setInterest(isInterest(e.target.value) ? e.target.value : "")
-          }
+          onChange={(e) => {
+            setInterest(isInterest(e.target.value) ? e.target.value : "");
+            if (e.target.value !== "Academic tuition") setProgramme(null);
+          }}
         >
           <option value="">Choose your next chapter</option>
           {interests.map((value) => (
@@ -157,6 +180,30 @@ export function Inquiry() {
         </select>
         {interest === "Academic tuition" && (
           <>
+            {programme && (
+              <div className="inquiry-programme-summary">
+                <span className="kicker">YOUR PROGRAMME ENQUIRY</span>
+                <p>
+                  {[programme.programme, programme.subject, programme.examBoard]
+                    .filter(Boolean)
+                    .join(" · ")}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setProgramme(null);
+                    clearDraft();
+                    requestAnimationFrame(() =>
+                      document
+                        .getElementById("inquiry-format")
+                        ?.focus({ preventScroll: true }),
+                    );
+                  }}
+                >
+                  Remove programme selection
+                </button>
+              </div>
+            )}
             <label htmlFor="inquiry-format">Preferred lesson format</label>
             <select
               id="inquiry-format"
