@@ -268,16 +268,16 @@ function P2LExample() {
     </div>
   );
 }
-export function Products() {
+export function Products({ embedded = false }: { embedded?: boolean }) {
   return (
     <section
-      id="products"
+      id={embedded ? "products-detail" : "products"}
       className={`section ${s.section} ${s.products}`}
       tabIndex={-1}
     >
       <span id="learning-tools" className={s.anchor} />
       <div className={s.inner}>
-        <Label number="05" note="EDUCATIONAL TECHNOLOGY / IN DEVELOPMENT">
+        <Label number="09" note="EDUCATIONAL TECHNOLOGY / IN DEVELOPMENT">
           THE PRODUCT THEATRE
         </Label>
         <SectionHead

@@ -43,24 +43,24 @@ export function Opening() {
     </section>
   );
 }
-export function About() {
+export function About({ sectionId = "about" }: { sectionId?: string }) {
   return (
     <section
-      id="about"
+      id={sectionId}
       className={`section ${s.section} ${s.about}`}
       tabIndex={-1}
     >
       <div className={s.inner}>
-        <Label number="01" note="ONE AMBITION. A WIDER HORIZON.">
-          THE NEXA360 STORY
+        <Label number="05" note="ONE AMBITION. A WIDER HORIZON.">
+          ABOUT NEXA360
         </Label>
         <div className={`${s.aboutGrid} v5-reveal`}>
           <div>
             <span className={s.eyebrow}>A CONNECTED EDUCATION COMPANY</span>
             <h2>
-              Learning has
+              About
               <br />
-              <em>no borders.</em>
+              <em>NEXA360.</em>
             </h2>
           </div>
           <div className={s.aboutCopy}>
@@ -163,10 +163,14 @@ export function About() {
     </section>
   );
 }
-export function Projects() {
+export function Projects({
+  sectionId = "initiatives",
+}: {
+  sectionId?: string;
+}) {
   return (
     <section
-      id="initiatives"
+      id={sectionId}
       className={`section ${s.section} ${s.projects}`}
       tabIndex={-1}
     >
@@ -252,10 +256,10 @@ const people = [
   { name: "Madan A", role: "Co-Founder/MD (India)", image: "image15.png" },
   { name: "Shifa Ussudoor", role: "HR Manager", initials: "SU" },
 ];
-export function People() {
+export function People({ sectionId = "team" }: { sectionId?: string }) {
   return (
     <section
-      id="team"
+      id={sectionId}
       className={`section ${s.section} ${s.people}`}
       tabIndex={-1}
     >
@@ -329,10 +333,10 @@ export function People() {
     </section>
   );
 }
-export function Events() {
+export function Events({ sectionId = "events" }: { sectionId?: string }) {
   return (
     <section
-      id="events"
+      id={sectionId}
       className={`section ${s.section} ${s.events}`}
       tabIndex={-1}
     >

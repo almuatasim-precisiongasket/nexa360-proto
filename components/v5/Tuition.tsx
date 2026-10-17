@@ -75,6 +75,7 @@ export function Tuition() {
   const [delivery, setDelivery] = useState("Barking Riverside"),
     [tutor, setTutor] = useState("UK-based"),
     [format, setFormat] = useState("1:1");
+  const [reportView, setReportView] = useState(0);
   return (
     <section
       id="tuition"
@@ -82,12 +83,14 @@ export function Tuition() {
       tabIndex={-1}
     >
       <div className={s.paper}>
-        <Label number="04" note="BARKING RIVERSIDE, LONDON · ONLINE">
-          A SPACE TO GROW
+        <Label number="01" note="BARKING RIVERSIDE, LONDON · ONLINE">
+          GCSE & SCHOOL LEARNING
         </Label>
         <div className={`${s.tuitionGrid} v5-reveal`}>
           <div>
-            <span className={s.eyebrow}>FOR STUDENTS & PARENTS</span>
+            <span className={s.eyebrow}>
+              SCHOOL SUBJECT SUPPORT / FOR STUDENTS & PARENTS
+            </span>
             <h2>
               GCSE tuition
               <br />
@@ -153,7 +156,7 @@ export function Tuition() {
                 format,
               }}
             >
-              Request a free tuition consultation
+              Book a GCSE consultation
             </ConsultLink>
             <p className={s.footnote}>
               International tutors are selected from India. Premium tutors may
@@ -181,7 +184,29 @@ export function Tuition() {
               <strong>NEXA / Session report</strong>
               <span>ILLUSTRATIVE SAMPLE</span>
             </div>
-            <div className={s.reportRows}>
+            <div
+              className={s.reportTabs}
+              role="group"
+              aria-label="Explore a sample progress report"
+            >
+              {["Lesson feedback", "Homework & next steps"].map((item, i) => (
+                <button
+                  type="button"
+                  key={item}
+                  aria-pressed={reportView === i}
+                  onClick={() => setReportView(i)}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+            <motion.div
+              key={reportView}
+              className={s.reportRows}
+              initial={{ opacity: 0.5 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.2 }}
+            >
               {[
                 ["TOPIC COVERED", "Solving linear equations"],
                 ["UNDERSTANDING", "Explains each step with support"],
@@ -192,13 +217,15 @@ export function Tuition() {
                   "TUTOR RECOMMENDATION",
                   "Revisit checking answers by substitution",
                 ],
-              ].map(([label, text]) => (
-                <div key={label}>
-                  <small>{label}</small>
-                  <p>{text}</p>
-                </div>
-              ))}
-            </div>
+              ]
+                .filter((_, i) => (reportView === 0 ? i < 3 : i >= 3))
+                .map(([label, text]) => (
+                  <div key={label}>
+                    <small>{label}</small>
+                    <p>{text}</p>
+                  </div>
+                ))}
+            </motion.div>
             <div className={s.reportProgress} aria-hidden="true">
               <i />
             </div>

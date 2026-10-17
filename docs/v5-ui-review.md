@@ -3,7 +3,41 @@
 Date: 17 October 2026. Branch: `v5`.
 Local preview: http://127.0.0.1:3002/
 
-## Editorial redesign
+## Current revision: service clarity and navigation (18 October)
+
+The user found the previous page confusing. This revision supersedes the earlier
+opening/order below; it keeps the blue motion language while putting services first.
+
+| Problem | Current implementation |
+| --- | --- |
+| First visit does not explain what NEXA360 offers | Two illustrated routes: GCSE tuition and technology skills, with audience, delivery and subject context |
+| School learning blends into technology training | Warm paper GCSE chapter; pale blue five-course studio; separate dark organisational chapter |
+| Navigation uses broad company labels | GCSE Tuition, Skills Courses, For Organisations, About, persistent Book Consultation |
+| Finding a starting point requires browsing the whole page | Three-way audience finder with a direct recommended destination |
+| Consultation calls to action lose context | GCSE preferences/course/institution selection prefill the relevant request; switching service clears incompatible preferences |
+| Motion feels decorative | Five small interactive subject samples, selectable report views, audience briefs and responsive selection feedback |
+| Too many equal-weight chapters compete | Services and consultation first; company information grouped into four tabs; product concepts and the preserved book open on demand |
+| Intro depends on book readiness | Public entry renders immediately; original book runtime only mounts after opening it |
+
+The interactive examples are illustrative website samples, not live AI or a
+claim about final curriculum. Existing assets and book physics are unchanged.
+The source-driven parent portal and products remain labelled as planned/in
+development. Narrow phone layouts use compact stacked service routes with readable
+copy rather than squeezing the two cards into tiny columns.
+
+Global entrance effects exclude the dynamically replaced company/product panels;
+those use local Motion feedback. This avoids triggers attached to removed panels.
+The booking destination remains a requested business input: draft preparation is
+still explicitly local and no appointment or sent confirmation is fabricated.
+
+Current checks: TypeScript and the production webpack build passed; full ESLint
+has zero errors/warnings. Generated HTML has no duplicate IDs, missing local link
+targets or missing expected service anchors; CSS module references resolve. The
+refreshed local preview returns HTTP 200 with the new gateway, course sample and
+consultation markup. Logo and desk artwork requests succeeded. No new tests were
+added or run for this revision. Real visual/touch review remains open below.
+
+## Earlier editorial redesign
 
 The user selected **Bold editorial with cinematic blue visuals** for the second
 design pass. This was applied across the active experience:

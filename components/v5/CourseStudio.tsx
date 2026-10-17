@@ -12,6 +12,7 @@ import { PathArt } from "../PathArt";
 import { onSiteEvent } from "@/lib/site-events";
 import { ConsultLink, Label, SectionHead } from "./Shared";
 import { VisualField } from "./VisualField";
+import { LearningLab } from "./LearningLab";
 import s from "./v5.module.css";
 
 function NewCourseArt({ kind }: { kind: "game" | "ml" }) {
@@ -218,19 +219,19 @@ export function CourseStudio() {
       tabIndex={-1}
     >
       <div className={s.inner}>
-        <Label number="03" note="FIVE WAYS TO BUILD WHAT’S NEXT">
-          THE TECHNICAL STUDIO
+        <Label number="02" note="PRACTICAL TECHNOLOGY / FIVE SUBJECTS">
+          TECHNOLOGY & SKILLS COURSES
         </Label>
         <SectionHead
-          label="PRACTICAL SKILLS. REAL CURIOSITY."
+          label="SKILLS LEARNING / FOR INDIVIDUALS & GROUPS"
           title={
             <>
-              Don’t just learn.
+              Choose a skill.
               <br />
-              <em>Build.</em>
+              <em>Build something real.</em>
             </>
           }
-          copy="Choose a subject. Discover what you could make. Our programmes connect important ideas with guided practical learning."
+          copy="Choose one of five subjects, explore the programme and try a short interactive example. Our courses connect important ideas with guided practical learning."
         />
         <div className={`${s.studio} v5-reveal`}>
           <div className={s.courseIndex}>
@@ -269,8 +270,11 @@ export function CourseStudio() {
                         programme: item.name,
                       }}
                     >
-                      Enquire about this programme
+                      Book a skills consultation
                     </ConsultLink>
+                    <a href="#course-lab" className={s.courseTry}>
+                      Try this subject’s interactive sample ↓
+                    </a>
                   </div>
                 )}
               </article>
@@ -294,6 +298,7 @@ export function CourseStudio() {
             </div>
           </div>
         </div>
+        <LearningLab key={course.id} course={course.id} />
         <p className={s.footnote}>
           Programmes are enquiry-led. Course levels, projects, schedules and
           fees are confirmed in your proposal.

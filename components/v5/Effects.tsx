@@ -64,6 +64,7 @@ export function Effects() {
     );
     media.add("(prefers-reduced-motion: no-preference)", () => {
       gsap.utils.toArray<HTMLElement>(".v5-reveal").forEach((el) => {
+        if (el.closest("[data-v5-dynamic]")) return;
         gsap.from(el, {
           opacity: 0.35,
           y: 22,
@@ -74,6 +75,7 @@ export function Effects() {
         });
       });
       gsap.utils.toArray<HTMLElement>(".v5-headline").forEach((el) => {
+        if (el.closest("[data-v5-dynamic]")) return;
         gsap.from(el, {
           yPercent: 14,
           opacity: 0.65,
@@ -84,6 +86,7 @@ export function Effects() {
         });
       });
       gsap.utils.toArray<SVGPathElement>(".v5-draw path").forEach((path) => {
+        if (path.closest("[data-v5-dynamic]")) return;
         const length = path.getTotalLength();
         gsap.fromTo(
           path,
@@ -97,6 +100,7 @@ export function Effects() {
         );
       });
       gsap.utils.toArray<HTMLElement>(".v5-handoff").forEach((seam) => {
+        if (seam.closest("[data-v5-dynamic]")) return;
         const beam = seam.querySelector("i"),
           svg = seam.querySelector("svg"),
           stroke = seam.querySelector(".v5-optical-stroke");
@@ -141,6 +145,7 @@ export function Effects() {
       () => {
         const clean = gsap.utils
           .toArray<HTMLElement>("[data-v5-tilt]")
+          .filter((el) => !el.closest("[data-v5-dynamic]"))
           .map((el) => {
             gsap.set(el, { transformPerspective: 1000 });
             const x = gsap.quickTo(el, "rotationX", {

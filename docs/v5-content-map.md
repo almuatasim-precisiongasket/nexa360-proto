@@ -6,19 +6,19 @@ Primary source: the supplied Website Content & Business Requirements attachment
 
 | Source section | Public implementation | Publication decisions |
 | --- | --- | --- |
-| 1 Company | Opening and About | Official tagline, institutional emphasis, concise purpose and values |
+| 1 Company | Service gateway and About company tab | Official tagline, clear service routes, concise purpose and values |
 | 2 International operations | About market diagram and list | UK operating centre; four target online expansion markets, no invented offices |
-| 3 Business model | Institutions, course studio and GCSE | Institutional route leads; individual learning remains directly reachable |
+| 3 Business model | GCSE, course studio and Institutions | School learning and technology skills are distinct; organisations have a dedicated header route |
 | 4 Academic tuition | Warm GCSE preferences | Delivery, tutor and proposed group preferences; no invented rates or subject inventory |
 | 5 Technical courses | Five-entry course studio | All five programmes; intended project outcomes; conditional details in disclosures |
 | 6 Institutional programmes | Audience brief, signal network and process | Four audiences, configurable programme conversation and five development stages |
 | 7 Consultations | Shared contextual contact form | Free consultation and conditional introductory-session wording; local draft truthfully labelled |
-| 8 Projects | India CSR and Crescent College | Supplied facts only; documentation gaps visible without invented outcomes |
-| 9 Products | Two interactive product showcases | In development; prepared examples, no live AI/generation claim or unsupported first/cost claim |
-| 10 Events | Cobalt events bulletin | Planned topics/formats; no fake dates, countdown or registration |
-| 11 Leadership/partners | People and collaboration gallery | Five previously approved team identities retained; Saleh/Mahib technical roles; unsupported employer endorsements omitted |
+| 8 Projects | Projects company tab: India CSR and Crescent College | Supplied facts only; documentation gaps visible without invented outcomes |
+| 9 Products | Two product showcases, opened on demand | In development; prepared examples, no live AI/generation claim or unsupported first/cost claim |
+| 10 Events | Events company tab | Planned topics/formats; no fake dates, countdown or registration |
+| 11 Leadership/partners | Meet the team company tab | Five previously approved team identities retained; Saleh/Mahib technical roles; unsupported employer endorsements omitted |
 | 12 Parent/tutor portal | Sample student-specific report within GCSE | Planned portal preview; secure operational accounts remain later scope |
-| 13 Contact | Institution/Individual form and footer | Known location; no fabricated phone, email, registration number or office address |
+| 13 Contact | Three-route consultation form and footer | Known location; no fabricated phone, email, registration number or office address |
 | 14 Pending content | This map and implementation notes | Missing biographies, dates, course specs and contact details remain pending |
 | 15 Operations | Planned later systems in tasks | No implication that draft preparation creates a CRM record, booking or student account |
 
@@ -40,14 +40,27 @@ Primary source: the supplied Website Content & Business Requirements attachment
 - Existing `PathArt` reused for Cybersecurity, AI and Robotics.
 - New original SVG Game/ML illustrations; no downloaded stock work.
 - Existing learning-desk SVG and Rive runtime/asset reused for GCSE.
-- Existing slow `AmbientField` ribbon shader retained for Institutions and Contact.
+- Existing slow `AmbientField` ribbon shader retained for Gateway, Institutions and Contact.
 - New local WebGL network and data-field stage, capped resolution and 30fps,
   with static SVG content, visibility pause and context-loss behaviour.
 - GSAP handles section entrances, map route drawing and two bounded handoffs.
 - Motion handles selection feedback, stage entrances and transcript changes.
 - Products have user-started nine-second prepared examples with pause/reset/replay.
   Playback stops when offscreen/hidden and its timer is removed when complete.
-- People receive restrained fine-pointer tilt. Phone layouts use natural scroll.
+- Company tabs use local content transitions; the five course samples respond to visitor input.
+- The original book is available on demand, with its existing interactions intact.
+- Phone service sections use natural scroll.
+
+## Public reading order (18 October revision)
+
+1. Service gateway: school tuition, skills courses, audience route finder.
+2. GCSE tuition: delivery/tutor/group preferences and sample parent report.
+3. Technology skills: five subjects, course artwork, interactive subject samples.
+4. Organisations: tailored programme audiences and process.
+5. Book consultation: service choice and contextual request.
+6. Company hub: About, Projects, Team, Events.
+7. Product concepts and original 3D book: optional expanded experiences.
+8. Footer: direct service links and consultation.
 
 ## Implementation boundaries
 

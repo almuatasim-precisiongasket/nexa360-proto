@@ -884,3 +884,26 @@ and registration; subject list and tutor/delivery availability; programme levels
 duration/curricula; named leader bios/portraits; collaborator agreements; project
 photos/details; event dates and registration destination. These inputs do not
 block the visual build of known content. Do not invent them to close a task.
+
+## 12. Service architecture revision — 18 October 2026
+
+This section supersedes the previous opening/reading order in response to the
+user's report that the site feels random and the two learning offers are unclear.
+
+The public journey is now: service gateway → GCSE tuition → technology skills →
+organisational programmes → consultation → company hub → optional products/book.
+The main header names the service destinations directly. School tuition uses warm
+paper; technology learning uses pale blue with a cobalt section boundary;
+organisations use dark cinematic blue and the preferred moving wave.
+
+Interactive work is tied to decisions: audience route finder, GCSE preferences,
+report tabs, five course samples, institutional brief selection and a contextual
+consultation request. Product demos remain clearly separate from courses and
+labelled as in development. Company/project/team/event content is retained in a
+secondary tabbed hub. The preserved book mounts only when opened, so first visit
+has no dependency on its readiness.
+
+No business contact destination is invented. Actual scheduling/enquiry delivery
+awaits the requested email/link; the existing local draft path is clearly labelled.
+No asset files or book physics are changed. Real browser/device visual review is
+still open because browser navigation/observation was blocked in this session.

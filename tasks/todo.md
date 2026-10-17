@@ -465,3 +465,20 @@ previews or silently removed from the supplied business requirements.
 - [ ] Parent history, homework/recommendations and supported notifications.
 - [ ] Admin missing reports, permissions, audit records and children's-data launch controls.
 - [ ] Confirmed regional programme/pricing records and final legal/contact details.
+
+## V5.17 — Service architecture revision (18 October 2026)
+
+Latest user feedback supersedes the previous opening and section order. First-time
+visitors must identify school tuition, technology skills and organisational
+programmes without navigating a 3D story or interpreting abstract headings.
+
+- [x] Service-led gateway with two illustrated routes and a three-way audience finder.
+- [x] Header labels name GCSE tuition, skills courses and organisations explicitly.
+- [x] Warm GCSE, pale blue skills and dark organisational chapters are distinct.
+- [x] Consultation routes preserve relevant service preferences and clear incompatible values.
+- [x] Five interactive subject samples and two sample report views add useful interaction.
+- [x] Company information is grouped; product concepts and original book open on demand.
+- [x] Original assets and book physics are preserved; no new scroll capture added to service sections.
+- [x] TypeScript, full lint and production compilation completed for the revision.
+- [ ] Desktop/phone visual and touch inspection, currently blocked by browser URL policy.
+- [ ] Connect actual consultation scheduling or delivery after the business supplies its destination.

@@ -3124,3 +3124,1167 @@
     display: none;
   }
 }
+
+/* Service architecture: two visible learning routes, followed by a distinct B2B route. */
+.gateway {
+  background: #081c32;
+  position: relative;
+  isolation: isolate;
+  padding: 135px 6% 55px;
+  overflow: clip;
+  color: #eef6ff;
+}
+.gatewayIntro {
+  display: grid;
+  grid-template-columns: 1.35fr 0.7fr;
+  gap: 10%;
+  align-items: end;
+  margin-bottom: 38px;
+}
+.gateway h1 {
+  font: 500 clamp(42px, 4.7vw, 68px) / 1.05 var(--sans);
+  letter-spacing: -0.05em;
+  margin: 0;
+}
+.gateway h1 em {
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  color: #9dc6f6;
+}
+.gatewayIntro > p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #afc5dc;
+  max-width: 38ch;
+  margin: 0 0 3px;
+}
+.routeCards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+.routeCards article {
+  position: relative;
+  min-height: 460px;
+  padding: 32px 34px 55px;
+  overflow: hidden;
+  border-radius: 5px;
+  isolation: isolate;
+}
+.academicRoute {
+  background: #f5f0e6;
+  color: #163750;
+  border: 1px solid #ece3d1;
+}
+.skillsRoute {
+  background: #123a69;
+  color: #f2f7ff;
+  border: 1px solid #6fa3e94d;
+}
+.routeCopy {
+  position: relative;
+  z-index: 2;
+  max-width: 66%;
+}
+.routeNumber {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.13em;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.routeCards h2 {
+  font: 500 clamp(43px, 4.3vw, 65px) / 0.98 var(--sans);
+  letter-spacing: -0.05em;
+  margin: 0 0 20px;
+}
+.routeCards h2 em {
+  font-family: var(--serif);
+  font-weight: 400;
+}
+.routeCards p {
+  font-size: 14px;
+  line-height: 1.65;
+  max-width: 25ch;
+  margin: 0 0 15px;
+}
+.routeCards ul {
+  list-style: none;
+  margin: 0 0 25px;
+  padding: 0;
+  font-size: 11px;
+  line-height: 1.8;
+  max-width: 30ch;
+}
+.routeCards li:before {
+  content: "+";
+  margin-right: 7px;
+  opacity: 0.5;
+}
+.routeCards .cta {
+  font-size: 11px;
+  gap: 18px;
+  padding-left: 16px;
+  min-height: 48px;
+}
+.routeDesk,
+.routeRobot {
+  position: absolute;
+  z-index: 1;
+  right: -30px;
+  bottom: 85px;
+  width: 50%;
+  pointer-events: none;
+}
+.routeDesk img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 20px 15px #6d58471c);
+}
+.routeRobot {
+  right: -20px;
+  bottom: 95px;
+  width: 48%;
+}
+.routeRobot :global(.path-art) {
+  width: 100%;
+  height: 260px;
+  opacity: 1;
+  filter: drop-shadow(0 20px 15px #0003);
+}
+.routeCaption {
+  position: absolute;
+  bottom: 20px;
+  left: 34px;
+  right: 34px;
+  padding-top: 13px;
+  border-top: 1px solid currentColor;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  opacity: 0.55;
+}
+.routeFinder {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6%;
+  padding: 28px 0;
+  margin-top: 25px;
+  border-block: 1px solid #a7c5e62e;
+  align-items: center;
+}
+.routeFinder h3 {
+  font-size: 21px;
+  font-weight: 400;
+  margin: 0 0 15px;
+  letter-spacing: -0.03em;
+}
+.routeFinder .eyebrow {
+  font-size: 9px;
+  color: #8faac7;
+  margin-bottom: 10px;
+}
+.finderTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.finderTabs button {
+  position: relative;
+  isolation: isolate;
+  background: transparent;
+  border: 1px solid #8eb4d43d;
+  border-radius: 3px;
+  color: #b8cde1;
+  padding: 10px 12px;
+  font: 400 11px var(--sans);
+  cursor: pointer;
+}
+.finderTabs button[aria-pressed="true"] {
+  color: #13375b;
+  border-color: transparent;
+}
+.finderTabs button > span:first-child:not(:last-child) {
+  position: absolute;
+  inset: 0;
+  background: #eef6ff;
+  border-radius: 2px;
+  z-index: -1;
+}
+.finderAnswer h4 {
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  margin: 0 0 7px;
+}
+.finderAnswer p {
+  font-size: 12px;
+  color: #9db8d3;
+  line-height: 1.6;
+  margin: 0 0 9px;
+  max-width: 50ch;
+}
+.finderAnswer a {
+  font-size: 11px;
+  color: #c7e3ff;
+  border-bottom: 1px solid #8fb5dc6b;
+  padding-bottom: 3px;
+}
+.gatewayBottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  margin-top: 25px;
+}
+.gatewayBottom > span {
+  font-size: 9px;
+  letter-spacing: 0.11em;
+  color: #8ca9c6;
+}
+.gatewayBottom .cta {
+  font-size: 11px;
+  min-height: 45px;
+}
+.gateway button:focus-visible,
+.gateway a:focus-visible {
+  outline: 2px solid #90c5ff;
+  outline-offset: 5px;
+}
+.tuition {
+  padding-top: 35px;
+  padding-bottom: 35px;
+}
+.tuition .label {
+  color: #6a624f;
+}
+.technical {
+  background: #e9f1f8;
+  border-top: 8px solid #1b64c7;
+}
+.technical .heading {
+  grid-template-columns: 1.1fr 0.7fr;
+  gap: 0 9%;
+}
+.technical .heading h2 {
+  font-size: clamp(47px, 4.7vw, 67px);
+  line-height: 1.06;
+}
+.institutions {
+  border-top: 1px solid #4d83b950;
+}
+.institutions .serviceLinks {
+  margin-bottom: 50px;
+}
+.institutionGrid h2 {
+  font-size: clamp(48px, 5vw, 70px);
+}
+.contact h2 {
+  font-size: clamp(45px, 5vw, 70px);
+}
+.bookingRoutes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 9px;
+  margin-bottom: 28px;
+}
+.bookingRoutes button {
+  position: relative;
+  background: #fff;
+  border: 1px solid #cbd9e5;
+  border-radius: 3px;
+  padding: 15px 38px 15px 17px;
+  text-align: left;
+  color: #1e4264;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+.bookingRoutes strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+}
+.bookingRoutes small {
+  display: block;
+  font-size: 10px;
+  color: #7b91a5;
+  margin-top: 4px;
+}
+.bookingRoutes button > span {
+  position: absolute;
+  right: 16px;
+  top: 15px;
+  font-size: 20px;
+  color: #8ba9c5;
+}
+.bookingRoutes button[aria-pressed="true"] {
+  border-color: #175cdb;
+  background: #e5effb;
+  box-shadow: inset 3px 0 #175cdb;
+}
+.bookingHint {
+  font-size: 13px !important;
+  color: #6c8296;
+  margin: 25px 0 5px !important;
+}
+.learningLab {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: 7%;
+  padding: 30px;
+  margin-top: 40px;
+  background: #f7fafc;
+  border: 1px solid #cbdce9;
+  border-radius: 4px;
+}
+.labIntro h3 {
+  font-size: 26px;
+}
+.labIntro p {
+  font-size: 12px;
+  margin-bottom: 0;
+  color: #6b8297;
+}
+.labIntro .eyebrow {
+  font-size: 9px;
+  color: #175cdb;
+}
+.labPlayground {
+  min-width: 0;
+}
+.courseTry {
+  display: block;
+  width: fit-content;
+  margin-top: 16px;
+  font-size: 12px;
+  color: #175cdb;
+  border-bottom: 1px solid #175cdb55;
+  padding-bottom: 4px;
+}
+.labPrompt {
+  font-size: 13px !important;
+  font-weight: 500;
+}
+.riskOptions {
+  display: grid;
+  gap: 7px;
+}
+.riskOptions button {
+  display: flex;
+  align-items: start;
+  gap: 10px;
+  background: white;
+  border: 1px solid #d1dfeb;
+  color: #4d6a84;
+  text-align: left;
+  font-size: 11px;
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 2px;
+  line-height: 1.5;
+}
+.riskOptions button[aria-pressed="true"] {
+  background: #e5eff9;
+  border-color: #2267b5;
+  color: #13385d;
+}
+.riskOptions button > span {
+  font-size: 9px;
+  opacity: 0.6;
+}
+.labFeedback {
+  font-size: 11px !important;
+  color: #6b8398;
+  line-height: 1.6 !important;
+  margin: 15px 0 0 !important;
+  min-height: 35px;
+}
+.agentFlow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+}
+.agentFlow button {
+  padding: 13px 9px;
+  background: white;
+  border: 1px solid #cbdce9;
+  color: #5e7a93;
+  border-radius: 3px;
+  font-size: 11px;
+  cursor: pointer;
+}
+.agentFlow button[aria-pressed="true"] {
+  background: #173f72;
+  color: white;
+  border-color: #173f72;
+}
+.agentResult {
+  padding: 25px;
+  background: #e7f0f8;
+  border-left: 2px solid #175cdb;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #284e70;
+  margin-top: 15px;
+  min-height: 110px;
+}
+.robotTrack {
+  height: 130px;
+  position: relative;
+  border: 1px solid #d8e3ed;
+  background: repeating-linear-gradient(
+    90deg,
+    #f8fafc 0,
+    #f8fafc 23px,
+    #dfe8ef 24px,
+    #f8fafc 25px
+  );
+  overflow: hidden;
+  padding: 20px;
+}
+.robotTrack > span {
+  position: absolute;
+  bottom: 10px;
+  font-size: 8px;
+  color: #6c8ca6;
+}
+.robotTrack > span:last-child {
+  right: 15px;
+}
+.miniRobot {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  font-size: 45px;
+  color: #2465a7;
+  width: 55px;
+  height: 55px;
+  line-height: 1;
+}
+.miniRobot i {
+  position: absolute;
+  bottom: 0;
+  left: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #173b60;
+}
+.miniRobot i:last-child {
+  left: 31px;
+}
+.labActions {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 13px;
+}
+.labActions button {
+  padding: 10px 12px;
+  border: 1px solid #b9cfe2;
+  background: white;
+  color: #215685;
+  font-size: 11px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.gameTrack {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  padding: 25px 15px;
+  background: #e5edf6;
+  border: 1px solid #ceddeb;
+}
+.gameTrack > div {
+  height: 45px;
+  border: 1px solid #c0d3e6;
+  background: #f7faff;
+  display: grid;
+  place-items: center;
+  position: relative;
+  color: #aec3d6;
+}
+.gameTrack > div[data-goal="true"] {
+  color: #b3934f;
+  background: #faf3e6;
+  border-color: #d3c095;
+}
+.gameTrack span {
+  display: grid;
+  place-items: center;
+  background: #175cdb;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  box-shadow: 0 5px 10px #175cdb26;
+}
+.classificationPlot {
+  height: 125px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #ccdce9;
+  background: #fffaf0;
+}
+.classificationPlot > span {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #bf9b4b;
+  transform: translate(-50%, -50%);
+}
+.classificationPlot > span[data-group="a"] {
+  background: #175cdb;
+}
+.plotBoundary {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #173d6d;
+  z-index: 1;
+}
+.plotRegion {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: #e4effb;
+}
+.thresholdLabel {
+  display: block;
+  margin: 12px 0 7px;
+  font-size: 11px;
+  color: #416583;
+}
+.labPlayground input[type="range"] {
+  width: 100%;
+  accent-color: #175cdb;
+  cursor: ew-resize;
+}
+.optionalSection,
+.optionalBook {
+  background: #edf2f7;
+  color: #193b59;
+  padding: 35px 6%;
+  border-top: 1px solid #ccdce8;
+}
+.optionalHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 35px;
+  align-items: center;
+}
+.optionalHeader h2 {
+  font: 400 30px/1.15 var(--sans);
+  letter-spacing: -0.035em;
+  margin: 0 0 10px;
+}
+.optionalHeader p {
+  font-size: 13px;
+  line-height: 1.7;
+  max-width: 62ch;
+  margin: 0;
+  color: #70889d;
+}
+.optionalHeader .eyebrow {
+  font-size: 9px;
+  color: #6b839c;
+  margin-bottom: 12px;
+}
+.optionalHeader button {
+  background: #fff;
+  border: 1px solid #b5cbe0;
+  color: #214e77;
+  padding: 14px 18px;
+  font-size: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 3px;
+}
+.optionalSection:has(.products),
+.optionalBook:has(:global(.book-story)) {
+  padding-bottom: 0;
+}
+.optionalSection > .inner,
+.optionalBook > .inner {
+  padding-bottom: 15px;
+}
+.optionalSection > .inner + div,
+.optionalBook > .inner + div {
+  margin-top: 20px;
+}
+.optionalSection:has(.products) {
+  padding-inline: 0;
+}
+.optionalSection:has(.products) > .inner {
+  width: 88%;
+}
+.optionalBook:has(:global(.book-story)) {
+  padding-inline: 0;
+}
+.optionalBook:has(:global(.book-story)) > .inner {
+  width: 88%;
+}
+.optionalLoading {
+  padding: 40px 6%;
+  font-size: 13px;
+  color: #7e9cb7;
+  background: #081c32;
+  margin: 20px 0 0;
+}
+@media (hover: hover) and (pointer: fine) {
+  .bookingRoutes button:hover {
+    border-color: #175cdb;
+  }
+  .labActions button:hover,
+  .agentFlow button:hover,
+  .riskOptions button:hover {
+    border-color: #175cdb;
+  }
+  .optionalHeader button:hover {
+    background: #dfebf7;
+  }
+}
+@media (max-width: 1100px) and (min-width: 761px) {
+  .gateway {
+    padding-top: 125px;
+  }
+  .gatewayIntro {
+    gap: 6%;
+    grid-template-columns: 1.25fr 0.75fr;
+  }
+  .gateway h1 {
+    font-size: 50px;
+  }
+  .routeCards article {
+    padding-inline: 25px;
+    min-height: 470px;
+  }
+  .routeCards h2 {
+    font-size: 53px;
+  }
+  .routeDesk {
+    width: 48%;
+    right: -25px;
+    bottom: 100px;
+  }
+  .routeRobot {
+    right: -25px;
+    bottom: 130px;
+  }
+  .routeCopy {
+    max-width: 75%;
+  }
+  .routeCards p {
+    font-size: 13px;
+    max-width: 23ch;
+  }
+  .routeCards ul {
+    font-size: 10px;
+    max-width: 26ch;
+  }
+  .routeCaption {
+    left: 25px;
+    right: 25px;
+  }
+  .learningLab {
+    gap: 5%;
+    padding: 25px;
+  }
+}
+@media (max-width: 760px) {
+  .gateway {
+    padding: 112px 6% 35px;
+  }
+  .gatewayIntro {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+  .gateway h1 {
+    font-size: clamp(39px, 9.8vw, 62px);
+    line-height: 1.08;
+  }
+  .gatewayIntro .eyebrow {
+    font-size: 8px;
+  }
+  .gatewayIntro > p {
+    font-size: 14px;
+    max-width: 39ch;
+  }
+  .routeCards {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .routeCards article {
+    min-height: 385px;
+    padding: 25px 24px 50px;
+  }
+  .routeCards h2 {
+    font-size: 53px;
+  }
+  .routeCopy {
+    max-width: 72%;
+  }
+  .routeCards p {
+    font-size: 13px;
+    max-width: 22ch;
+  }
+  .routeCards ul {
+    font-size: 10px;
+    max-width: 25ch;
+    margin-bottom: 20px;
+  }
+  .routeCards .cta {
+    font-size: 11px;
+    gap: 12px;
+    min-height: 46px;
+  }
+  .routeDesk {
+    right: -24px;
+    bottom: 105px;
+    width: 48%;
+  }
+  .routeRobot {
+    right: -28px;
+    bottom: 120px;
+    width: 45%;
+  }
+  .routeRobot :global(.path-art) {
+    height: 190px;
+  }
+  .routeCaption {
+    left: 24px;
+    right: 24px;
+    font-size: 7px;
+    bottom: 16px;
+  }
+  .routeNumber {
+    font-size: 8px;
+    margin-bottom: 16px;
+  }
+  .routeFinder {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding-block: 24px;
+  }
+  .routeFinder h3 {
+    font-size: 20px;
+  }
+  .finderTabs {
+    gap: 6px;
+  }
+  .finderTabs button {
+    font-size: 10px;
+    padding: 10px;
+  }
+  .finderAnswer p {
+    font-size: 12px;
+  }
+  .gatewayBottom {
+    align-items: start;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .gatewayBottom > span {
+    font-size: 8px;
+  }
+  .tuition {
+    padding-block: 20px;
+  }
+  .technical .heading {
+    display: block;
+  }
+  .technical .heading h2 {
+    font-size: clamp(42px, 10.5vw, 65px);
+    max-width: 14ch;
+  }
+  .institutionGrid h2 {
+    font-size: clamp(43px, 10vw, 62px);
+  }
+  .learningLab {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 23px 18px;
+    margin-top: 25px;
+  }
+  .labIntro h3 {
+    font-size: 25px;
+  }
+  .labFeedback {
+    font-size: 11px !important;
+  }
+  .agentFlow button {
+    font-size: 10px;
+    padding: 12px 7px;
+  }
+  .agentResult {
+    font-size: 13px;
+    padding: 18px;
+  }
+  .gameTrack {
+    gap: 3px;
+    padding: 20px 8px;
+  }
+  .gameTrack > div {
+    height: 36px;
+  }
+  .gameTrack span {
+    width: 24px;
+    height: 24px;
+  }
+  .robotTrack {
+    height: 125px;
+  }
+  .bookingRoutes button {
+    padding: 15px;
+  }
+  .bookingRoutes strong {
+    font-size: 13px;
+  }
+  .bookingRoutes small {
+    font-size: 10px;
+  }
+  .optionalSection,
+  .optionalBook {
+    padding: 30px 6%;
+  }
+  .optionalHeader {
+    align-items: start;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .optionalHeader h2 {
+    font-size: 27px;
+  }
+  .optionalHeader p {
+    font-size: 12px;
+  }
+  .optionalHeader button {
+    font-size: 11px;
+  }
+  .optionalBook :global(.story-stage) {
+    min-height: 550px;
+  }
+}
+@media (max-width: 370px) {
+  .gateway h1 {
+    font-size: 36px;
+  }
+  .routeCards article {
+    padding-inline: 18px;
+  }
+  .routeCards h2 {
+    font-size: 47px;
+  }
+  .routeCopy {
+    max-width: 78%;
+  }
+  .routeDesk {
+    right: -35px;
+    width: 47%;
+    bottom: 130px;
+    opacity: 0.85;
+  }
+  .routeRobot {
+    right: -35px;
+    width: 43%;
+  }
+  .routeCards .cta {
+    gap: 8px;
+    font-size: 10px;
+    padding-left: 12px;
+  }
+  .routeCards ul {
+    font-size: 9px;
+  }
+  .routeCaption {
+    left: 18px;
+    right: 18px;
+  }
+  .finderTabs button {
+    font-size: 9px;
+  }
+  .miniRobot {
+    left: 15px;
+  }
+  .labActions button {
+    font-size: 10px;
+    padding: 10px;
+  }
+}
+
+.companyHub {
+  position: relative;
+  padding: 45px 0 0;
+  background: #f7f9fc;
+  color: #193c5b;
+  scroll-margin-top: 24px;
+}
+.companyNav {
+  max-width: 1320px;
+  margin: auto;
+  padding: 0 6% 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  border-bottom: 1px solid #ccdae7;
+}
+.companyNav h2 {
+  font: 400 28px/1.2 var(--sans);
+  letter-spacing: -0.035em;
+  margin: 0;
+}
+.companyNav .eyebrow {
+  font-size: 9px;
+  color: #7890a5;
+  margin-bottom: 13px;
+}
+.companyTabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.companyTabs button {
+  border: 1px solid #c6d7e5;
+  background: transparent;
+  padding: 12px 17px;
+  color: #55738e;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.companyTabs button[aria-pressed="true"] {
+  background: #173e70;
+  color: white;
+  border-color: #173e70;
+}
+.companyHub :global(.section) {
+  padding-block: 65px;
+}
+.companyHub .label {
+  margin-bottom: 40px;
+}
+.companyHub .about h2 {
+  font-size: 64px;
+}
+.reportTabs {
+  display: flex;
+  gap: 6px;
+  padding-top: 18px;
+  flex-wrap: wrap;
+}
+.reportTabs button {
+  background: transparent;
+  border: 1px solid #d4c9b7;
+  color: #7c705b;
+  padding: 9px 12px;
+  font-size: 10px;
+  cursor: pointer;
+}
+.reportTabs button[aria-pressed="true"] {
+  background: #eee5d5;
+  color: #665332;
+  border-color: #bbaa89;
+}
+.reportRows {
+  min-height: 150px;
+}
+@media (max-width: 760px) {
+  .routeCards {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .routeCards article {
+    min-height: 405px;
+    padding: 20px 14px 65px;
+  }
+  .routeCopy {
+    max-width: 100%;
+    position: static;
+  }
+  .routeNumber {
+    font-size: 7px;
+    letter-spacing: 0.07em;
+    position: relative;
+    z-index: 2;
+  }
+  .routeCards h2 {
+    font-size: 40px;
+    position: relative;
+    z-index: 2;
+  }
+  .routeCards p {
+    font-size: 11px;
+    max-width: none;
+    position: relative;
+    z-index: 2;
+  }
+  .routeCards ul {
+    display: none;
+  }
+  .routeCards .cta {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 45px;
+    font-size: 9px;
+    gap: 7px;
+    padding: 9px;
+    justify-content: space-between;
+  }
+  .routeCards .cta span {
+    width: 21px;
+    height: 24px;
+    font-size: 17px;
+    padding-left: 7px;
+  }
+  .routeDesk {
+    width: 110%;
+    right: -10%;
+    bottom: 95px;
+    opacity: 1;
+  }
+  .routeRobot {
+    width: 100%;
+    right: -8%;
+    bottom: 100px;
+  }
+  .routeRobot :global(.path-art) {
+    height: 130px;
+  }
+  .routeCaption {
+    left: 14px;
+    right: 14px;
+    bottom: 12px;
+    font-size: 6px;
+    letter-spacing: 0.07em;
+    line-height: 1.5;
+  }
+  .gatewayIntro > p {
+    max-width: none;
+  }
+  .companyNav {
+    padding-inline: 6%;
+    gap: 20px;
+  }
+  .companyNav h2 {
+    font-size: 25px;
+  }
+  .companyTabs {
+    gap: 6px;
+  }
+  .companyTabs button {
+    font-size: 10px;
+    padding: 10px 12px;
+  }
+  .companyHub :global(.section) {
+    padding-block: 45px;
+  }
+  .companyHub .about h2 {
+    font-size: 50px;
+  }
+  .reportRows {
+    min-height: 165px;
+  }
+  .reportTabs button {
+    font-size: 9px;
+    padding: 9px;
+  }
+}
+@media (max-width: 370px) {
+  .routeCards article {
+    padding-inline: 12px;
+    min-height: 390px;
+  }
+  .routeCards h2 {
+    font-size: 34px;
+  }
+  .routeCards .cta {
+    left: 10px;
+    right: 10px;
+    padding: 9px 7px;
+    font-size: 8px;
+  }
+  .routeNumber {
+    font-size: 6px;
+  }
+  .routeCards p {
+    font-size: 10px;
+  }
+  .routeCaption {
+    left: 12px;
+    right: 12px;
+  }
+  .routeDesk {
+    bottom: 105px;
+  }
+  .routeRobot {
+    bottom: 105px;
+  }
+}
+/* Narrow screens use compact horizontal routes instead of tiny two-column copy. */
+@media (max-width: 519px) {
+  .routeCards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .routeCards article {
+    min-height: 292px;
+    padding: 22px 20px 82px;
+  }
+  .routeCopy {
+    max-width: 67%;
+  }
+  .routeNumber {
+    font-size: 8px;
+    margin-bottom: 13px;
+  }
+  .routeCards h2 {
+    font-size: 36px;
+    margin-bottom: 13px;
+  }
+  .routeCards p {
+    font-size: 12px;
+    margin-bottom: 0;
+  }
+  .routeCards .cta {
+    left: 20px;
+    right: auto;
+    bottom: 43px;
+    font-size: 11px;
+    padding: 9px 12px;
+    gap: 14px;
+    min-height: 40px;
+  }
+  .routeDesk {
+    width: 43%;
+    right: -15px;
+    bottom: 81px;
+  }
+  .routeRobot {
+    width: 42%;
+    right: -13px;
+    bottom: 75px;
+  }
+  .routeRobot :global(.path-art) {
+    height: 140px;
+  }
+  .routeCaption {
+    left: 20px;
+    right: 20px;
+    font-size: 7px;
+  }
+  .gateway .eyebrow {
+    font-size: 9px;
+  }
+  .finderTabs button {
+    font-size: 11px;
+  }
+  .companyTabs button {
+    font-size: 11px;
+  }
+}

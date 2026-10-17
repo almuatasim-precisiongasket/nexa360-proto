@@ -8,18 +8,18 @@ import {
   useReducedMotion,
 } from "motion/react";
 import * as m from "motion/react-m";
+import { requestConsultation } from "@/lib/business-content";
 const links = [
+  ["tuition", "GCSE Tuition"],
+  ["technical", "Skills Courses"],
+  ["pathways", "For Organisations"],
   ["about", "About"],
-  ["pathways", "Our Services"],
-  ["products", "Our Products"],
-  ["initiatives", "Our Projects"],
-  ["events", "Events"],
 ];
 const sectionGroups: Record<string, string> = {
-  tuition: "pathways",
-  technical: "pathways",
   team: "about",
-  collaboration: "initiatives",
+  collaboration: "pathways",
+  initiatives: "about",
+  events: "about",
 };
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -35,7 +35,7 @@ export function Header() {
     const sections = [
       ...document.querySelectorAll<HTMLElement>("main>.section"),
     ];
-    const about = document.getElementById("about");
+    const learning = document.getElementById("tuition");
     const update = () => {
       setScrolled(window.scrollY > 35);
       let current = "";
@@ -44,9 +44,10 @@ export function Header() {
         if (r.top < innerHeight * 0.35 && r.bottom > 0) current = section.id;
       });
       setActive(sectionGroups[current] ?? current);
-      // The book has its own chapter control; this line follows the content below.
-      if (about) {
-        const start = about.getBoundingClientRect().top + window.scrollY - 80;
+      // The reading indicator follows the service sections, after the route finder.
+      if (learning) {
+        const start =
+          learning.getBoundingClientRect().top + window.scrollY - 80;
         const end = document.documentElement.scrollHeight - innerHeight;
         readingProgress.set(
           Math.min(
@@ -131,7 +132,7 @@ export function Header() {
                   className="nav-motion-line"
                   layoutId="active-section-line"
                   transition={{
-                    duration: reduced ? 0 : 1,
+                    duration: reduced ? 0 : 0.25,
                     ease: [0.22, 1, 0.36, 1],
                   }}
                   aria-hidden="true"
@@ -144,9 +145,12 @@ export function Header() {
           href="#contact"
           className="header-contact spotlight-surface react-border-glow"
           aria-current={active === "contact" ? "location" : undefined}
-          onClick={() => setOpen(false)}
+          onClick={() => {
+            setOpen(false);
+            requestConsultation({ category: "", audience: "Individual" });
+          }}
         >
-          Contact Us <Arrow />
+          Book Consultation <Arrow />
         </a>
         <button
           ref={toggle}

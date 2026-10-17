@@ -68,13 +68,15 @@
   font-size: 11px;
   display: flex;
   align-items: center;
-  gap: 35px;
-  border: 1px solid #142b4533;
+  gap: 22px;
+  background: #175cdb;
+  color: #fff;
+  border: 1px solid #175cdb;
   padding: 9px 16px;
   min-height: 42px;
 }
 .header-contact:hover {
-  background: #175cdb08;
+  background: #124daF;
 }
 .header-contact .arrow {
   font-size: 21px;
@@ -1712,9 +1714,9 @@
     width: 125px;
   }
   .header-contact {
-    font-size: 9px;
-    gap: 15px;
-    min-height: 36px;
+    font-size: 10px;
+    gap: 12px;
+    min-height: 40px;
     padding: 7px 12px;
   }
   .header-contact .arrow {
@@ -2326,12 +2328,12 @@
     gap: 8px;
   }
   .header-contact {
-    font-size: 8px;
-    gap: 10px;
+    font-size: 10px;
+    gap: 8px;
     padding: 7px 9px;
   }
   .site-header .brand-logo {
-    width: 110px;
+    width: 92px;
   }
   .story-secondary {
     font-size: 7px;
@@ -4021,8 +4023,9 @@
   outline-color: var(--blue);
 }
 .header-contact[aria-current="location"] {
-  color: var(--blue);
-  border-color: #175cdb66;
+  color: #fff;
+  background: #104aaf;
+  border-color: #104aaf;
 }
 @media (max-width: 600px) {
   .holding-section {

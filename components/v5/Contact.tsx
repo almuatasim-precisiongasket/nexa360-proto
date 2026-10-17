@@ -20,16 +20,39 @@ const categories = [
 ];
 export function Contact() {
   const [audience, setAudience] = useState<"Institution" | "Individual">(
-    "Institution",
+    "Individual",
   );
   const [values, setValues] = useState<Record<string, string>>({
-    category: "Institutional programme",
+    category: "",
     country: "United Kingdom",
   });
   const [draft, setDraft] = useState(""),
     [copyStatus, setCopyStatus] = useState("");
   const [download, setDownload] = useState("");
+  function chooseCategory(category: string) {
+    setAudience(
+      category === "Institutional programme" ? "Institution" : "Individual",
+    );
+    setValues((old) => ({
+      ...old,
+      category,
+      programme: category === "GCSE tuition" ? "GCSE" : "",
+      delivery: "",
+      tutor: "",
+      format: "",
+      subject: "",
+      level: "",
+      participants: "",
+      schedule: "",
+    }));
+    setDraft("");
+    setCopyStatus("");
+  }
   const set = (key: string, value: string) => {
+    if (key === "category") {
+      chooseCategory(value);
+      return;
+    }
     setValues((old) => ({ ...old, [key]: value }));
     setDraft("");
     setCopyStatus("");
@@ -39,6 +62,18 @@ export function Contact() {
       if (context.audience) setAudience(context.audience);
       setValues((old) => ({
         ...old,
+        ...(context.category !== undefined
+          ? {
+              programme: "",
+              delivery: "",
+              tutor: "",
+              format: "",
+              subject: "",
+              level: "",
+              participants: "",
+              schedule: "",
+            }
+          : {}),
         ...Object.fromEntries(
           Object.entries(context).filter(
             ([key, value]) => key !== "audience" && typeof value === "string",
@@ -102,7 +137,7 @@ export function Contact() {
     setDownload(url);
     return () => URL.revokeObjectURL(url);
   }, [draft]);
-  const category = values.category || "General enquiry";
+  const category = values.category || "";
   const short = ["Product partnership", "Events", "General enquiry"].includes(
     category,
   );
@@ -208,23 +243,21 @@ export function Contact() {
     >
       <AmbientField />
       <div className={s.inner}>
-        <Label number="09" note="LET’S START WITH A CONVERSATION">
-          CONTACT NEXA360
+        <Label number="04" note="FREE INITIAL CONSULTATION">
+          BOOK A CONSULTATION
         </Label>
         <div className={s.contactGrid}>
           <div className="v5-reveal">
-            <span className={s.eyebrow}>YOUR NEXT STEP</span>
+            <span className={s.eyebrow}>LET’S FIND THE RIGHT FIT</span>
             <h2>
-              What would you
+              Book a free
               <br />
-              like to make
-              <br />
-              <em>possible?</em>
+              <em>consultation.</em>
             </h2>
             <p>
-              A school exploring robotics. A parent looking for GCSE support. An
-              organisation ready to build new skills. Tell us what you have in
-              mind.
+              Choose GCSE tuition, a skills course or a programme for your
+              organisation. We’ll discuss your goals, explain the options and
+              confirm availability and fees.
             </p>
             <div className={s.contactNote}>
               <strong>Start with a free consultation.</strong>
@@ -240,157 +273,204 @@ export function Contact() {
             </div>
           </div>
           <form className={s.form} onSubmit={prepare}>
+            <span className={s.eyebrow}>
+              01 / WHAT WOULD YOU LIKE HELP WITH?
+            </span>
             <div
-              className={s.formTabs}
+              className={s.bookingRoutes}
               role="group"
-              aria-label="Who is enquiring?"
+              aria-label="Choose your consultation service"
             >
-              {(["Institution", "Individual"] as const).map((x) => (
+              {[
+                {
+                  category: "GCSE tuition",
+                  label: "GCSE tuition",
+                  note: "For students & parents",
+                },
+                {
+                  category: "Technical courses",
+                  label: "Skills courses",
+                  note: "For individual learners",
+                },
+                {
+                  category: "Institutional programme",
+                  label: "For organisations",
+                  note: "For schools, universities & businesses",
+                },
+              ].map((item) => (
                 <button
-                  key={x}
+                  key={item.category}
                   type="button"
-                  aria-pressed={audience === x}
-                  onClick={() => {
-                    setAudience(x);
-                    setDraft("");
-                  }}
+                  aria-pressed={category === item.category}
+                  onClick={() => chooseCategory(item.category)}
                 >
-                  {x === "Institution"
-                    ? "An organisation"
-                    : "A student or parent"}
+                  <strong>{item.label}</strong>
+                  <small>{item.note}</small>
+                  <span aria-hidden="true">↗</span>
                 </button>
               ))}
             </div>
-            <div className={s.fields}>
-              {select("category", "Enquiry category", categories, true, true)}
-              {input("name", "Contact name", "text", true)}
-              {input("email", "Email", "email", true)}
-              {select("country", "Country", [...markets, "Other"], true)}
-              {input("phone", "Phone (optional)", "tel")}
-              {audience === "Institution" &&
-                input("organisation", "Organisation name", "text", true, true)}
-              {!short && (
-                <>
-                  {audience === "Institution" &&
-                    select("organisationType", "Organisation type", [
-                      "School",
-                      "University or college",
-                      "Business",
-                      "CSR or community organisation",
-                      "Other",
-                    ])}
-                  {tuition
-                    ? input(
-                        "subject",
-                        "Subject requirements",
-                        "text",
-                        false,
-                        audience === "Individual",
-                      )
-                    : select(
-                        "programme",
-                        "Programme of interest",
-                        courses.map((x) => x.name),
-                      )}
-                  {input("level", "Participant / student education level")}
-                  {audience === "Institution" &&
-                    input("participants", "Expected participants", "number")}
+            {!category && (
+              <p className={s.bookingHint}>
+                Select an option to see the relevant consultation questions.
+              </p>
+            )}
+            {category && (
+              <>
+                <span className={s.eyebrow}>
+                  02 / YOUR CONSULTATION REQUEST
+                </span>
+                <div className={s.fields}>
                   {select(
-                    "delivery",
-                    "Preferred delivery",
-                    tuition
-                      ? ["Barking Riverside", "Online"]
-                      : [
-                          "Online",
-                          "In person — discuss location",
-                          "Hybrid — discuss availability",
-                        ],
-                  )}
-                  {tuition && (
-                    <>
-                      {select("tutor", "Preferred tutor category", [
-                        "International",
-                        "UK-based",
-                        "Premium",
-                      ])}
-                      {select("format", "Preferred session format", [
-                        "1:1",
-                        "Small group · 1:5",
-                        "Larger group · 1:20",
-                      ])}
-                    </>
-                  )}
-                  {input(
-                    "schedule",
-                    audience === "Institution"
-                      ? "Proposed dates / schedule"
-                      : "Preferred schedule",
-                    "text",
-                    false,
+                    "category",
+                    "Enquiry category",
+                    categories,
+                    true,
                     true,
                   )}
-                </>
-              )}
-              {short &&
-                input(
-                  "programme",
-                  category === "Product partnership"
-                    ? "Product / partnership interest"
-                    : "Topic of interest",
-                  "text",
-                  false,
-                  true,
-                )}
-              <div className={`${s.field} ${s.wide}`}>
-                <label htmlFor="v5-message">
-                  Tell us about your requirements *
-                </label>
-                <textarea
-                  id="v5-message"
-                  name="Requirements"
-                  value={values.message || ""}
-                  onChange={(e) => set("message", e.target.value)}
-                  required
-                  maxLength={4000}
-                  rows={4}
-                  placeholder="Your goals, questions or anything we should know."
-                />
-              </div>
-            </div>
-            <div className={s.formSummary} aria-live="polite">
-              <span>YOUR CONVERSATION</span>
-              <p>
-                {audience} · {category}
-                {values.programme ? ` · ${values.programme}` : ""}
-                {!short && values.delivery ? ` · ${values.delivery}` : ""}
-              </p>
-            </div>
-            <p className={s.formNotice}>
-              This prepares an enquiry on your device. It is not sent or stored
-              by this website. You can copy or download it to share with
-              NEXA360.
-            </p>
-            <button type="submit" className={s.cta}>
-              Prepare consultation enquiry <span aria-hidden="true">↗</span>
-            </button>
-            {draft && (
-              <div className={s.draft} aria-live="polite">
-                <strong>Your enquiry is ready. It has not been sent.</strong>
-                <pre>{draft}</pre>
-                <div className={s.draftActions}>
-                  <button type="button" onClick={copy}>
-                    Copy enquiry
-                  </button>
-                  {download && (
-                    <a href={download} download="NEXA360-consultation.txt">
-                      Download enquiry ↗
-                    </a>
+                  {input("name", "Contact name", "text", true)}
+                  {input("email", "Email", "email", true)}
+                  {select("country", "Country", [...markets, "Other"], true)}
+                  {input("phone", "Phone (optional)", "tel")}
+                  {audience === "Institution" &&
+                    input(
+                      "organisation",
+                      "Organisation name",
+                      "text",
+                      true,
+                      true,
+                    )}
+                  {!short && (
+                    <>
+                      {audience === "Institution" &&
+                        select("organisationType", "Organisation type", [
+                          "School",
+                          "University or college",
+                          "Business",
+                          "CSR or community organisation",
+                          "Other",
+                        ])}
+                      {tuition
+                        ? input(
+                            "subject",
+                            "Subject requirements",
+                            "text",
+                            false,
+                            audience === "Individual",
+                          )
+                        : select(
+                            "programme",
+                            "Programme of interest",
+                            courses.map((x) => x.name),
+                          )}
+                      {input("level", "Participant / student education level")}
+                      {audience === "Institution" &&
+                        input(
+                          "participants",
+                          "Expected participants",
+                          "number",
+                        )}
+                      {select(
+                        "delivery",
+                        "Preferred delivery",
+                        tuition
+                          ? ["Barking Riverside", "Online"]
+                          : [
+                              "Online",
+                              "In person — discuss location",
+                              "Hybrid — discuss availability",
+                            ],
+                      )}
+                      {tuition && (
+                        <>
+                          {select("tutor", "Preferred tutor category", [
+                            "International",
+                            "UK-based",
+                            "Premium",
+                          ])}
+                          {select("format", "Preferred session format", [
+                            "1:1",
+                            "Small group · 1:5",
+                            "Larger group · 1:20",
+                          ])}
+                        </>
+                      )}
+                      {input(
+                        "schedule",
+                        audience === "Institution"
+                          ? "Proposed dates / schedule"
+                          : "Preferred schedule",
+                        "text",
+                        false,
+                        true,
+                      )}
+                    </>
                   )}
+                  {short &&
+                    input(
+                      "programme",
+                      category === "Product partnership"
+                        ? "Product / partnership interest"
+                        : "Topic of interest",
+                      "text",
+                      false,
+                      true,
+                    )}
+                  <div className={`${s.field} ${s.wide}`}>
+                    <label htmlFor="v5-message">
+                      Tell us about your requirements *
+                    </label>
+                    <textarea
+                      id="v5-message"
+                      name="Requirements"
+                      value={values.message || ""}
+                      onChange={(e) => set("message", e.target.value)}
+                      required
+                      maxLength={4000}
+                      rows={4}
+                      placeholder="Your goals, questions or anything we should know."
+                    />
+                  </div>
                 </div>
-                <span className={s.copyStatus} role="status">
-                  {copyStatus}
-                </span>
-              </div>
+                <div className={s.formSummary} aria-live="polite">
+                  <span>YOUR CONVERSATION</span>
+                  <p>
+                    {audience} · {category}
+                    {values.programme ? ` · ${values.programme}` : ""}
+                    {!short && values.delivery ? ` · ${values.delivery}` : ""}
+                  </p>
+                </div>
+                <p className={s.formNotice}>
+                  This prepares an enquiry on your device. It is not sent or
+                  stored by this website. You can copy or download it to share
+                  with NEXA360.
+                </p>
+                <button type="submit" className={s.cta}>
+                  Prepare consultation enquiry{" "}
+                  <span aria-hidden="true">↗</span>
+                </button>
+                {draft && (
+                  <div className={s.draft} aria-live="polite">
+                    <strong>
+                      Your enquiry is ready. It has not been sent.
+                    </strong>
+                    <pre>{draft}</pre>
+                    <div className={s.draftActions}>
+                      <button type="button" onClick={copy}>
+                        Copy enquiry
+                      </button>
+                      {download && (
+                        <a href={download} download="NEXA360-consultation.txt">
+                          Download enquiry ↗
+                        </a>
+                      )}
+                    </div>
+                    <span className={s.copyStatus} role="status">
+                      {copyStatus}
+                    </span>
+                  </div>
+                )}
+              </>
             )}
           </form>
         </div>

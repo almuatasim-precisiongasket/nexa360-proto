@@ -18,21 +18,21 @@ export function Institutions() {
     >
       <AmbientField />
       <div className={s.inner}>
-        <Label number="02" note="DESIGNED AROUND YOUR PEOPLE">
-          INSTITUTIONAL PROGRAMMES
+        <Label number="03" note="SCHOOLS · UNIVERSITIES · BUSINESSES · CSR">
+          PROGRAMMES FOR ORGANISATIONS
         </Label>
         <div className={s.serviceLinks}>
-          <a href="#pathways">Institutions</a>
-          <a href="#technical">Technical courses ↗</a>
+          <a href="#pathways">For organisations</a>
+          <a href="#technical">Skills courses ↗</a>
           <a href="#tuition">GCSE tuition ↗</a>
         </div>
         <div className={`${s.institutionGrid} v5-reveal`}>
           <div>
             <span className={s.eyebrow}>LEARNING, AT A LARGER SCALE</span>
             <h2>
-              Technical learning.
+              Training for
               <br />
-              <em>Collective possibility.</em>
+              <em>your organisation.</em>
             </h2>
             <p className={s.lead}>
               Expertise meets your ambition. Programmes shaped around your
@@ -46,7 +46,7 @@ export function Institutions() {
                 organisationType: a.name,
               }}
             >
-              Request a consultation
+              Book an institutional consultation
             </ConsultLink>
             <p className={s.footnote}>
               Free initial consultation · Custom programme proposals
