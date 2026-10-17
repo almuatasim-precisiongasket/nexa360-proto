@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { ConsultLink, Label } from "./Shared";
+import { ParentPortalPreview } from "./ParentPortalPreview";
 import s from "./v5.module.css";
 const RiveDesk = dynamic(() => import("../tuition/RiveLearningDesk"), {
   ssr: false,
@@ -75,7 +76,6 @@ export function Tuition() {
   const [delivery, setDelivery] = useState("Barking Riverside"),
     [tutor, setTutor] = useState("UK-based"),
     [format, setFormat] = useState("1:1");
-  const [reportView, setReportView] = useState(0);
   return (
     <section
       id="tuition"
@@ -165,76 +165,7 @@ export function Tuition() {
             </p>
           </div>
         </div>
-        <div className={`${s.report} v5-reveal`}>
-          <div>
-            <span className={s.eyebrow}>PARENT PORTAL / PLANNED</span>
-            <h3>
-              Know what happened.
-              <br />
-              <em>See what comes next.</em>
-            </h3>
-            <p>
-              Our planned parent portal brings lesson feedback, homework and
-              next steps together. Each child receives an individual report,
-              including in group sessions.
-            </p>
-          </div>
-          <div className={s.reportSheet}>
-            <div className={s.reportHeader}>
-              <strong>NEXA / Session report</strong>
-              <span>ILLUSTRATIVE SAMPLE</span>
-            </div>
-            <div
-              className={s.reportTabs}
-              role="group"
-              aria-label="Explore a sample progress report"
-            >
-              {["Lesson feedback", "Homework & next steps"].map((item, i) => (
-                <button
-                  type="button"
-                  key={item}
-                  aria-pressed={reportView === i}
-                  onClick={() => setReportView(i)}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-            <motion.div
-              key={reportView}
-              className={s.reportRows}
-              initial={{ opacity: 0.5 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.2 }}
-            >
-              {[
-                ["TOPIC COVERED", "Solving linear equations"],
-                ["UNDERSTANDING", "Explains each step with support"],
-                ["STRENGTH", "Identifying the inverse operation"],
-                ["NEXT STEP", "Practise two-step equations"],
-                ["HOMEWORK", "Five guided practice questions"],
-                [
-                  "TUTOR RECOMMENDATION",
-                  "Revisit checking answers by substitution",
-                ],
-              ]
-                .filter((_, i) => (reportView === 0 ? i < 3 : i >= 3))
-                .map(([label, text]) => (
-                  <div key={label}>
-                    <small>{label}</small>
-                    <p>{text}</p>
-                  </div>
-                ))}
-            </motion.div>
-            <div className={s.reportProgress} aria-hidden="true">
-              <i />
-            </div>
-            <p className={s.footnote}>
-              Preview of planned reporting. Parent accounts are not yet
-              available.
-            </p>
-          </div>
-        </div>
+        <ParentPortalPreview />
       </div>
     </section>
   );

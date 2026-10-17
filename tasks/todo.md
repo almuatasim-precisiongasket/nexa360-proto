@@ -489,3 +489,13 @@ programmes without navigating a 3D story or interpreting abstract headings.
 - [x] Duplicate optional book removed; home and skip destinations aligned.
 - [x] Skills card deep navy; pale-blue course background replaced by neutral.
 - [x] WebGL compositing matches straight-alpha shader output.
+
+### V5.19 — Parent portal preview redesign
+
+- [x] Replace small report card with a navy/ivory family dashboard.
+- [x] Overview, individual reports, homework and attendance have working sample views.
+- [x] Homework completion updates Overview; attendance opens the matching report.
+- [x] Mobile navigation shows all four views; motion is bounded and reduced-motion aware.
+- [x] Sample data, planned accounts and local-only interactions remain explicit.
+
+Operational parent accounts/storage remain outside this public preview redesign.

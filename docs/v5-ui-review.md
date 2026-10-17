@@ -3,6 +3,29 @@
 Date: 17 October 2026. Branch: `v5`.
 Local preview: http://127.0.0.1:3002/
 
+## Parent portal preview redesign (18 October)
+
+The previous small session-report card is replaced by a full-width, isolated
+dashboard component. Navy framing and ivory/neutral surfaces follow the user's
+colour direction. Four views cover Overview, Lesson reports, Homework and
+Attendance. Sample reports include objectives, understanding, strengths, tutor
+feedback and a recommended next step. Attendance rows open their own report;
+homework completion updates the Overview count; Reset restores the sample.
+
+The confidence chart illustrates three prepared tutor observations, not grades
+or predicted outcomes. All learner/session/task data is clearly labelled sample
+data. Interactions remain local; no accounts, child records, persistence or
+operational portal are claimed. On narrow screens all four navigation choices
+are visible in a two-column grid. Existing assets, book and tuition preferences
+are unchanged. Browser/device visual inspection remains unavailable as noted
+below.
+
+Revision checks: production compilation and TypeScript pass; full lint has zero
+errors/warnings. Generated HTML includes the four tabs, parent-portal anchor and
+sample-data disclosure, with no duplicate IDs or missing local targets. Scoped
+CSS references resolve. Refreshed local page returns HTTP 200 with the new
+dashboard. No new tests were added or run.
+
 ## Latest correction: book-first opening and deeper blue (18 October)
 
 User-directed order: original 3D book first, then service gateway and the learning

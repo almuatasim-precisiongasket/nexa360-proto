@@ -17,7 +17,7 @@ Primary source: the supplied Website Content & Business Requirements attachment
 | 9 Products | Two product showcases, opened on demand | In development; prepared examples, no live AI/generation claim or unsupported first/cost claim |
 | 10 Events | Events company tab | Planned topics/formats; no fake dates, countdown or registration |
 | 11 Leadership/partners | Meet the team company tab | Five previously approved team identities retained; Saleh/Mahib technical roles; unsupported employer endorsements omitted |
-| 12 Parent/tutor portal | Sample student-specific report within GCSE | Planned portal preview; secure operational accounts remain later scope |
+| 12 Parent/tutor portal | Interactive family dashboard within GCSE | Overview, lesson reports, homework and attendance use labelled sample data; secure operational accounts remain later scope |
 | 13 Contact | Three-route consultation form and footer | Known location; no fabricated phone, email, registration number or office address |
 | 14 Pending content | This map and implementation notes | Missing biographies, dates, course specs and contact details remain pending |
 | 15 Operations | Planned later systems in tasks | No implication that draft preparation creates a CRM record, booking or student account |
