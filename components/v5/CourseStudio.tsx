@@ -203,14 +203,18 @@ function CourseStage({ index }: { index: number }) {
 }
 export function CourseStudio() {
   const [selected, setSelected] = useState(0);
-  useEffect(
-    () =>
-      onSiteEvent("nexa:open-path", (path) => {
-        const index = courses.findIndex((course) => course.id === path);
-        if (index >= 0) setSelected(index);
-      }),
-    [],
-  );
+  useEffect(() => {
+    const select = (id: string) => {
+      const index = courses.findIndex((course) => course.id === id);
+      if (index >= 0) setSelected(index);
+    };
+    const fromBook = onSiteEvent("nexa:open-path", select);
+    const fromGateway = onSiteEvent("nexa:select-course", select);
+    return () => {
+      fromBook();
+      fromGateway();
+    };
+  }, []);
   const course = courses[selected];
   return (
     <section

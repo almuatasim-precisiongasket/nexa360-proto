@@ -4288,3 +4288,266 @@
     font-size: 11px;
   }
 }
+
+/* Discovery and consultation refinements: clear destinations, quieter surfaces. */
+.courseShortcuts {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 20px;
+  align-items: start;
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid #a6c2dc26;
+}
+.courseShortcuts > span {
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: #7794b1;
+  padding-top: 13px;
+}
+.courseShortcuts > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.courseShortcuts a {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+  color: #b9cde0;
+  border: 1px solid #52718e4d;
+  padding: 11px 12px;
+  background: #ffffff03;
+  border-radius: 3px;
+  transition:
+    color 150ms,
+    border-color 150ms,
+    background 150ms;
+}
+.courseShortcuts small {
+  font-size: 8px;
+  color: #6c8da9;
+  font-variant-numeric: tabular-nums;
+}
+.courseShortcuts a > span {
+  color: #7d9fbd;
+  font-size: 13px;
+  margin-left: 6px;
+}
+.organisationRoute {
+  display: grid;
+  grid-template-columns: 54px 1fr auto;
+  align-items: center;
+  gap: 22px;
+  padding: 25px 26px;
+  margin-top: 25px;
+  border: 1px solid #55738a4d;
+  background: #102c43;
+  border-radius: 4px;
+}
+.organisationMark {
+  height: 47px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #8ca8b23b;
+  color: #91aeb9;
+  font-size: 8px;
+  letter-spacing: 0.05em;
+}
+.organisationRoute small {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: #88a5b8;
+  margin-bottom: 9px;
+}
+.organisationRoute strong {
+  font-size: 20px;
+  letter-spacing: -0.025em;
+  font-weight: 400;
+  line-height: 1.3;
+  color: #d7e4ed;
+  display: block;
+}
+.organisationAction {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  font-size: 11px;
+  color: #a8c4da;
+  white-space: nowrap;
+}
+.organisationAction b {
+  font-size: 24px;
+  font-weight: 400;
+  transition: transform 200ms;
+}
+.enquiryPreferences {
+  min-width: 0;
+  background: #efefe8;
+  border: 1px solid #d8dbd0;
+  border-radius: 4px;
+}
+.enquiryPreferences > summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 17px;
+  color: #65766c;
+  font-size: 13px;
+  cursor: pointer;
+}
+.enquiryPreferences > summary::-webkit-details-marker {
+  display: none;
+}
+.enquiryPreferences summary small {
+  display: block;
+  font-size: 10px;
+  color: #9ba490;
+  margin-top: 5px;
+}
+.enquiryPreferences summary b {
+  font-size: 20px;
+  font-weight: 400;
+  transition: transform 150ms;
+}
+.enquiryPreferences[open] summary b {
+  transform: rotate(45deg);
+}
+.enquiryPreferences > .fields {
+  padding: 5px 17px 20px;
+}
+.form {
+  background: #f8f7f2;
+}
+.formSummary {
+  background: #ecede6;
+  border-left-color: #829678;
+}
+.formSummary span {
+  color: #7f8a74;
+}
+.formSummary p {
+  color: #687e6a;
+}
+.bookingRoutes button[aria-pressed="true"] {
+  background: #eaede6;
+  border-color: #8b9c85;
+  box-shadow: inset 3px 0 #153e64;
+}
+@media (min-width: 761px) {
+  .routeCards article {
+    display: flex;
+    flex-direction: column;
+  }
+  .routeCopy {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .routeCopy > .cta {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .courseShortcuts a:hover {
+    color: #fff;
+    border-color: #7b9fbc;
+    background: #183b5b;
+  }
+  .organisationRoute:hover {
+    border-color: #7b9bac7a;
+    background: #123149;
+  }
+  .organisationRoute:hover .organisationAction b {
+    transform: translate(2px, -2px);
+  }
+  .enquiryPreferences > summary:hover {
+    color: #234f68;
+  }
+}
+@media (max-width: 1000px) {
+  .organisationRoute {
+    gap: 17px;
+    padding: 22px;
+  }
+  .organisationRoute strong {
+    font-size: 18px;
+  }
+  .organisationAction {
+    gap: 15px;
+  }
+  .courseShortcuts {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .courseShortcuts > span {
+    padding-top: 0;
+  }
+}
+@media (max-width: 760px) {
+  .courseShortcuts {
+    gap: 12px;
+    padding-top: 20px;
+    margin-top: 20px;
+  }
+  .courseShortcuts a {
+    font-size: 11px;
+    padding: 11px;
+  }
+  .courseShortcuts small {
+    font-size: 8px;
+  }
+  .organisationRoute {
+    grid-template-columns: 40px 1fr;
+    gap: 14px 17px;
+    padding: 20px 18px;
+    margin-top: 22px;
+  }
+  .organisationMark {
+    height: 40px;
+    font-size: 7px;
+  }
+  .organisationRoute small {
+    font-size: 7px;
+    line-height: 1.6;
+    letter-spacing: 0.06em;
+    margin-bottom: 7px;
+  }
+  .organisationRoute strong {
+    font-size: 19px;
+    max-width: 24ch;
+  }
+  .organisationAction {
+    grid-column: 2;
+    justify-content: space-between;
+    font-size: 11px;
+  }
+  .organisationAction b {
+    font-size: 21px;
+  }
+  .enquiryPreferences > summary {
+    padding: 15px;
+    font-size: 12px;
+  }
+  .enquiryPreferences summary small {
+    font-size: 9px;
+  }
+  .enquiryPreferences > .fields {
+    padding: 5px 15px 18px;
+  }
+  .form {
+    background: #f8f7f2;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .courseShortcuts a,
+  .organisationAction b,
+  .enquiryPreferences summary b {
+    transition: none;
+  }
+}

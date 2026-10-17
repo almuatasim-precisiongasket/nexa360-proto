@@ -499,3 +499,16 @@ programmes without navigating a 3D story or interpreting abstract headings.
 - [x] Sample data, planned accounts and local-only interactions remain explicit.
 
 Operational parent accounts/storage remain outside this public preview redesign.
+
+### V5.20 — Discovery and consultation refinement
+
+- [x] Five direct skills shortcuts select the matching course studio content.
+- [x] Organisational route is visible alongside the two learning routes.
+- [x] Desktop route actions align; neutral form surfaces follow the palette direction.
+- [x] Browsable answers cover tuition, skills and organisations before consultation.
+- [x] Optional learning preferences no longer dominate the initial consultation form.
+- [x] Initial/back-forward anchor alignment accounts for pinned book layout and fonts.
+
+Real browser/device visual and interaction review remains open under the existing
+browser access restriction. Existing media, book physics and planned-service
+labels are retained.

@@ -3,6 +3,33 @@
 Date: 17 October 2026. Branch: `v5`.
 Local preview: http://127.0.0.1:3002/
 
+## Whole-site discovery refinement (18 October)
+
+- Gateway has five direct subject shortcuts which select the corresponding
+  course studio content; the fallback anchor still reaches the course section.
+- A distinct organisational programme entry is visible without changing the
+  audience finder. Desktop learning-card actions share a common lower edge.
+- A category-based questions browser addresses tuition, skills and institutions
+  before consultation, with relevant detail links and contextual enquiry actions.
+- Consultation keeps contact details and requirements visible while optional
+  learning preferences use native progressive disclosure. Prefilled choices remain
+  in the draft and visible summary. Neutral surfaces replace the form's pale-blue
+  emphasis.
+- Initial hash destinations settle after fonts and the book's pinned layout are
+  refreshed. User input cancels this initial repositioning; Back/Forward hash
+  restoration does not add another history entry. Real-browser behaviour remains
+  unverified under the session's browser restriction.
+
+The book-first opening, original media, parent dashboard, blue wave and existing
+programme truthfulness remain intact. No new dependency or service was added.
+
+Revision checks: production compilation/TypeScript pass; full lint reports zero
+errors/warnings. Scoped CSS references resolve. Generated HTML has the opening
+book, questions, course shortcuts and parent portal, with no duplicate IDs or
+missing local link targets. The refreshed preview returns HTTP 200 with the new
+content. Browser/device appearance and actual interactive timing remain
+unverified. No new tests were added or run.
+
 ## Parent portal preview redesign (18 October)
 
 The previous small session-report card is replaced by a full-width, isolated

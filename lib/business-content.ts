@@ -135,6 +135,7 @@ export const courses = [
     tags: ["Data patterns", "Prediction", "Applied concepts"],
   },
 ] as const;
+export type TechnicalCourseId = (typeof courses)[number]["id"];
 export const processSteps = [
   "Consultation",
   "Proposal",

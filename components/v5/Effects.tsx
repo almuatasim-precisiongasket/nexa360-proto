@@ -9,7 +9,13 @@ export function Effects() {
   useEffect(() => {
     const media = gsap.matchMedia();
     let navigation: gsap.core.Tween | undefined;
-    const navigate = (hash: string, push = true) => {
+    let anchorFrame = 0;
+    let anchorPending = true;
+    const initialHash = location.hash;
+    const stopInitialAnchor = () => {
+      anchorPending = false;
+    };
+    const navigate = (hash: string, push = true, immediate = false) => {
       const el = document.getElementById(hash.slice(1));
       if (!el) return;
       navigation?.kill();
@@ -18,15 +24,23 @@ export function Effects() {
         el.tabIndex = -1;
         el.focus({ preventScroll: true });
       };
-      if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        el.scrollIntoView({ block: "start" });
+      const offset = ["#home", "#welcome"].includes(hash)
+        ? 0
+        : innerWidth <= 900
+          ? 82
+          : 96;
+      if (immediate || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        window.scrollTo({
+          top: Math.max(0, el.getBoundingClientRect().top + scrollY - offset),
+          behavior: "instant",
+        });
         done();
         return;
       }
       navigation = gsap.to(window, {
         scrollTo: {
           y: el,
-          offsetY: hash === "#welcome" ? 0 : 92,
+          offsetY: offset,
           autoKill: true,
         },
         duration: 1.35,
@@ -53,6 +67,20 @@ export function Effects() {
       navigate(hash);
     };
     document.addEventListener("click", click);
+    const restoreAnchor = () => {
+      stopInitialAnchor();
+      cancelAnimationFrame(anchorFrame);
+      if (location.hash)
+        anchorFrame = requestAnimationFrame(() =>
+          navigate(location.hash, false, true),
+        );
+    };
+    window.addEventListener("popstate", restoreAnchor);
+    window.addEventListener("pointerdown", stopInitialAnchor, {
+      passive: true,
+    });
+    window.addEventListener("wheel", stopInitialAnchor, { passive: true });
+    window.addEventListener("keydown", stopInitialAnchor);
     const open = onSiteEvent("nexa:open-path", (path) =>
       navigate(
         path === "academic"
@@ -184,13 +212,23 @@ export function Effects() {
     if (main) observer.observe(main);
     let alive = true;
     document.fonts.ready.then(() => {
-      if (alive) ScrollTrigger.refresh();
+      if (!alive) return;
+      ScrollTrigger.refresh();
+      if (initialHash && anchorPending && location.hash === initialHash)
+        anchorFrame = requestAnimationFrame(() => {
+          if (alive && anchorPending) navigate(initialHash, false, true);
+        });
     });
     return () => {
       alive = false;
       clearTimeout(timer);
       observer.disconnect();
       navigation?.kill();
+      cancelAnimationFrame(anchorFrame);
+      window.removeEventListener("popstate", restoreAnchor);
+      window.removeEventListener("pointerdown", stopInitialAnchor);
+      window.removeEventListener("wheel", stopInitialAnchor);
+      window.removeEventListener("keydown", stopInitialAnchor);
       document.removeEventListener("click", click);
       open();
       media.revert();

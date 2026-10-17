@@ -6,6 +6,8 @@ import { AmbientField } from "../AmbientField";
 import { PathArt } from "../PathArt";
 import { VisualField } from "./VisualField";
 import { ConsultLink } from "./Shared";
+import { courses } from "@/lib/business-content";
+import { emitSiteEvent } from "@/lib/site-events";
 import s from "./v5.module.css";
 
 const routes = [
@@ -125,6 +127,42 @@ export function Gateway() {
             <span className={s.routeCaption}>FOR LEARNERS & ORGANISATIONS</span>
           </motion.article>
         </div>
+        <div className={s.courseShortcuts}>
+          <span>EXPLORE A SKILL</span>
+          <div>
+            {courses.map((course, i) => (
+              <a
+                href="#technical"
+                key={course.id}
+                onClick={(event) => {
+                  if (
+                    !event.metaKey &&
+                    !event.ctrlKey &&
+                    !event.shiftKey &&
+                    !event.altKey
+                  )
+                    emitSiteEvent("nexa:select-course", course.id);
+                }}
+              >
+                <small>0{i + 1}</small>
+                {course.name}
+                <span aria-hidden="true">↗</span>
+              </a>
+            ))}
+          </div>
+        </div>
+        <a href="#pathways" className={s.organisationRoute}>
+          <span className={s.organisationMark} aria-hidden="true">
+            N / B2B
+          </span>
+          <span>
+            <small>FOR SCHOOLS, UNIVERSITIES, BUSINESSES & CSR</small>
+            <strong>Bring practical learning to your organisation.</strong>
+          </span>
+          <span className={s.organisationAction}>
+            Explore programmes <b aria-hidden="true">↗</b>
+          </span>
+        </a>
         <div className={s.routeFinder}>
           <div>
             <span className={s.eyebrow}>NOT SURE WHERE TO START?</span>

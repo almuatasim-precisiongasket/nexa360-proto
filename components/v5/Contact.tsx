@@ -341,70 +341,87 @@ export function Contact() {
                       true,
                     )}
                   {!short && (
-                    <>
-                      {audience === "Institution" &&
-                        select("organisationType", "Organisation type", [
-                          "School",
-                          "University or college",
-                          "Business",
-                          "CSR or community organisation",
-                          "Other",
-                        ])}
-                      {tuition
-                        ? input(
-                            "subject",
-                            "Subject requirements",
-                            "text",
-                            false,
-                            audience === "Individual",
-                          )
-                        : select(
-                            "programme",
-                            "Programme of interest",
-                            courses.map((x) => x.name),
-                          )}
-                      {input("level", "Participant / student education level")}
-                      {audience === "Institution" &&
-                        input(
-                          "participants",
-                          "Expected participants",
-                          "number",
+                    <details
+                      className={`${s.enquiryPreferences} ${s.wide}`}
+                      key={category}
+                    >
+                      <summary>
+                        <span>
+                          Learning preferences{" "}
+                          <small>
+                            Optional · we can discuss these together
+                          </small>
+                        </span>
+                        <b aria-hidden="true">+</b>
+                      </summary>
+                      <div className={s.fields}>
+                        {audience === "Institution" &&
+                          select("organisationType", "Organisation type", [
+                            "School",
+                            "University or college",
+                            "Business",
+                            "CSR or community organisation",
+                            "Other",
+                          ])}
+                        {tuition
+                          ? input(
+                              "subject",
+                              "Subject requirements",
+                              "text",
+                              false,
+                              audience === "Individual",
+                            )
+                          : select(
+                              "programme",
+                              "Programme of interest",
+                              courses.map((x) => x.name),
+                            )}
+                        {input(
+                          "level",
+                          "Participant / student education level",
                         )}
-                      {select(
-                        "delivery",
-                        "Preferred delivery",
-                        tuition
-                          ? ["Barking Riverside", "Online"]
-                          : [
-                              "Online",
-                              "In person — discuss location",
-                              "Hybrid — discuss availability",
-                            ],
-                      )}
-                      {tuition && (
-                        <>
-                          {select("tutor", "Preferred tutor category", [
-                            "International",
-                            "UK-based",
-                            "Premium",
-                          ])}
-                          {select("format", "Preferred session format", [
-                            "1:1",
-                            "Small group · 1:5",
-                            "Larger group · 1:20",
-                          ])}
-                        </>
-                      )}
-                      {input(
-                        "schedule",
-                        audience === "Institution"
-                          ? "Proposed dates / schedule"
-                          : "Preferred schedule",
-                        "text",
-                        false,
-                        true,
-                      )}
-                    </>
+                        {audience === "Institution" &&
+                          input(
+                            "participants",
+                            "Expected participants",
+                            "number",
+                          )}
+                        {select(
+                          "delivery",
+                          "Preferred delivery",
+                          tuition
+                            ? ["Barking Riverside", "Online"]
+                            : [
+                                "Online",
+                                "In person — discuss location",
+                                "Hybrid — discuss availability",
+                              ],
+                        )}
+                        {tuition && (
+                          <>
+                            {select("tutor", "Preferred tutor category", [
+                              "International",
+                              "UK-based",
+                              "Premium",
+                            ])}
+                            {select("format", "Preferred session format", [
+                              "1:1",
+                              "Small group · 1:5",
+                              "Larger group · 1:20",
+                            ])}
+                          </>
+                        )}
+                        {input(
+                          "schedule",
+                          audience === "Institution"
+                            ? "Proposed dates / schedule"
+                            : "Preferred schedule",
+                          "text",
+                          false,
+                          true,
+                        )}
+                      </div>
+                    </details>
                   )}
                   {short &&
                     input(
@@ -438,6 +455,8 @@ export function Contact() {
                     {audience} · {category}
                     {values.programme ? ` · ${values.programme}` : ""}
                     {!short && values.delivery ? ` · ${values.delivery}` : ""}
+                    {tuition && values.tutor ? ` · ${values.tutor}` : ""}
+                    {tuition && values.format ? ` · ${values.format}` : ""}
                   </p>
                 </div>
                 <p className={s.formNotice}>

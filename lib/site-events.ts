@@ -1,4 +1,5 @@
 import type { Interest, PathwayId, TuitionFormat } from "./content";
+import type { TechnicalCourseId } from "./business-content";
 
 export type ProgrammeEnquiry = {
   programme: string;
@@ -13,6 +14,7 @@ type SiteEvents = {
   "nexa:book-fallback": void;
   "nexa:replay-intro": void;
   "nexa:open-path": PathwayId;
+  "nexa:select-course": TechnicalCourseId;
   "nexa:interest": Interest;
   "nexa:tuition": TuitionFormat | "";
   "nexa:programme": ProgrammeEnquiry;

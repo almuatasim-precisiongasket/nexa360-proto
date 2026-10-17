@@ -5,6 +5,7 @@ import { CourseStudio } from "./CourseStudio";
 import { Tuition } from "./Tuition";
 import { OptionalExperiences } from "./OptionalExperiences";
 import { Contact } from "./Contact";
+import { Questions } from "./Questions";
 import s from "./v5.module.css";
 export function Experience() {
   return (
@@ -12,6 +13,7 @@ export function Experience() {
       <Tuition />
       <CourseStudio />
       <Institutions />
+      <Questions />
       <Contact />
       <CompanyHub />
       <OptionalExperiences />
@@ -38,6 +40,7 @@ export function Footer() {
             <a href="#technical">Skills courses</a>
             <a href="#pathways">For organisations</a>
             <a href="#products">Our products</a>
+            <a href="#questions">Useful answers</a>
             <a href="#contact">Book consultation ↗</a>
           </nav>
         </div>

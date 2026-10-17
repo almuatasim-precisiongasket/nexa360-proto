@@ -58,10 +58,11 @@ Primary source: the supplied Website Content & Business Requirements attachment
 3. GCSE tuition: delivery/tutor/group preferences and sample parent report.
 4. Technology skills: five subjects, course artwork, interactive subject samples.
 5. Organisations: tailored programme audiences and process.
-6. Book consultation: service choice and contextual request.
-7. Company hub: About, Projects, Team, Events.
-8. Product concepts: optional expanded experiences.
-9. Footer: direct service links, opening book and consultation.
+6. Useful answers: questions specific to tuition, skills and organisations.
+7. Book consultation: service choice, essential details and optional preferences.
+8. Company hub: About, Projects, Team, Events.
+9. Product concepts: optional expanded experiences.
+10. Footer: direct service links, opening book, answers and consultation.
 
 ## Implementation boundaries
 
