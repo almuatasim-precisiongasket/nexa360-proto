@@ -21,7 +21,11 @@ import { MOBILE_BOOK_QUERY } from "@/lib/media";
 import { emitSiteEvent, onSiteEvent } from "@/lib/site-events";
 const BookCanvas = dynamic(() => import("./BookCanvas"), { ssr: false });
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, useGSAP);
-export function BookStory() {
+export function BookStory({
+  skipTargetId = "about",
+}: {
+  skipTargetId?: string;
+}) {
   const root = useRef<HTMLElement>(null),
     stage = useRef<HTMLDivElement>(null);
   const bridge = useRef<StoryBridge>({ progress: 0, invalidate: () => {} });
@@ -192,9 +196,10 @@ export function BookStory() {
     { scope: root, dependencies: [chapter, reduced], revertOnUpdate: true },
   );
   function skip() {
-    const about = document.getElementById("about");
-    about?.scrollIntoView({ behavior: reduced ? "instant" : "smooth" });
-    about?.focus({ preventScroll: true });
+    const target = document.getElementById(skipTargetId);
+    target?.scrollIntoView({ behavior: reduced ? "instant" : "smooth" });
+    if (target) target.tabIndex = -1;
+    target?.focus({ preventScroll: true });
   }
   function release(event: PointerEvent<HTMLDivElement>) {
     const start = drag.current;

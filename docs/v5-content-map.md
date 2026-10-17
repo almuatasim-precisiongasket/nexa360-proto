@@ -48,19 +48,20 @@ Primary source: the supplied Website Content & Business Requirements attachment
 - Products have user-started nine-second prepared examples with pause/reset/replay.
   Playback stops when offscreen/hidden and its timer is removed when complete.
 - Company tabs use local content transitions; the five course samples respond to visitor input.
-- The original book is available on demand, with its existing interactions intact.
+- The original book opens the page, with its existing interactions intact.
 - Phone service sections use natural scroll.
 
 ## Public reading order (18 October revision)
 
-1. Service gateway: school tuition, skills courses, audience route finder.
-2. GCSE tuition: delivery/tutor/group preferences and sample parent report.
-3. Technology skills: five subjects, course artwork, interactive subject samples.
-4. Organisations: tailored programme audiences and process.
-5. Book consultation: service choice and contextual request.
-6. Company hub: About, Projects, Team, Events.
-7. Product concepts and original 3D book: optional expanded experiences.
-8. Footer: direct service links and consultation.
+1. Original 3D book, restored as the opening section at the user's request.
+2. Service gateway: school tuition, skills courses, audience route finder.
+3. GCSE tuition: delivery/tutor/group preferences and sample parent report.
+4. Technology skills: five subjects, course artwork, interactive subject samples.
+5. Organisations: tailored programme audiences and process.
+6. Book consultation: service choice and contextual request.
+7. Company hub: About, Projects, Team, Events.
+8. Product concepts: optional expanded experiences.
+9. Footer: direct service links, opening book and consultation.
 
 ## Implementation boundaries
 

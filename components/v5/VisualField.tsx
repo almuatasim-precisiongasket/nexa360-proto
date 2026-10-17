@@ -61,6 +61,8 @@ export function VisualField({
     if (!el) return;
     const gl = el.getContext("webgl", {
       alpha: true,
+      // The fragment shader outputs straight RGB, not RGB multiplied by alpha.
+      premultipliedAlpha: false,
       antialias: false,
       failIfMajorPerformanceCaveat: true,
     });

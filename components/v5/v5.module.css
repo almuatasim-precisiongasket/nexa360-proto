@@ -3178,7 +3178,7 @@
   border: 1px solid #ece3d1;
 }
 .skillsRoute {
-  background: #123a69;
+  background: linear-gradient(135deg, #102c50, #0a1d35);
   color: #f2f7ff;
   border: 1px solid #6fa3e94d;
 }
@@ -3359,7 +3359,7 @@
   color: #6a624f;
 }
 .technical {
-  background: #e9f1f8;
+  background: #f4f4f2;
   border-top: 8px solid #1b64c7;
 }
 .technical .heading {

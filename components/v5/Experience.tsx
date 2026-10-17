@@ -24,7 +24,7 @@ export function Footer() {
       <div className={s.footerInner}>
         <div className={s.footerTop}>
           <div className={s.footerBrand}>
-            <a href="#welcome" aria-label="NEXA360 home">
+            <a href="#home" aria-label="NEXA360 home">
               <Logo />
             </a>
             <p>
@@ -45,7 +45,7 @@ export function Footer() {
           <span>© {new Date().getFullYear()} NEXA360 · United Kingdom</span>
           <span>Barking Riverside, London · Online learning</span>
           <a href="#book-experience">Explore the interactive book ↗</a>
-          <a href="#welcome">Back to the beginning ↑</a>
+          <a href="#home">Back to the beginning ↑</a>
         </div>
       </div>
     </footer>

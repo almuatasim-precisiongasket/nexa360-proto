@@ -907,3 +907,13 @@ No business contact destination is invented. Actual scheduling/enquiry delivery
 awaits the requested email/link; the existing local draft path is clearly labelled.
 No asset files or book physics are changed. Real browser/device visual review is
 still open because browser navigation/observation was blocked in this session.
+
+### User correction — book first, darker palette
+
+Restore the original 3D book as the first section, followed by the service gateway
+and existing learning chapters. Remove the optional duplicate book at the end.
+Use deep navy for the skills route and a neutral course chapter surface, avoiding
+the rejected cyan/light-blue treatment. Correct shader alpha compositing so the
+animated field does not brighten the whole card. Skip story leads to the service
+routes; header/footer home links return to the opening book. Physics/assets stay
+unchanged.

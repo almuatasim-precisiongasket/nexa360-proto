@@ -3,7 +3,17 @@
 Date: 17 October 2026. Branch: `v5`.
 Local preview: http://127.0.0.1:3002/
 
-## Current revision: service clarity and navigation (18 October)
+## Latest correction: book-first opening and deeper blue (18 October)
+
+User-directed order: original 3D book first, then service gateway and the learning
+sections. The optional duplicate book is removed. Header/footer home links return
+to the opening book; Skip story lands at the service gateway. Book physics and
+assets remain unchanged. The skills route now uses deep navy; the skills chapter
+uses a neutral surface instead of pale blue. The animated canvas now declares
+straight-alpha compositing to match its fragment shader, preventing transparent
+pixels from brightening the whole card into cyan.
+
+## Service clarity and navigation revision (18 October)
 
 The user found the previous page confusing. This revision supersedes the earlier
 opening/order below; it keeps the blue motion language while putting services first.

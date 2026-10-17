@@ -108,7 +108,7 @@ export function Header() {
         ref={root}
         className={`site-header ${scrolled ? "scrolled" : ""} ${open ? "menu-open" : ""}`}
       >
-        <a href="#welcome" aria-label="NEXA360 home">
+        <a href="#home" aria-label="NEXA360 home">
           <Logo />
         </a>
         <nav id="main-navigation" aria-label="Main navigation" ref={nav}>

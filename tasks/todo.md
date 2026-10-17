@@ -482,3 +482,10 @@ programmes without navigating a 3D story or interpreting abstract headings.
 - [x] TypeScript, full lint and production compilation completed for the revision.
 - [ ] Desktop/phone visual and touch inspection, currently blocked by browser URL policy.
 - [ ] Connect actual consultation scheduling or delivery after the business supplies its destination.
+
+### V5.18 — Book-first and dark-blue correction
+
+- [x] Original book restored before service gateway and remaining content.
+- [x] Duplicate optional book removed; home and skip destinations aligned.
+- [x] Skills card deep navy; pale-blue course background replaced by neutral.
+- [x] WebGL compositing matches straight-alpha shader output.
