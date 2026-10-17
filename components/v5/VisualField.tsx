@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import s from "./v5.module.css";
 
 const fragment = `precision mediump float;
-uniform vec2 resolution; uniform float time; uniform float mode; uniform float selected; uniform vec2 pointer;
+uniform vec2 resolution; uniform float time; uniform float mode; uniform float selected; uniform vec2 pointer; uniform vec4 weights; uniform float clusters;
 float line(vec2 p,vec2 a,vec2 b){vec2 d=b-a;return length((p-a)-d*clamp(dot(p-a,d)/dot(d,d),0.,1.));}
 void main(){
  vec2 uv=gl_FragCoord.xy/resolution; vec2 p=(uv-.5)*vec2(resolution.x/resolution.y,1.);
@@ -19,17 +19,18 @@ void main(){
   float grid=abs(sin(p.x*32.))*abs(sin(p.y*32.)); light+=.025*(1.-smoothstep(.0,.12,grid));
   for(int i=0;i<32;i++){
    float k=float(i);vec2 q=vec2(sin(k*12.1),cos(k*7.7))*.40;
-   float speed=.035+mode*.006; q.x+=sin(time*speed+k)*.035;
-   if(mode>.5&&mode<1.5){q.x=fract(k/32.+time*.035)*.95-.475;q.y=sin(k*11.)*.21;}
-   if(mode>2.5&&mode<3.5)q=floor(q*16.)/16.;
-   if(mode>3.5)q=vec2(q.x*.85, q.y*.65+sign(q.x)*.16);
+   q.x+=sin(time*.045+k)*.035;
+   vec2 agents=vec2(fract(k/32.+time*.035)*.95-.475,sin(k*11.)*.21);
+   vec2 pixels=floor(q*16.)/16.;
+   vec2 groups=vec2(q.x*.85,q.y*.65+sign(q.x)*.16);
+   q=q*(weights.x+weights.z)+agents*weights.y+pixels*weights.w+groups*clusters;
    float d=length(p-q);light+=.19*exp(-d*210.);
    float path=line(p,q,vec2(sin((k+1.)*12.1),cos((k+1.)*7.7))*.40);
    light+=.012*exp(-path*260.);
   }
   float angle=atan(p.y,p.x);float ring=abs(length(p)-.33-sin(angle*3.+time*.2+mode)*.025);
   light+=.11*exp(-ring*180.);float sweep=abs(p.x-sin(time*.17+mode)*.65);
-  if(mode>1.5&&mode<2.5)light+=.06*pow(max(0.,cos(angle-time*.3)),18.)*exp(-abs(length(p)-.3)*8.);
+  light+=weights.z*.06*pow(max(0.,cos(angle-time*.3)),18.)*exp(-abs(length(p)-.3)*8.);
   light+=.035*exp(-sweep*55.);
  }
  float edge=1.-smoothstep(.2,.75,length(p)); gl_FragColor=vec4(col,clamp(light*edge,0.,.7));
@@ -46,11 +47,14 @@ export function VisualField({
   const canvas = useRef<HTMLCanvasElement>(null);
   const latest = useRef(mode);
   const selected = useRef(focus);
+  const invalidate = useRef<() => void>(() => {});
   useEffect(() => {
     selected.current = focus;
+    invalidate.current();
   }, [focus]);
   useEffect(() => {
     latest.current = mode;
+    invalidate.current();
   }, [mode]);
   useEffect(() => {
     const el = canvas.current;
@@ -101,10 +105,15 @@ export function VisualField({
     gl.enableVertexAttribArray(position);
     gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
     const u = Object.fromEntries(
-      ["resolution", "time", "mode", "selected", "pointer"].map((k) => [
-        k,
-        gl.getUniformLocation(program, k),
-      ]),
+      [
+        "resolution",
+        "time",
+        "mode",
+        "selected",
+        "pointer",
+        "weights",
+        "clusters",
+      ].map((k) => [k, gl.getUniformLocation(program, k)]),
     );
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     let raf = 0,
@@ -118,6 +127,8 @@ export function VisualField({
       sx = 0,
       sy = 0,
       current = latest.current;
+    const blend = new Float32Array(5);
+    blend[Math.max(0, latest.current)] = 1;
     const draw = (now: number) => {
       raf = 0;
       if (lost) return;
@@ -129,7 +140,15 @@ export function VisualField({
       const dt = Math.min((now - previous) / 1000, 0.05);
       previous = now;
       if (!reduced.matches) elapsed += dt;
-      current += (latest.current - current) * Math.min(1, dt * 3);
+      current = reduced.matches
+        ? latest.current
+        : current + (latest.current - current) * Math.min(1, dt * 3);
+      for (let i = 0; i < 5; i++) {
+        const target = latest.current === i ? 1 : 0;
+        blend[i] = reduced.matches
+          ? target
+          : blend[i] + (target - blend[i]) * (1 - Math.exp(-4 * dt));
+      }
       sx += (px - sx) * 0.04;
       sy += (py - sy) * 0.04;
       gl.uniform2f(u.resolution, el.width, el.height);
@@ -137,6 +156,8 @@ export function VisualField({
       gl.uniform1f(u.mode, current);
       gl.uniform1f(u.selected, selected.current);
       gl.uniform2f(u.pointer, sx, sy);
+      gl.uniform4f(u.weights, blend[0], blend[1], blend[2], blend[3]);
+      gl.uniform1f(u.clusters, blend[4]);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
       if (visible && !document.hidden && !reduced.matches)
         raf = requestAnimationFrame(draw);
@@ -149,6 +170,7 @@ export function VisualField({
         raf = requestAnimationFrame(draw);
       }
     };
+    invalidate.current = sync;
     const resize = () => {
       const box = el.getBoundingClientRect();
       const ratio = Math.min(devicePixelRatio || 1, 1.25);
@@ -167,6 +189,7 @@ export function VisualField({
       e.preventDefault();
       lost = true;
       cancelAnimationFrame(raf);
+      invalidate.current = () => {};
     };
     const restore = () => {
       /* The independent SVG poster remains visible after a GPU reset. */
@@ -186,6 +209,7 @@ export function VisualField({
     reduced.addEventListener("change", sync);
     return () => {
       cancelAnimationFrame(raf);
+      invalidate.current = () => {};
       observer.disconnect();
       size.disconnect();
       el.parentElement?.removeEventListener("pointermove", move);

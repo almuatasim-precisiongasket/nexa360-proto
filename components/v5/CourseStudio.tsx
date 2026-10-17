@@ -1,6 +1,12 @@
 "use client";
 import { useEffect, useId, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import {
+  motion,
+  useReducedMotion,
+  useMotionValue,
+  useSpring,
+  useMotionTemplate,
+} from "motion/react";
 import { courses } from "@/lib/business-content";
 import { PathArt } from "../PathArt";
 import { onSiteEvent } from "@/lib/site-events";
@@ -139,10 +145,28 @@ function NewCourseArt({ kind }: { kind: "game" | "ml" }) {
 function CourseStage({ index }: { index: number }) {
   const course = courses[index];
   const reduced = useReducedMotion();
+  const pointerX = useMotionValue(0),
+    pointerY = useMotionValue(0);
+  const x = useSpring(pointerX, { stiffness: 100, damping: 20, mass: 1 });
+  const y = useSpring(pointerY, { stiffness: 100, damping: 20, mass: 1 });
+  const transform = useMotionTemplate`translate3d(${x}px, ${y}px, 0)`;
   return (
     <>
-      <div className={s.stageArt}>
+      <div
+        className={s.stageArt}
+        onPointerMove={(e) => {
+          if (reduced || e.pointerType !== "mouse") return;
+          const b = e.currentTarget.getBoundingClientRect();
+          pointerX.set(((e.clientX - b.left) / b.width - 0.5) * 14);
+          pointerY.set(((e.clientY - b.top) / b.height - 0.5) * 10);
+        }}
+        onPointerLeave={() => {
+          pointerX.set(0);
+          pointerY.set(0);
+        }}
+      >
         <VisualField mode={index} />
+        <div key={`sweep-${course.id}`} className={s.stageSweep} />
         <motion.div
           key={course.id}
           style={{
@@ -163,11 +187,13 @@ function CourseStage({ index }: { index: number }) {
             ease: [0.22, 1, 0.36, 1],
           }}
         >
-          {course.art ? (
-            <PathArt kind={course.art} />
-          ) : (
-            <NewCourseArt kind={course.id as "game" | "ml"} />
-          )}
+          <motion.div className={s.artObject} style={{ transform }}>
+            {course.art ? (
+              <PathArt kind={course.art} />
+            ) : (
+              <NewCourseArt kind={course.id as "game" | "ml"} />
+            )}
+          </motion.div>
         </motion.div>
         <span className={s.sampleLabel}>ILLUSTRATIVE PROGRAMME VISUAL</span>
       </div>

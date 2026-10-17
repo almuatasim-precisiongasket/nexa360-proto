@@ -27,6 +27,30 @@ visual verification remains subject to the limitation below.
 
 ## Delivered
 
+### Motion and WebGL refinement
+
+Skills applied: `review-animations` and its standards, `webgl-components`, the
+previously loaded design/UI guidance and animation construction guidance.
+
+| Before | After | Why |
+| --- | --- | --- |
+| Direct sculpture pointer rotation | Frame-rate-independent damping in `Sculpture.tsx:47` | Preserve momentum and avoid abrupt changes |
+| Direct-light-only metallic surface | Original generated studio reflections, with disposed PMREM target | Give the cobalt material coherent highlight and depth without external assets |
+| Shader mode transition passed through unrelated subjects | Five smoothly blended field weights in `VisualField.tsx:130` | Transition directly between the chosen subjects |
+| Reduced-motion canvas did not repaint after a selection | Explicit invalidation and settled weights | Keep the still image consistent with the selected subject |
+| Static foreground course artwork | Critically damped, fine-pointer depth and one exhibit sweep | Make artwork responsive without moving the explanatory text |
+| 500–550ms audience UI transitions | 250ms control/content feedback | Keep repeated choices responsive while explanatory artwork remains slower |
+| Thin, barely visible section lines | Two SVG optical seams with scroll-linked drawing | Make chapter changes deliberate without new canvas contexts or scroll capture |
+| Whole-group heading fade | Nested masked headline reveal | Give rare editorial entrances a clear hierarchy |
+| Decorative P2L storyboard labels | Selectable prepared-example stages in `Products.tsx:234` | Let visitors inspect the mechanism without waiting for the entire replay |
+
+Code-level verdict: **Approve** within the inspected scope. Marketing artwork
+and rare heading entrances intentionally exceed 300ms; control feedback stays
+short. The existing static/reduced-motion paths, visibility pause and GPU
+cleanup remain in place. Full lint, TypeScript and production build pass.
+Visual/GPU output and actual device timing are not approved without the browser
+inspection described under Verification limit.
+
 - New official opening and direct institution/family routes around the preserved book.
 - White company spread and five-market outlook with accurate status labels.
 - Institutional audience brief, WebGL signal network, existing blue wave and process rail.

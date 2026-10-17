@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { motion } from "motion/react";
-import { ConsultLink, Label, SectionHead } from "./Shared";
+import { ConsultLink, Label, SectionHead, OpticalTransition } from "./Shared";
 import s from "./v5.module.css";
 
 /** A user-started, deterministic example. Pauses when hidden or out of view. */
@@ -44,11 +44,16 @@ function useExample(root: RefObject<HTMLDivElement | null>) {
     setProgress(0);
     setPlaying(false);
   }
+  function seek(value: number) {
+    setPlaying(false);
+    setProgress(Math.max(0, Math.min(1, value)));
+  }
   return {
     progress,
     active,
     toggle,
     reset,
+    seek,
     stage: Math.min(3, Math.floor(progress * 4)),
     label: finished ? "Replay" : active ? "Pause" : "Play example",
   };
@@ -94,7 +99,7 @@ function AIExample() {
             key={ex.stage}
             initial={{ opacity: 0.4 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.24 }}
           >
             {explanations[ex.stage]}
           </motion.p>
@@ -221,9 +226,15 @@ function P2LExample() {
       <div className={s.storyboard}>
         {["01 / The idea", "02 / The diagram", "03 / The explanation"].map(
           (item, i) => (
-            <span key={item} data-active={Math.min(2, ex.stage) === i}>
+            <button
+              key={item}
+              type="button"
+              aria-pressed={Math.min(2, ex.stage) === i}
+              data-active={Math.min(2, ex.stage) === i}
+              onClick={() => ex.seek([0, 0.4, 0.8][i])}
+            >
               {item}
-            </span>
+            </button>
           ),
         )}
       </div>
@@ -340,9 +351,7 @@ export function Products() {
           <P2LExample />
         </article>
       </div>
-      <div className={`${s.handoff} v5-handoff`} aria-hidden="true">
-        <i />
-      </div>
+      <OpticalTransition />
     </section>
   );
 }

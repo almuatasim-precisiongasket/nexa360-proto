@@ -73,6 +73,16 @@ export function Effects() {
           clearProps: "transform,opacity",
         });
       });
+      gsap.utils.toArray<HTMLElement>(".v5-headline").forEach((el) => {
+        gsap.from(el, {
+          yPercent: 14,
+          opacity: 0.65,
+          duration: 1.1,
+          ease: "power3.out",
+          scrollTrigger: { trigger: el, start: "top 96%", once: true },
+          clearProps: "transform,opacity",
+        });
+      });
       gsap.utils.toArray<SVGPathElement>(".v5-draw path").forEach((path) => {
         const length = path.getTotalLength();
         gsap.fromTo(
@@ -86,25 +96,45 @@ export function Effects() {
           },
         );
       });
-      gsap.utils
-        .toArray<HTMLElement>(".v5-handoff i")
-        .forEach((el) =>
-          gsap.fromTo(
-            el,
+      gsap.utils.toArray<HTMLElement>(".v5-handoff").forEach((seam) => {
+        const beam = seam.querySelector("i"),
+          svg = seam.querySelector("svg"),
+          stroke = seam.querySelector(".v5-optical-stroke");
+        const timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: seam,
+            start: "top 98%",
+            end: "top 45%",
+            scrub: 1.3,
+          },
+        });
+        if (beam)
+          timeline.fromTo(
+            beam,
             { scaleX: 0.1, opacity: 0 },
             {
               scaleX: 1,
               opacity: 0.8,
               ease: "none",
-              scrollTrigger: {
-                trigger: el.parentElement,
-                start: "top 95%",
-                end: "top 50%",
-                scrub: 1.3,
-              },
+              duration: 1,
             },
-          ),
-        );
+            0,
+          );
+        if (svg)
+          timeline.fromTo(
+            svg,
+            { yPercent: 18, opacity: 0.25 },
+            { yPercent: -6, opacity: 1, duration: 1, ease: "none" },
+            0,
+          );
+        if (stroke)
+          timeline.fromTo(
+            stroke,
+            { strokeDasharray: 1, strokeDashoffset: 1 },
+            { strokeDashoffset: 0, duration: 1, ease: "none" },
+            0,
+          );
+      });
     });
     media.add(
       "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",

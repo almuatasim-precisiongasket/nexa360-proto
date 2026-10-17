@@ -7,6 +7,7 @@ import type {
   Scene,
   TorusKnotGeometry,
   WebGLRenderer,
+  WebGLRenderTarget,
 } from "three";
 import s from "./v5.module.css";
 
@@ -23,6 +24,7 @@ export function Sculpture() {
       scene: Scene,
       camera: PerspectiveCamera,
       mesh: Mesh<TorusKnotGeometry, MeshPhysicalMaterial>;
+    let environment: WebGLRenderTarget | undefined;
     let disposed = false,
       visible = false,
       initializing = false,
@@ -31,7 +33,9 @@ export function Sculpture() {
       last = 0,
       painted = 0,
       px = 0,
-      py = 0;
+      py = 0,
+      sx = 0,
+      sy = 0;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const draw = (now: number) => {
       if (!renderer || lost) return;
@@ -40,8 +44,11 @@ export function Sculpture() {
       last = now;
       painted = now;
       if (!reduced.matches) elapsed += dt;
-      mesh.rotation.y = elapsed * 0.065 + 0.28 + px * 0.13;
-      mesh.rotation.x = 0.22 + py * 0.1;
+      const damping = 1 - Math.exp(-4 * dt);
+      sx += (px - sx) * damping;
+      sy += (py - sy) * damping;
+      mesh.rotation.y = elapsed * 0.065 + 0.28 + sx * 0.22;
+      mesh.rotation.x = 0.22 + sy * 0.16;
       mesh.rotation.z = -0.3 + Math.sin(elapsed * 0.12) * 0.04;
       renderer.render(scene, camera);
       host.dataset.ready = "true";
@@ -81,6 +88,36 @@ export function Sculpture() {
         renderer.toneMapping = t.ACESFilmicToneMapping;
         renderer.toneMappingExposure = 1.3;
         scene = new t.Scene();
+        // Original studio reflection: soft light strips, not a downloaded environment.
+        const studio = document.createElement("canvas");
+        studio.width = 512;
+        studio.height = 256;
+        const ctx = studio.getContext("2d");
+        if (ctx) {
+          ctx.fillStyle = "#0b1730";
+          ctx.fillRect(0, 0, 512, 256);
+          const glow = ctx.createLinearGradient(0, 0, 0, 256);
+          glow.addColorStop(0, "#9ebfe8");
+          glow.addColorStop(0.38, "#203f71");
+          glow.addColorStop(1, "#070f24");
+          ctx.fillStyle = glow;
+          ctx.fillRect(0, 0, 512, 256);
+          ctx.fillStyle = "#eef7ff";
+          ctx.fillRect(65, 18, 24, 165);
+          ctx.fillStyle = "#79aaff";
+          ctx.fillRect(335, 32, 55, 124);
+          ctx.fillStyle = "#bfdcff";
+          ctx.fillRect(205, 26, 115, 9);
+          const texture = new t.CanvasTexture(studio);
+          texture.colorSpace = t.SRGBColorSpace;
+          texture.mapping = t.EquirectangularReflectionMapping;
+          const pmrem = new t.PMREMGenerator(renderer);
+          environment = pmrem.fromEquirectangular(texture);
+          scene.environment = environment.texture;
+          scene.environmentIntensity = 0.75;
+          texture.dispose();
+          pmrem.dispose();
+        }
         camera = new t.PerspectiveCamera(36, 1, 0.1, 30);
         camera.position.set(0, 0, 7.2);
         mesh = new t.Mesh(
@@ -106,6 +143,8 @@ export function Sculpture() {
         resize();
         sync();
       } catch {
+        environment?.dispose();
+        environment = undefined;
         renderer?.dispose();
         renderer = undefined;
         host.dataset.ready = "false";
@@ -152,6 +191,7 @@ export function Sculpture() {
         mesh.geometry.dispose();
         mesh.material.dispose();
       }
+      environment?.dispose();
       renderer?.dispose();
       host.removeEventListener("pointermove", move);
       host.removeEventListener("pointerleave", leave);

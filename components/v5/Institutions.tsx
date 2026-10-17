@@ -3,7 +3,7 @@ import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { audiences, processSteps, processCopy } from "@/lib/business-content";
 import { AmbientField } from "../AmbientField";
-import { ConsultLink, Label } from "./Shared";
+import { ConsultLink, Label, OpticalTransition } from "./Shared";
 import { VisualField } from "./VisualField";
 import s from "./v5.module.css";
 export function Institutions() {
@@ -117,7 +117,7 @@ export function Institutions() {
                     <motion.span
                       layoutId="audience-line"
                       className={s.activeLine}
-                      transition={{ duration: reduced ? 0 : 0.5 }}
+                      transition={{ duration: reduced ? 0 : 0.25 }}
                     />
                   )}
                   {item.name}
@@ -130,10 +130,13 @@ export function Institutions() {
                 initial={
                   reduced
                     ? false
-                    : { opacity: 0.45, transform: "translateY(8px)" }
+                    : { opacity: 0.6, transform: "translateY(4px)" }
                 }
                 animate={{ opacity: 1, transform: "translateY(0px)" }}
-                transition={{ duration: reduced ? 0 : 0.55 }}
+                transition={{
+                  duration: reduced ? 0 : 0.25,
+                  ease: [0.23, 1, 0.32, 1],
+                }}
               >
                 <span className={s.eyebrow}>
                   PROGRAMME BRIEF / 0{selected + 1}
@@ -159,9 +162,7 @@ export function Institutions() {
           ))}
         </div>
       </div>
-      <div className={`${s.handoff} v5-handoff`} aria-hidden="true">
-        <i />
-      </div>
+      <OpticalTransition />
     </section>
   );
 }
