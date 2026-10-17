@@ -30,11 +30,9 @@ export function Institutions() {
           <div>
             <span className={s.eyebrow}>LEARNING, AT A LARGER SCALE</span>
             <h2>
-              Bring technical
+              Technical learning.
               <br />
-              education to
-              <br />
-              <em>your institution.</em>
+              <em>Collective possibility.</em>
             </h2>
             <p className={s.lead}>
               Expertise meets your ambition. Programmes shaped around your

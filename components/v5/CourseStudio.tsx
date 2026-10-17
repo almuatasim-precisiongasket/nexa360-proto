@@ -199,9 +199,9 @@ export function CourseStudio() {
           label="PRACTICAL SKILLS. REAL CURIOSITY."
           title={
             <>
-              Don’t just learn technology.
+              Don’t just learn.
               <br />
-              <em>Build with it.</em>
+              <em>Build.</em>
             </>
           }
           copy="Choose a subject. Discover what you could make. Our programmes connect important ideas with guided practical learning."

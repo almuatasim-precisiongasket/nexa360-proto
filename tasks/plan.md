@@ -305,6 +305,11 @@ This revision supersedes the previous v5 proposal in place. Earlier v4 records
 above are historical; the removed exploded view must not be restored.
 Execution checklist: the v5 section of `tasks/todo.md`.
 
+Design revision: the user selected **Bold editorial with cinematic blue visuals**.
+The active implementation now includes a new cobalt Three.js opening sculpture,
+larger editorial typography and exhibit stages, a wider institutional workspace,
+staggered product canvases and a light contact form. See `docs/v5-ui-review.md`.
+
 ## 1. The decision
 
 Build one premium public page that introduces NEXA360 as an international

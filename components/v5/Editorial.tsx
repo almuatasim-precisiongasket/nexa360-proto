@@ -1,25 +1,28 @@
 import Image from "next/image";
 import { markets } from "@/lib/business-content";
 import { Label, SectionHead, ConsultLink } from "./Shared";
+import { Sculpture } from "./Sculpture";
+import { AmbientField } from "../AmbientField";
 import s from "./v5.module.css";
 export function Opening() {
   return (
     <section id="welcome" className={s.opening}>
+      <AmbientField />
       <div className={s.openingGrid}>
-        <div>
-          <span className={s.eyebrow}>NEXA360 / EDUCATION, CONNECTED</span>
+        <div className={s.openingCopy}>
+          <span className={s.eyebrow}>
+            <i /> EDUCATION, CONNECTED. POSSIBILITY, EXPANDED.
+          </span>
           <h1>
-            Education Without
+            Education
             <br />
-            <em>Boundaries.</em>
+            without
             <br />
-            Skills for the Future.
+            <em>boundaries.</em>
           </h1>
-        </div>
-        <div className={s.openingAside}>
           <p>
-            Academic tuition, practical technology programmes and educational
-            innovation. For the learner in you. For the people you lead.
+            Skills for the Future. Expert tuition, practical technology and
+            programmes that move people forward.
           </p>
           <div className={s.openingActions}>
             <a href="#pathways" className={`${s.cta} ${s.lightCta}`}>
@@ -30,9 +33,10 @@ export function Opening() {
             </a>
           </div>
         </div>
+        <Sculpture />
       </div>
       <div className={s.openingMeta}>
-        <span>UK-REGISTERED · INTERNATIONALLY MINDED</span>
+        <span>01 / DISCOVER YOUR NEXT CHAPTER</span>
         <a href="#home">Explore the book ↓</a>
         <a href="#about">Discover NEXA360 ↗</a>
       </div>
@@ -54,13 +58,9 @@ export function About() {
           <div>
             <span className={s.eyebrow}>A CONNECTED EDUCATION COMPANY</span>
             <h2>
-              Connected by education.
+              Learning has
               <br />
-              <em>
-                Built for what
-                <br />
-                comes next.
-              </em>
+              <em>no borders.</em>
             </h2>
           </div>
           <div className={s.aboutCopy}>
