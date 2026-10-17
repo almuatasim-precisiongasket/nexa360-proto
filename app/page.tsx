@@ -1,9 +1,9 @@
 import { Header } from "@/components/Header";
 import { BrandIntro } from "@/components/BrandIntro";
 import { BookStory } from "@/components/BookStory";
-import { Information, Footer } from "@/components/Information";
-import { SiteEffects } from "@/components/SiteEffects";
-import { ClickSpark } from "@/components/ClickSpark";
+import { Experience, Footer } from "@/components/v5/Experience";
+import { Opening } from "@/components/v5/Editorial";
+import { Effects } from "@/components/v5/Effects";
 export default function Home() {
   return (
     <>
@@ -13,12 +13,12 @@ export default function Home() {
       <Header />
       <BrandIntro />
       <main>
+        <Opening />
         <BookStory />
-        <Information />
+        <Experience />
       </main>
       <Footer />
-      <SiteEffects />
-      <ClickSpark />
+      <Effects />
     </>
   );
 }

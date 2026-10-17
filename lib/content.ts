@@ -1,5 +1,10 @@
 export type PathwayId =
-  "academic" | "competitive" | "cyber" | "ai" | "robotics" | "career";
+  | "academic"
+  | "competitive"
+  | "cyber"
+  | "ai"
+  | "robotics"
+  | "career";
 export type Pathway = {
   id: PathwayId;
   title: string;
@@ -122,8 +127,8 @@ export const chapters = [
     tag: "UNFAIR ADVANTAGE",
     title: "Every future begins with",
     accent: "a page.",
-    copy: "London tuition and online learning to help you build knowledge, confidence and new possibilities.",
-    note: "A bridge between education and professionalism.",
+    copy: "Academic tuition, practical technology programmes and educational innovation for learners and institutions.",
+    note: "Education Without Boundaries. Skills for the Future.",
     cta: "Open your future",
     pageTitle: ["Unfair", "Advantage"],
     pageCopy: ["Your journey begins."],
@@ -134,23 +139,23 @@ export const chapters = [
     tag: "01 / JOIN. LEARN. GROW.",
     title: "A stronger",
     accent: "beginning.",
-    copy: "One-to-one IGCSE and GCSE tuition in Barking, London and online. Build understanding, confidence and steady progress.",
-    note: "Personal attention. A plan for every learner.",
+    copy: "GCSE tuition in Barking Riverside, London and online. Discuss tutor categories, session formats and the support that fits your child.",
+    note: "Start with a free tuition consultation.",
     cta: "Explore academic support",
-    pageTitle: ["IGCSE", "& GCSE"],
+    pageTitle: ["GCSE", "Tuition"],
     pageCopy: ["Join. Learn. Grow."],
     path: "academic",
   },
   {
-    label: "Ambition",
-    tag: "02 / BUILD YOUR FOUNDATION",
-    title: "Aim high.",
-    accent: "Build strong.",
-    copy: "Turn your competitive-exam goals into purposeful practice. Strengthen your understanding, one problem at a time.",
-    note: "Rank #1 is an ambition to pursue, never a promised result.",
-    cta: "Discuss your exam goals",
-    pageTitle: ["Competitive", "Exams"],
-    pageCopy: ["Build your foundation.", "Aim high."],
+    label: "Institutions",
+    tag: "02 / LEARNING TOGETHER",
+    title: "Shared ambition.",
+    accent: "Practical learning.",
+    copy: "Custom technical programmes for schools, universities, businesses and communities. Build a proposal around your learners and your goals.",
+    note: "Consultation. Customisation. Delivery.",
+    cta: "Explore institutional programmes",
+    pageTitle: ["Learn", "Together"],
+    pageCopy: ["Programmes for", "your institution."],
     path: "competitive",
   },
   {
@@ -158,7 +163,7 @@ export const chapters = [
     tag: "03 / CONNECTED. PROTECTED.",
     title: "Defend what",
     accent: "matters.",
-    copy: "Cybersecurity training in collaboration with Tutelr. Connect practical learning with industry-oriented digital skills.",
+    copy: "Explore security principles, modern threats and practical defence. Discuss cybersecurity programmes for students, institutions and professionals.",
     note: "A new chapter in a connected world.",
     cta: "Explore cybersecurity",
     pageTitle: ["Cybersecurity"],
@@ -170,9 +175,9 @@ export const chapters = [
     tag: "04 / INTELLIGENT POSSIBILITIES",
     title: "Learn to ask",
     accent: "what if.",
-    copy: "Explore what artificial intelligence could help us understand, create and solve. A new perspective starts with a question.",
-    note: "Future educational vision · Active course not confirmed.",
-    cta: "Explore the AI vision",
+    copy: "Explore artificial intelligence and agentic systems through guided practical learning. Work towards developing an agentic application.",
+    note: "Programme scope and availability confirmed during consultation.",
+    cta: "Explore AI & Agentic AI",
     pageTitle: ["Artificial", "Intelligence"],
     pageCopy: ["Explore intelligent", "possibilities."],
     path: "ai",
@@ -182,9 +187,9 @@ export const chapters = [
     tag: "05 / IDEAS INTO MOTION",
     title: "Engineer",
     accent: "what’s next.",
-    copy: "Discover the possibilities of engineering, robotics and automation. Imagine an idea becoming a part of the physical world.",
-    note: "Future educational vision · Active course not confirmed.",
-    cta: "Explore the robotics vision",
+    copy: "Connect engineering, electronics and programming. Work towards two guided projects, with robotics kits included in the applicable package.",
+    note: "Projects, kit contents and scheduling confirmed in your proposal.",
+    cta: "Explore robotics",
     pageTitle: ["Robotics"],
     pageCopy: ["Ideas into motion."],
     path: "robotics",

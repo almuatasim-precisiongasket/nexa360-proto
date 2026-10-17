@@ -6,9 +6,9 @@ import "@fontsource/instrument-serif/400.css";
 import "@fontsource/instrument-serif/400-italic.css";
 import "./globals.css";
 export const metadata: Metadata = {
-  title: "NEXA360 — Unfair Advantage",
+  title: "NEXA360 — Education Without Boundaries",
   description:
-    "One-to-one IGCSE and GCSE tuition in Barking, London and online learning. A bridge between education and professionalism.",
+    "Institutional technical training, practical technology programmes and GCSE tuition in Barking Riverside, London and online. Education Without Boundaries. Skills for the Future.",
   icons: { icon: "/mark.svg" },
 };
 export default function RootLayout({

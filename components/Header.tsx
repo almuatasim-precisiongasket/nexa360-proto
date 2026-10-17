@@ -17,6 +17,7 @@ const links = [
 ];
 const sectionGroups: Record<string, string> = {
   tuition: "pathways",
+  technical: "pathways",
   team: "about",
   collaboration: "initiatives",
 };
@@ -106,7 +107,7 @@ export function Header() {
         ref={root}
         className={`site-header ${scrolled ? "scrolled" : ""} ${open ? "menu-open" : ""}`}
       >
-        <a href="#home" aria-label="NEXA360 home">
+        <a href="#welcome" aria-label="NEXA360 home">
           <Logo />
         </a>
         <nav id="main-navigation" aria-label="Main navigation" ref={nav}>
