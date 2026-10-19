@@ -4,6 +4,7 @@ import "@fontsource/dm-sans/500.css";
 import "@fontsource/dm-sans/600.css";
 import "@fontsource/instrument-serif/400.css";
 import "@fontsource/instrument-serif/400-italic.css";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 export const metadata: Metadata = {
   title: "NEXA360 — Education Without Boundaries",

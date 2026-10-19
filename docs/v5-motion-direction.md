@@ -42,7 +42,7 @@ long autoplay sequence or make visitors wait before using controls.
   and prepared product playback. The director skips volatile/dynamically replaced
   content; it does not bind listeners to panels that will be replaced.
 - The existing WebGL wave and data fields, Rive desk and book supply living
-  artwork. No extra canvas, external scene or application dependency is added.
+  artwork. No extra canvas or external scene is added. Desktop scroll coordination uses Lenis 1.3.27.
 - The window remains the single scrolling surface, preserving the existing book,
   touch behaviour and navigation. Service chapters add no pinning or scroll trap.
 - Legacy reveal selectors skip director-owned groups. Hover-controlled route
@@ -64,3 +64,19 @@ Production compilation, TypeScript, lint and generated-page checks are recorded
 in the implementation review. Browser access was blocked earlier in this session;
 actual desktop/phone motion, serif masking, GPU output and touch timing still
 need visual inspection. Source-level checks do not substitute for that review.
+
+## Desktop scroll refinement
+
+The cinematic-gsap-lenis-motion-system and cinematic-scroll-storytelling skills
+inform the integration. Lenis uses the window as its root, runs on GSAP's ticker
+and updates ScrollTrigger. Fine-pointer desktops above 900px use lerp 0.085 and
+wheel multiplier 0.9. Phones, coarse pointers and reduced-motion users retain
+native scrolling. No extra service chapter pinning is introduced.
+
+A shared scroll coordinator owns anchor navigation, chapter buttons, skip-story
+and parent-panel positioning. New navigation cancels the previous request;
+wheel input interrupts desktop navigation. Nested scrolling and form controls
+retain native behavior. Media changes and unmount remove the driver, ticker,
+listeners and Lenis instance. Existing book physics and assets are preserved.
+
+Reference: https://github.com/darkroomengineering/lenis/blob/main/README.md

@@ -2,13 +2,13 @@
 import { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { scrollPageTo } from "@/lib/scroll-controller";
 import { onSiteEvent } from "@/lib/site-events";
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger);
 export function Effects() {
   useEffect(() => {
     const media = gsap.matchMedia();
-    let navigation: gsap.core.Tween | undefined;
+    let navigation: (() => void) | undefined;
     let anchorFrame = 0;
     let anchorPending = true;
     const initialHash = location.hash;
@@ -18,7 +18,7 @@ export function Effects() {
     const navigate = (hash: string, push = true, immediate = false) => {
       const el = document.getElementById(hash.slice(1));
       if (!el) return;
-      navigation?.kill();
+      navigation?.();
       const done = () => {
         if (push && location.hash !== hash) history.pushState(null, "", hash);
         el.tabIndex = -1;
@@ -29,22 +29,10 @@ export function Effects() {
         : innerWidth <= 900
           ? 82
           : 96;
-      if (immediate || matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        window.scrollTo({
-          top: Math.max(0, el.getBoundingClientRect().top + scrollY - offset),
-          behavior: "instant",
-        });
-        done();
-        return;
-      }
-      navigation = gsap.to(window, {
-        scrollTo: {
-          y: el,
-          offsetY: offset,
-          autoKill: true,
-        },
+      navigation = scrollPageTo(el, {
+        offset,
         duration: 1.35,
-        ease: "power3.inOut",
+        immediate,
         onComplete: done,
       });
     };
@@ -213,7 +201,7 @@ export function Effects() {
       alive = false;
       clearTimeout(timer);
       observer.disconnect();
-      navigation?.kill();
+      navigation?.();
       cancelAnimationFrame(anchorFrame);
       window.removeEventListener("popstate", restoreAnchor);
       window.removeEventListener("pointerdown", stopInitialAnchor);

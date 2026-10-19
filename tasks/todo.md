@@ -525,3 +525,10 @@ labels are retained.
 
 Motion direction is documented in docs/v5-motion-direction.md. Actual device and
 browser motion inspection remains open under the existing browser restriction.
+
+## V5.22 — coordinated desktop scrolling
+
+- Applied both installed cinematic motion skills.
+- Added desktop-only Lenis with one GSAP clock and a shared navigation owner.
+- Preserved native phone scrolling, existing assets and book physics.
+- Validation: TypeScript and lint passed (0 errors, 0 warnings); production compilation passed. Browser interaction review remains unavailable.

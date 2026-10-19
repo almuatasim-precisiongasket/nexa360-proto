@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import s from "./parent-portal.module.css";
+import { scrollPageTo } from "@/lib/scroll-controller";
 
 const views = ["Overview", "Lesson reports", "Homework", "Attendance"] as const;
 type View = (typeof views)[number];
@@ -97,9 +98,10 @@ export function ParentPortalPreview() {
       panel.focus({ preventScroll: true });
       const top = panel.getBoundingClientRect().top;
       if (top < 110 || top > innerHeight * 0.6)
-        panel.scrollIntoView({
-          block: "start",
-          behavior: reduced ? "instant" : "smooth",
+        scrollPageTo(panel, {
+          offset: 110,
+          duration: 0.9,
+          immediate: Boolean(reduced),
         });
     });
   }

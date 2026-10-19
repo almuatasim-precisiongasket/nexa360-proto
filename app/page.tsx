@@ -1,3 +1,4 @@
+import { DesktopScroll } from "@/components/v5/DesktopScroll";
 import { Header } from "@/components/Header";
 import { Experience, Footer } from "@/components/v5/Experience";
 import { Gateway } from "@/components/v5/Gateway";
@@ -7,6 +8,7 @@ import { MotionDirector } from "@/components/v5/MotionDirector";
 export default function Home() {
   return (
     <>
+      <DesktopScroll />
       <a className="skip-link" href="#welcome">
         Skip to learning options
       </a>

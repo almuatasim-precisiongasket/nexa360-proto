@@ -209,3 +209,15 @@ substitute for real device inspection. Visual review checkpoints remain open.
   project evidence and final contact/legal details await business input.
 - Missing documentary photography and portraits were not fabricated.
 - The implementation is local. No Vercel deployment was requested in this turn.
+
+## V5.22 — Lenis coordination
+
+Applied both installed cinematic motion skills. Added Lenis 1.3.27 on fine-pointer
+desktops only, synchronized to GSAP's existing ticker and ScrollTrigger. Shared
+scroll ownership now covers section links, chapter controls, skip-story and
+parent-panel positioning. User input can interrupt navigation; phones retain
+native scrolling. Existing book physics, palette and assets are unchanged.
+
+TypeScript and lint passed (zero errors/warnings). Production compilation passed.
+Actual visual pacing, wheel behavior and phone interaction have not been browser
+verified because browser access was previously blocked in this session.

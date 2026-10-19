@@ -9,7 +9,7 @@ import {
 } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { scrollPageTo } from "@/lib/scroll-controller";
 import { useGSAP } from "@gsap/react";
 import { chapters } from "@/lib/content";
 import { readingPosition, storyFrame, clamp } from "@/lib/story";
@@ -20,7 +20,7 @@ import type { StoryBridge } from "@/lib/story";
 import { MOBILE_BOOK_QUERY } from "@/lib/media";
 import { emitSiteEvent, onSiteEvent } from "@/lib/site-events";
 const BookCanvas = dynamic(() => import("./BookCanvas"), { ssr: false });
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, useGSAP);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 export function BookStory({
   skipTargetId = "about",
 }: {
@@ -78,7 +78,7 @@ export function BookStory({
         (context) => {
           const isReduced = context.conditions?.reduced;
           let current = -1;
-          let navigation: gsap.core.Tween | undefined;
+          let navigation: (() => void) | undefined;
           const update = () => {
             const frame = storyFrame(bridge.current.progress);
             if (current !== frame.chapter) {
@@ -105,12 +105,12 @@ export function BookStory({
             );
             update();
             navigate.current = contextSafe!((n: number) => {
-              navigation?.kill();
+              navigation?.();
               bridge.current.progress = readingPosition(clamp(n, 0, 6));
               update();
             });
             return () => {
-              navigation?.kill();
+              navigation?.();
             };
           }
           bridge.current.progress = 0;
@@ -154,12 +154,8 @@ export function BookStory({
               trigger.start +
               (readingPosition(clamp(n, 0, 6)) / 7) *
                 (trigger.end - trigger.start);
-            navigation?.kill();
-            navigation = gsap.to(window, {
-              scrollTo: { y: target, autoKill: true },
-              duration: 1.9,
-              ease: "power3.inOut",
-            });
+            navigation?.();
+            navigation = scrollPageTo(target, { duration: 1.9 });
           });
           let mounted = true;
           document.fonts.ready.then(() => {
@@ -168,7 +164,7 @@ export function BookStory({
           update();
           return () => {
             mounted = false;
-            navigation?.kill();
+            navigation?.();
           };
         },
       );
@@ -197,9 +193,15 @@ export function BookStory({
   );
   function skip() {
     const target = document.getElementById(skipTargetId);
-    target?.scrollIntoView({ behavior: reduced ? "instant" : "smooth" });
-    if (target) target.tabIndex = -1;
-    target?.focus({ preventScroll: true });
+    if (!target) return;
+    scrollPageTo(target, {
+      duration: 1.2,
+      immediate: reduced,
+      onComplete: () => {
+        target.tabIndex = -1;
+        target.focus({ preventScroll: true });
+      },
+    });
   }
   function release(event: PointerEvent<HTMLDivElement>) {
     const start = drag.current;
