@@ -213,6 +213,10 @@ export function LearningJourney() {
                 </g>
               </svg>
             </div>
+            <div className={s.sceneCaption}>
+              <span>0{active + 1} / 03</span>
+              <strong>{steps[active].name}</strong>
+            </div>
             <div className={s.sampleCard} data-sample={active}>
               <span className={s.sampleLabel}>
                 ILLUSTRATIVE EXAMPLE · NOT A STUDENT RECORD
@@ -238,9 +242,23 @@ export function LearningJourney() {
                     aria-expanded={answer}
                   >
                     {answer
-                      ? "Subtract 3 → 2x = 8 → x = 4"
-                      : "Reveal a worked example ↗"}
+                      ? "Hide the explanation −"
+                      : "Work it through together ↗"}
                   </button>
+                  {answer && (
+                    <div className={s.workedAnswer} role="status">
+                      <span>
+                        <b>01</b> Subtract 3 from both sides{" "}
+                        <strong>2x = 8</strong>
+                      </span>
+                      <span>
+                        <b>02</b> Divide both sides by 2 <strong>x = 4</strong>
+                      </span>
+                      <span>
+                        <b>✓</b> Check it: 2 × 4 + 3 = 11
+                      </span>
+                    </div>
+                  )}
                 </>
               ) : (
                 <>

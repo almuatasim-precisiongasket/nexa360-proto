@@ -235,3 +235,15 @@ TypeScript, production compilation and lint passed. Generated-page checks found
 three learning beats, three ribbon transitions, no duplicate IDs and no missing
 anchor targets. The book remains first. Actual browser rendering, scroll timing,
 GPU output and phone gestures remain visually unverified in this session.
+
+## V5.24 — release refinement
+
+Chapter navigation now tracks the current reading position across section gaps,
+with a persistent label for the active desktop chapter. The tuition sample has a
+clear step caption and an expanded, checkable worked answer. Responsive type and
+short-viewport staging were refined while preserving existing local CSS edits.
+
+Webpack production build and TypeScript passed; full lint passed. Static-page
+checks found no duplicate IDs or missing section anchor targets. Visual/GPU/phone
+review remains unverified. Production publication requested by the user; Vercel
+CLI authentication was expired and reauthentication initiated.

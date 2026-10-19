@@ -1,6 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "gsap";
 import s from "./story-scenes.module.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const chapters = [
   { id: "welcome", label: "Choose your path" },
@@ -15,23 +19,23 @@ export function ChapterNav() {
     const sections = chapters
       .map(({ id }) => document.getElementById(id))
       .filter((el): el is HTMLElement => Boolean(el));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries)
-          if (entry.isIntersecting) setActive(entry.target.id);
-      },
-      { rootMargin: "-25% 0px -65% 0px" },
-    );
-    sections.forEach((section) => observer.observe(section));
-    const book = document.getElementById("book-experience");
-    const bookObserver = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) setActive("");
-    });
-    if (book) bookObserver.observe(book);
-    return () => {
-      observer.disconnect();
-      bookObserver.disconnect();
+    const update = () => {
+      const position = window.scrollY + window.innerHeight * 0.35;
+      let current = "";
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top + window.scrollY <= position)
+          current = section.id;
+      }
+      setActive(current);
     };
+    const tracker = ScrollTrigger.create({
+      start: 0,
+      end: "max",
+      onUpdate: update,
+      onRefresh: update,
+    });
+    update();
+    return () => tracker.kill();
   }, []);
   return (
     <nav
