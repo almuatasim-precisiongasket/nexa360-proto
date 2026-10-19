@@ -55,8 +55,9 @@ export function Gateway() {
             </h1>
           </div>
           <p data-nexa-support>
-            Two clear ways to learn. GCSE tuition for school students, and
-            practical technology courses for curious learners and organisations.
+            Find the right support for your child, from GCSE understanding to
+            practical technology skills. Start with your family’s priorities;
+            explore programmes for organisations in their own section.
           </p>
         </div>
         <div className={s.routeCards}>

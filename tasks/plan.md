@@ -917,3 +917,102 @@ the rejected cyan/light-blue treatment. Correct shader alpha compositing so the
 animated field does not brighten the whole card. Skip story leads to the service
 routes; header/footer home links return to the opening book. Physics/assets stay
 unchanged.
+
+
+# V6 — Parent-first cinematic learning experience
+
+Status: planning only. Branch v6 created from v5. Live v5 is unchanged.
+
+## Approved direction
+Parents and prospective families are primary; students secondary; organisations
+third. Preserve the opening book, intro, supplied logo, portraits, existing assets
+and approved business content. Replace the weak recent tuition illustration and
+ribbon treatment where appropriate. Build a coherent learning studio using real
+Three.js geometry and coordinated GSAP/Lenis progression. Separate school tuition
+from the technology skills exhibit. Preview review precedes production release.
+
+## Reading order
+Book and intro -> family route finder -> GCSE tuition and preferences -> cinematic
+learning studio -> parent portal preview -> technology skills exhibit ->
+organisations -> questions and consultation -> company information and products.
+A consultation action and direct section navigation remain available.
+
+## Main story: one learning event, four compositions
+1. Understand: wide architectural view of a navy desk, ivory paper, task lamp and
+   learning display. Parent question: is this right for my child?
+2. Explain: camera moves closer as a sample equation lifts into a practice display.
+   Show the method and invite the visitor to choose the next operation.
+3. Practise: visitor feedback follows their actual selection. Incorrect choices
+   receive a useful hint; correct choices reveal the next step and a check.
+4. Share: the same sample activity appears in a labelled illustrative parent
+   feedback display: topic, method practised, next practice priority. This does
+   not imply real tracking, assessment, accounts or live student records.
+
+Each composition holds still for reading. Reverse and fast scrolling derive state
+from absolute chapter progress; no chains of delayed callbacks. Direct controls
+select all four views. Visitors can skip to the parent portal or consultation.
+
+## Art and implementation
+Matte midnight-blue surfaces, ivory paper, restrained brushed gold/metal details,
+warm task lighting, architectural framing and the existing blue wave atmosphere.
+Camera movement, objects and HTML explanations share one progress model. Keep
+readable UI in HTML; use 3D for spatial storytelling. Author the studio in code
+with Three.js and the existing packages. Do not add another animation library.
+
+Separate scene construction, renderer lifecycle and page controller. Lazy-load the
+renderer near the viewport; share one canvas across tuition story compositions.
+Cap pixel ratio (desktop 1.5, phone 1), pause offscreen/hidden rendering, dispose
+geometry/materials/textures/shadow maps, and provide a visible authored fallback
+for loading, missing GPU support or context failure. No extra WebGL scenes per
+story beat. Mobile uses explicit step controls, shorter camera movement and no
+additional pinned scroll range; reduced motion uses settled compositions.
+
+## Implementation slices and checkpoints
+
+### 1. Complete one authored studio composition
+Scope: new scene builder and runtime; reuse existing dependencies.
+Acceptance: recognisable desk/lamp/paper/display; deliberate lighting and framing;
+readable HTML fallback; scene failure leaves the explanation usable.
+Checkpoint: inspect desktop wide, desktop short viewport, phone portrait.
+
+### 2. Connect all four story views
+Depends on 1. Scope: replace LearningJourney and add dedicated V6 styles.
+Acceptance: one camera/object state model; scroll and step controls agree; reading
+holds; reverse/fast scroll settles correctly; no duplicate transform owners.
+
+### 3. Connect the practice to illustrative parent feedback
+Depends on 2. Scope: deterministic local sample state, explanations and report.
+Acceptance: correct/incorrect/reset flows; feedback reflects the real selection;
+all examples labelled; no fabricated grades, results or live product promises.
+Checkpoint: user preview review of the complete tuition sequence before expanding.
+
+### 4. Strengthen family orientation and transitions
+Depends on approved tuition preview. Scope: route finder hierarchy, parent-focused
+chapter introductions, consultation handoff, replacement of weaker ribbon bands.
+Acceptance: visitors can identify tuition, skills and organisation offers; book
+remains first; consultation preferences continue to prefill the existing form.
+
+### 5. Build the skills exhibit
+Depends on the approved visual language. Scope: dimensional workbench around the
+preserved subject artwork; retain useful existing AI/cyber/robotics/game/ML samples.
+Acceptance: selection changes the exhibit and copy together; samples stay usable;
+subjects remain explicit; enquiry action stays available; phone layout is clear.
+
+### 6. Review and repair
+Depends on completed preview scope. Verification: lint, TypeScript, production
+build, anchor/section checks, actual desktop/phone browser inspection where
+available. No tests are added or run unless requested. Visually inspect start,
+practice and feedback compositions; forward/reverse scroll; rapid selection;
+loader/skip/replay; fallback; reduced motion; keyboard and phone touch input.
+If browser tools remain unavailable, disclose the limitation and supply the
+preview for user review; never mark visual acceptance complete from compilation.
+
+### 7. Publish after preview approval
+Depends on user visual approval. Push v6, let Vercel build the preview, promote
+that exact approved build to the existing domain, verify the live alias and
+content, and retain the previous production deployment for rollback.
+
+## Completion bar
+The result must present a sustained, spatially coherent story with useful
+interaction and parent clarity. A collection of extra reveal effects does not
+satisfy this brief. No claim of reference-level fidelity without visual review.

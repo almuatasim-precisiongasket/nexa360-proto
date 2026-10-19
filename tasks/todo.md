@@ -541,3 +541,21 @@ browser motion inspection remains open under the existing browser restriction.
 - Added restrained scroll-energy response to the original WebGL waves.
 - Build/TypeScript/lint passed; static anchors and scene markers checked.
 - Visual browser and phone review remain outstanding.
+
+
+## V6 — Parent-first cinematic studio
+
+- [x] Create v6 branch and settle audience/art/story direction.
+- [x] Record implementation plan and visual acceptance checkpoint.
+- [x] Build one complete dimensional studio composition.
+- [ ] User visually reviews the studio composition.
+- [x] Connect four camera/story views and direct controls.
+- [x] Connect local practice choices to labelled parent feedback.
+- [ ] Present tuition preview for user review before extending treatment.
+- [ ] Refine family hierarchy and replace weaker transition bands.
+- [ ] Strengthen separate technology skills workbench.
+- [ ] Complete responsive, fallback, motion and build verification.
+- [ ] Obtain preview approval, then publish the approved v6 build.
+
+Live v5 remains unchanged. Browser use was stopped at the user’s request;
+visual acceptance remains outstanding until the user reviews the preview.
