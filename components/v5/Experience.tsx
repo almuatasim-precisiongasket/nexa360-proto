@@ -1,4 +1,5 @@
 import { ChapterTransition } from "./ChapterTransition";
+import { ReplayIntro } from "../BrandIntro";
 import { Logo } from "../Logo";
 import { CompanyHub } from "./CompanyHub";
 import { Institutions } from "./Institutions";
@@ -65,6 +66,7 @@ export function Footer() {
           <span>Barking Riverside, London · Online learning</span>
           <a href="#book-experience">Explore the interactive book ↗</a>
           <a href="#home">Back to the beginning ↑</a>
+          <ReplayIntro />
         </div>
       </div>
     </footer>

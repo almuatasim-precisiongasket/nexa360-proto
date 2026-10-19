@@ -1,4 +1,5 @@
 import { ChapterNav } from "@/components/v5/ChapterNav";
+import { BrandIntro } from "@/components/BrandIntro";
 import { DesktopScroll } from "@/components/v5/DesktopScroll";
 import { Header } from "@/components/Header";
 import { Experience, Footer } from "@/components/v5/Experience";
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <>
       <DesktopScroll />
+      <BrandIntro />
       <a className="skip-link" href="#welcome">
         Skip to learning options
       </a>

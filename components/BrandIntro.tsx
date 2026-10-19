@@ -96,7 +96,7 @@ export function BrandIntro() {
     previous.current ??= document.activeElement as HTMLElement;
     const content = [
       ...document.querySelectorAll<HTMLElement>(
-        "header,main,footer,.skip-link",
+        'header,main,footer,.skip-link,nav[aria-label="Learning chapters"]',
       ),
     ].map((element) => ({ element, inert: element.inert }));
     content.forEach(({ element }) => (element.inert = true));

@@ -28,7 +28,7 @@ export function DesktopScroll() {
         allowNestedScroll: true,
         prevent: (node) =>
           node.matches(
-            "input, textarea, select, [contenteditable='true'], [data-lenis-prevent]",
+            "input, textarea, select, [contenteditable='true'], [data-lenis-prevent], .brand-intro",
           ),
       });
       const detach = attachScrollDriver((top, options) => {
