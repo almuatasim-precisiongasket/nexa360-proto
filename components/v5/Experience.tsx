@@ -23,7 +23,7 @@ export function Experience() {
 export function Footer() {
   return (
     <footer className={s.footer}>
-      <div className={s.footerInner}>
+      <div className={s.footerInner} data-nexa-footer>
         <div className={s.footerTop}>
           <div className={s.footerBrand}>
             <a href="#home" aria-label="NEXA360 home">

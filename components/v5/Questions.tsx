@@ -105,16 +105,18 @@ export function Questions() {
       aria-labelledby="questions-heading"
     >
       <div className={s.inner}>
-        <div className={s.heading}>
+        <div className={s.heading} data-nexa-scene>
           <div>
-            <span className={s.kicker}>BEFORE WE TALK / USEFUL ANSWERS</span>
-            <h2 id="questions-heading">
+            <span className={s.kicker} data-nexa-kicker>
+              BEFORE WE TALK / USEFUL ANSWERS
+            </span>
+            <h2 id="questions-heading" data-nexa-heading>
               A little clarity.
               <br />
               <em>A better next step.</em>
             </h2>
           </div>
-          <p>
+          <p data-nexa-support>
             Different learners need different things. Find the answers that
             matter to you before starting a conversation.
           </p>
@@ -157,6 +159,7 @@ export function Questions() {
           <motion.div
             id="nexa-answer"
             className={s.answer}
+            data-nexa-volatile
             key={`${category}-${selected}`}
             initial={reduced ? false : { opacity: 0.7 }}
             animate={{ opacity: 1 }}

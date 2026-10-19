@@ -93,23 +93,13 @@ export function Effects() {
     media.add("(prefers-reduced-motion: no-preference)", () => {
       gsap.utils.toArray<HTMLElement>(".v5-reveal").forEach((el) => {
         if (el.closest("[data-v5-dynamic]")) return;
+        if (el.closest("[data-nexa-owned], [data-nexa-scene]")) return;
         gsap.from(el, {
           opacity: 0.35,
           y: 22,
           duration: 1,
           ease: "power3.out",
           scrollTrigger: { trigger: el, start: "top 94%", once: true },
-          clearProps: "transform,opacity",
-        });
-      });
-      gsap.utils.toArray<HTMLElement>(".v5-headline").forEach((el) => {
-        if (el.closest("[data-v5-dynamic]")) return;
-        gsap.from(el, {
-          yPercent: 14,
-          opacity: 0.65,
-          duration: 1.1,
-          ease: "power3.out",
-          scrollTrigger: { trigger: el, start: "top 96%", once: true },
           clearProps: "transform,opacity",
         });
       });

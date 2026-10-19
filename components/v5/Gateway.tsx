@@ -6,6 +6,7 @@ import { AmbientField } from "../AmbientField";
 import { PathArt } from "../PathArt";
 import { VisualField } from "./VisualField";
 import { ConsultLink } from "./Shared";
+import { ChapterSignal } from "./ChapterSignal";
 import { courses } from "@/lib/business-content";
 import { emitSiteEvent } from "@/lib/site-events";
 import s from "./v5.module.css";
@@ -41,18 +42,19 @@ export function Gateway() {
     <section id="welcome" className={s.gateway}>
       <AmbientField />
       <div className={s.inner}>
-        <div className={s.gatewayIntro}>
+        <ChapterSignal />
+        <div className={s.gatewayIntro} data-nexa-scene>
           <div>
-            <span className={s.eyebrow}>
+            <span className={s.eyebrow} data-nexa-kicker>
               NEXA360 / EDUCATION WITHOUT BOUNDARIES
             </span>
-            <h1>
+            <h1 data-nexa-heading>
               School confidence.
               <br />
               <em>Skills for the future.</em>
             </h1>
           </div>
-          <p>
+          <p data-nexa-support>
             Two clear ways to learn. GCSE tuition for school students, and
             practical technology courses for curious learners and organisations.
           </p>
@@ -60,6 +62,8 @@ export function Gateway() {
         <div className={s.routeCards}>
           <motion.article
             className={s.academicRoute}
+            data-nexa-reveal="ink"
+            data-nexa-depth-scene
             whileHover={reduced ? undefined : { transform: "translateY(-4px)" }}
             transition={{ duration: 0.25 }}
           >
@@ -83,7 +87,7 @@ export function Gateway() {
                 Explore GCSE tuition <span aria-hidden="true">↗</span>
               </a>
             </div>
-            <div className={s.routeDesk}>
+            <div className={s.routeDesk} data-nexa-parallax="24">
               <Image
                 src="/assets/rive/learning-desk-0.svg"
                 width={900}
@@ -97,6 +101,9 @@ export function Gateway() {
           </motion.article>
           <motion.article
             className={s.skillsRoute}
+            data-nexa-reveal="ink"
+            data-nexa-delay="0.12"
+            data-nexa-depth-scene
             whileHover={reduced ? undefined : { transform: "translateY(-4px)" }}
             transition={{ duration: 0.25 }}
           >
@@ -121,7 +128,7 @@ export function Gateway() {
                 Explore skills courses <span aria-hidden="true">↗</span>
               </a>
             </div>
-            <div className={s.routeRobot}>
+            <div className={s.routeRobot} data-nexa-parallax="-28">
               <PathArt kind="robotics" />
             </div>
             <span className={s.routeCaption}>FOR LEARNERS & ORGANISATIONS</span>

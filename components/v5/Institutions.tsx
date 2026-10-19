@@ -26,15 +26,17 @@ export function Institutions() {
           <a href="#technical">Skills courses ↗</a>
           <a href="#tuition">GCSE tuition ↗</a>
         </div>
-        <div className={`${s.institutionGrid} v5-reveal`}>
-          <div>
-            <span className={s.eyebrow}>LEARNING, AT A LARGER SCALE</span>
-            <h2>
+        <div className={`${s.institutionGrid} v5-reveal`} data-nexa-owned>
+          <div data-nexa-scene>
+            <span className={s.eyebrow} data-nexa-kicker>
+              LEARNING, AT A LARGER SCALE
+            </span>
+            <h2 data-nexa-heading>
               Training for
               <br />
               <em>your organisation.</em>
             </h2>
-            <p className={s.lead}>
+            <p className={s.lead} data-nexa-support>
               Expertise meets your ambition. Programmes shaped around your
               learners, your goals and your community.
             </p>
@@ -52,13 +54,13 @@ export function Institutions() {
               Free initial consultation · Custom programme proposals
             </p>
           </div>
-          <div className={s.institutionPanel}>
+          <div className={s.institutionPanel} data-nexa-reveal="surface">
             <div className={s.network} aria-hidden="true">
               <VisualField
                 mode={-1}
                 focus={selected === 0 ? 1 : selected === 1 ? 0 : selected}
               />
-              <svg viewBox="0 0 500 320" fill="none">
+              <svg viewBox="0 0 500 320" fill="none" data-nexa-trace>
                 <path
                   d="M250 160L100 65M250 160L400 65M250 160L100 255M250 160L400 255"
                   stroke="currentColor"
@@ -152,9 +154,13 @@ export function Institutions() {
             </div>
           </div>
         </div>
-        <div className={`${s.process} v5-reveal`}>
+        <div
+          className={`${s.process} v5-reveal`}
+          data-nexa-owned
+          data-nexa-process
+        >
           {processSteps.map((step, i) => (
-            <div key={step}>
+            <div key={step} data-nexa-step>
               <span>0{i + 1}</span>
               <h4>{step}</h4>
               <p>{processCopy[i]}</p>

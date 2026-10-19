@@ -27,7 +27,7 @@ function DeskScene() {
     return () => observer.disconnect();
   }, []);
   return (
-    <div className={s.desk} ref={root}>
+    <div className={s.desk} ref={root} data-nexa-reveal="surface">
       <Image
         className={s.deskPoster}
         src="/assets/rive/learning-desk-0.svg"
@@ -86,29 +86,35 @@ export function Tuition() {
         <Label number="01" note="BARKING RIVERSIDE, LONDON · ONLINE">
           GCSE & SCHOOL LEARNING
         </Label>
-        <div className={`${s.tuitionGrid} v5-reveal`}>
+        <div className={`${s.tuitionGrid} v5-reveal`} data-nexa-owned>
           <div>
-            <span className={s.eyebrow}>
-              SCHOOL SUBJECT SUPPORT / FOR STUDENTS & PARENTS
-            </span>
-            <h2>
-              GCSE tuition
-              <br />
-              that fits
-              <br />
-              <em>your child.</em>
-            </h2>
-            <p>
-              Expert guidance. Room for questions. A learning arrangement shaped
-              around your child’s needs and your family’s priorities.
-            </p>
+            <div data-nexa-scene>
+              <span className={s.eyebrow} data-nexa-kicker>
+                SCHOOL SUBJECT SUPPORT / FOR STUDENTS & PARENTS
+              </span>
+              <h2 data-nexa-heading>
+                GCSE tuition
+                <br />
+                that fits
+                <br />
+                <em>your child.</em>
+              </h2>
+              <p data-nexa-support>
+                Expert guidance. Room for questions. A learning arrangement
+                shaped around your child’s needs and your family’s priorities.
+              </p>
+            </div>
             <DeskScene />
             <div className={s.deskNote}>
               <span>STRONGER FOUNDATIONS</span>
               <span>ONE LESSON AT A TIME</span>
             </div>
           </div>
-          <div className={s.preferences}>
+          <div
+            className={s.preferences}
+            data-nexa-reveal="surface"
+            data-nexa-delay="0.2"
+          >
             <span className={s.eyebrow}>LET’S FIND YOUR FIT</span>
             <h3>Your learning preferences.</h3>
             <p style={{ fontSize: 13, color: "#6a7c88" }}>

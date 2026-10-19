@@ -4162,3 +4162,12 @@
     animation: none;
   }
 }
+
+/* SplitText masks breathe around the serif's ascenders and descenders. */
+.nexa-motion-line-mask {
+  padding-block: .08em;
+  margin-block: -.08em;
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-nexa-magnetic] [data-nexa-magnet] { transition: none; }
+}

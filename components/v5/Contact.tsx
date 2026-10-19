@@ -247,19 +247,21 @@ export function Contact() {
           BOOK A CONSULTATION
         </Label>
         <div className={s.contactGrid}>
-          <div className="v5-reveal">
-            <span className={s.eyebrow}>LET’S FIND THE RIGHT FIT</span>
-            <h2>
+          <div className="v5-reveal" data-nexa-scene>
+            <span className={s.eyebrow} data-nexa-kicker>
+              LET’S FIND THE RIGHT FIT
+            </span>
+            <h2 data-nexa-heading>
               Book a free
               <br />
               <em>consultation.</em>
             </h2>
-            <p>
+            <p data-nexa-support>
               Choose GCSE tuition, a skills course or a programme for your
               organisation. We’ll discuss your goals, explain the options and
               confirm availability and fees.
             </p>
-            <div className={s.contactNote}>
+            <div className={s.contactNote} data-nexa-support>
               <strong>Start with a free consultation.</strong>
               <p>
                 Introductory sessions of up to one hour may be available for
@@ -272,7 +274,12 @@ export function Contact() {
               </p>
             </div>
           </div>
-          <form className={s.form} onSubmit={prepare}>
+          <form
+            className={s.form}
+            onSubmit={prepare}
+            data-nexa-reveal="surface"
+            data-nexa-delay="0.25"
+          >
             <span className={s.eyebrow}>
               01 / WHAT WOULD YOU LIKE HELP WITH?
             </span>

@@ -3,6 +3,29 @@
 Date: 17 October 2026. Branch: `v5`.
 Local preview: http://127.0.0.1:3002/
 
+## Choreographed motion direction (19 October)
+
+The supplied creative-technology reference is translated into a single motion
+score, recorded in `v5-motion-direction.md`. New chapter motion covers a drawn
+book-to-offer signal, responsive SplitText line reveals, independently triggered
+surface shots, desk/robot depth, network tracing, a process rail, restrained
+primary arrow response and a final footer handoff. The parent chart now draws
+when visible rather than during the offscreen book opening.
+
+The book and asset files remain unchanged. Interactive state retains its Motion
+ownership. Legacy generic reveals skip the new authored groups; volatile/dynamic
+content is excluded from static listener registration. Existing native scrolling
+and pin ownership are retained; no library, canvas or service-section pin is added.
+Phone and reduced-motion variants simplify the score. Browser visual inspection
+remains unavailable under the existing session restriction.
+
+Revision checks: TypeScript, production webpack compilation and full lint pass
+(zero errors/warnings). The generated page retains the book first and readable
+headings, with seven chapter scenes, nine surface shots, two depth layers, one
+branching signal, one network trace and one process rail. There are no duplicate
+IDs or missing local link targets. Actual motion/device timing is not visually
+verified. No tests were added or run for this revision.
+
 ## Whole-site discovery refinement (18 October)
 
 - Gateway has five direct subject shortcuts which select the corresponding

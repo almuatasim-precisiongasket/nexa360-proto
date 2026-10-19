@@ -3,6 +3,7 @@ import { Experience, Footer } from "@/components/v5/Experience";
 import { Gateway } from "@/components/v5/Gateway";
 import { Effects } from "@/components/v5/Effects";
 import { BookStory } from "@/components/BookStory";
+import { MotionDirector } from "@/components/v5/MotionDirector";
 export default function Home() {
   return (
     <>
@@ -19,6 +20,7 @@ export default function Home() {
       </main>
       <Footer />
       <Effects />
+      <MotionDirector />
     </>
   );
 }

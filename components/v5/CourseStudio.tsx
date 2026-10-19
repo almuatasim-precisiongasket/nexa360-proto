@@ -237,8 +237,12 @@ export function CourseStudio() {
           }
           copy="Choose one of five subjects, explore the programme and try a short interactive example. Our courses connect important ideas with guided practical learning."
         />
-        <div className={`${s.studio} v5-reveal`}>
-          <div className={s.courseIndex}>
+        <div className={`${s.studio} v5-reveal`} data-nexa-owned>
+          <div
+            className={s.courseIndex}
+            data-nexa-reveal="surface"
+            data-nexa-delay="0.14"
+          >
             {courses.map((item, i) => (
               <article className={s.courseRow} key={item.id}>
                 <button
@@ -253,7 +257,11 @@ export function CourseStudio() {
                   <span aria-hidden="true">{i === selected ? "−" : "+"}</span>
                 </button>
                 {i === selected && (
-                  <div id={`course-${item.id}`} className={s.courseDescription}>
+                  <div
+                    id={`course-${item.id}`}
+                    className={s.courseDescription}
+                    data-nexa-volatile
+                  >
                     <div className={s.courseMobileArt}>
                       <CourseStage index={i} />
                     </div>
@@ -284,7 +292,7 @@ export function CourseStudio() {
               </article>
             ))}
           </div>
-          <div className={s.courseStage}>
+          <div className={s.courseStage} data-nexa-reveal="surface">
             <div className={s.stageTop}>
               <span>NEXA / PRACTICAL LEARNING</span>
               <span>0{selected + 1} — 05</span>

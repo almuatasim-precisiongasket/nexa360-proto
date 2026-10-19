@@ -113,27 +113,29 @@ export function ParentPortalPreview() {
       className={s.portal}
       aria-labelledby="parent-portal-title"
     >
-      <div className={s.intro}>
+      <div className={s.intro} data-nexa-scene>
         <div>
-          <span className={s.kicker}>FOR PARENTS / A CLEARER PICTURE</span>
-          <h3 id="parent-portal-title">
+          <span className={s.kicker} data-nexa-kicker>
+            FOR PARENTS / A CLEARER PICTURE
+          </span>
+          <h3 id="parent-portal-title" data-nexa-heading>
             Their progress.
             <br />
             <em>In your view.</em>
           </h3>
         </div>
         <div>
-          <p>
+          <p data-nexa-support>
             See what your child is learning, where they need support and what
             comes next. Our planned portal brings the important details into one
             place.
           </p>
-          <span className={s.promise}>
+          <span className={s.promise} data-nexa-support>
             An individual report for every child — including group lessons.
           </span>
         </div>
       </div>
-      <div className={s.dashboard}>
+      <div className={s.dashboard} data-nexa-reveal="surface">
         <div className={s.topbar}>
           <span className={s.wordmark}>
             NEXA<span> / FAMILY SPACE</span>
@@ -312,7 +314,8 @@ export function ParentPortalPreview() {
                           stroke="#175cdb"
                           strokeWidth="2.5"
                           initial={reduced ? false : { pathLength: 0 }}
-                          animate={{ pathLength: 1 }}
+                          whileInView={{ pathLength: 1 }}
+                          viewport={{ once: true, amount: 0.5 }}
                           transition={{ duration: 0.65, ease: "easeOut" }}
                         />
                         {[

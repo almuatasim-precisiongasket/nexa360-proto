@@ -512,3 +512,16 @@ Operational parent accounts/storage remain outside this public preview redesign.
 Real browser/device visual and interaction review remains open under the existing
 browser access restriction. Existing media, book physics and planned-service
 labels are retained.
+
+### V5.21 — Authored motion direction (19 October)
+
+- [x] Translate the supplied creative stack reference into a page-level motion score.
+- [x] Book-to-learning branching signal and responsive masked chapter typography.
+- [x] Viewport-led media/preferences surfaces and desktop desk/robot depth.
+- [x] Institution network trace, programme-step rail and quieter consultation entrance.
+- [x] Bounded desktop arrow magnetism; phone and reduced-motion variants.
+- [x] Separate GSAP chapter ownership from Motion state changes and existing book physics.
+- [x] Parent chart starts when visible; final footer has a restrained depth handoff.
+
+Motion direction is documented in docs/v5-motion-direction.md. Actual device and
+browser motion inspection remains open under the existing browser restriction.

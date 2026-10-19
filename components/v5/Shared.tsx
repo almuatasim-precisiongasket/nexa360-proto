@@ -50,12 +50,16 @@ export function ConsultLink({
 }) {
   return (
     <a
+      data-nexa-magnetic
+      data-nexa-support
       className={`${s.cta} ${light ? s.lightCta : ""}`}
       href="#contact"
       onClick={() => requestConsultation(context)}
     >
       {children}
-      <span aria-hidden="true">↗</span>
+      <span aria-hidden="true" data-nexa-magnet>
+        ↗
+      </span>
     </a>
   );
 }
@@ -87,14 +91,12 @@ export function SectionHead({
   copy?: string;
 }) {
   return (
-    <div className={`${s.heading} v5-reveal`}>
-      <span className={s.eyebrow}>{label}</span>
-      <h2>
-        <span className={s.headingMask}>
-          <span className="v5-headline">{title}</span>
-        </span>
-      </h2>
-      {copy && <p>{copy}</p>}
+    <div className={`${s.heading} v5-reveal`} data-nexa-scene>
+      <span className={s.eyebrow} data-nexa-kicker>
+        {label}
+      </span>
+      <h2 data-nexa-heading>{title}</h2>
+      {copy && <p data-nexa-support>{copy}</p>}
     </div>
   );
 }
