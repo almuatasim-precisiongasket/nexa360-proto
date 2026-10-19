@@ -4623,3 +4623,8 @@
     display: none;
   }
 }
+
+/* Clip decorative paper texture without creating a sticky scroll container. */
+.paper {
+  overflow: clip;
+}

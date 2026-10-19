@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { ConsultLink, Label } from "./Shared";
+import { LearningJourney } from "./LearningJourney";
 import { ParentPortalPreview } from "./ParentPortalPreview";
 import s from "./v5.module.css";
 const RiveDesk = dynamic(() => import("../tuition/RiveLearningDesk"), {
@@ -171,6 +172,7 @@ export function Tuition() {
             </p>
           </div>
         </div>
+        <LearningJourney />
         <ParentPortalPreview />
       </div>
     </section>

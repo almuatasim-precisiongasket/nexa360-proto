@@ -9,6 +9,7 @@ uniform vec2 resolution;
 uniform vec2 pointer;
 uniform float time;
 uniform float travel;
+uniform float energy;
 void main(){
   vec2 uv=gl_FragCoord.xy/resolution;
   vec2 p=uv; p.x*=resolution.x/resolution.y;
@@ -16,14 +17,14 @@ void main(){
   for(int i=0;i<5;i++){
     float f=float(i);
     float curve=0.25+f*0.105
-      +sin(p.x*2.1+time*0.16+f*0.72+travel)*0.13
+      +sin(p.x*(2.1+energy*0.16)+time*0.16+f*0.72+travel)*(0.13+energy*0.015)
       +sin(p.x*4.0-time*0.09+f)*0.035;
     float d=abs(uv.y-curve-pointer.y*0.035);
     light+=exp(-d*42.0)*0.035+exp(-d*190.0)*0.05;
   }
   float halo=exp(-length(uv-vec2(0.72+pointer.x*0.035,0.55))*3.8)*0.13;
   float edge=smoothstep(0.0,0.15,uv.y)*smoothstep(0.0,0.15,1.0-uv.y);
-  gl_FragColor=vec4(vec3(0.12,0.43,0.78),min(0.3,(light+halo)*edge));
+  gl_FragColor=vec4(vec3(0.12,0.43,0.78),min(0.3,(light+halo)*edge*(1.0+energy*0.12)));
 }`;
 
 /** Slow WebGL light ribbons. Offscreen/hidden sections do not render frames. */
@@ -42,7 +43,9 @@ export function AmbientField() {
       visible = false,
       failed = false,
       last = 0,
-      elapsed = 0;
+      elapsed = 0,
+      previousScroll = 0,
+      energy = 0;
     let pointerX = 0,
       pointerY = 0,
       smoothX = 0,
@@ -50,6 +53,7 @@ export function AmbientField() {
     let timeLocation: WebGLUniformLocation | null = null;
     let pointerLocation: WebGLUniformLocation | null = null;
     let travelLocation: WebGLUniformLocation | null = null;
+    let energyLocation: WebGLUniformLocation | null = null;
     const disposeGpu = () => {
       if (gl) {
         if (buffer) gl.deleteBuffer(buffer);
@@ -58,7 +62,7 @@ export function AmbientField() {
       }
       buffer = program = null;
       shaders.length = 0;
-      timeLocation = pointerLocation = travelLocation = null;
+      timeLocation = pointerLocation = travelLocation = energyLocation = null;
       gl = null;
     };
 
@@ -123,19 +127,29 @@ export function AmbientField() {
       timeLocation = gl.getUniformLocation(program, "time");
       pointerLocation = gl.getUniformLocation(program, "pointer");
       travelLocation = gl.getUniformLocation(program, "travel");
+      energyLocation = gl.getUniformLocation(program, "energy");
       resize();
       return true;
     };
     const frame = (now: number) => {
       raf = requestAnimationFrame(frame);
       if (now - last < 33) return;
-      elapsed += Math.min((now - last) / 1000, 0.06);
+      const dt = Math.min((now - last) / 1000, 0.06);
+      elapsed += dt;
+      const position = window.scrollY;
+      const targetEnergy = Math.min(
+        1,
+        Math.abs(position - previousScroll) / Math.max(1, dt * 1500),
+      );
+      energy += (targetEnergy - energy) * (1 - Math.exp(-3 * dt));
+      previousScroll = position;
       last = now;
       smoothX += (pointerX - smoothX) * 0.035;
       smoothY += (pointerY - smoothY) * 0.035;
       gl!.uniform1f(timeLocation, elapsed);
       gl!.uniform2f(pointerLocation, smoothX, smoothY);
-      gl!.uniform1f(travelLocation, scrollY * 0.000045);
+      gl!.uniform1f(travelLocation, previousScroll * 0.000045);
+      gl!.uniform1f(energyLocation, energy);
       gl!.drawArrays(gl!.TRIANGLES, 0, 3);
     };
     const sync = () => {
@@ -146,6 +160,8 @@ export function AmbientField() {
         disposeGpu();
         return;
       }
+      previousScroll = window.scrollY;
+      energy = 0;
       last = performance.now();
       raf = requestAnimationFrame(frame);
     };

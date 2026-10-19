@@ -184,7 +184,7 @@ function CourseStage({ index }: { index: number }) {
           }
           animate={{ opacity: 1, transform: "translateY(0px) scale(1)" }}
           transition={{
-            duration: reduced ? 0 : 0.85,
+            duration: reduced ? 0 : 0.35,
             ease: [0.22, 1, 0.36, 1],
           }}
         >

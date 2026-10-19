@@ -221,3 +221,17 @@ native scrolling. Existing book physics, palette and assets are unchanged.
 TypeScript and lint passed (zero errors/warnings). Production compilation passed.
 Actual visual pacing, wheel behavior and phone interaction have not been browser
 verified because browser access was previously blocked in this session.
+
+## V5.23 — connected learning scenes
+
+Added three scroll-drawn ribbon chapter bands, a three-step tuition story with
+original layered SVG, a selectable worked mathematics example, and desktop chapter
+navigation. The story previews how learning and parent feedback connect without
+claiming live student records. Phones use stacked copy and explicit step controls;
+reduced-motion users see settled artwork. The existing blue waves now respond
+subtly to scroll speed and course art changes settle faster (350ms).
+
+TypeScript, production compilation and lint passed. Generated-page checks found
+three learning beats, three ribbon transitions, no duplicate IDs and no missing
+anchor targets. The book remains first. Actual browser rendering, scroll timing,
+GPU output and phone gestures remain visually unverified in this session.

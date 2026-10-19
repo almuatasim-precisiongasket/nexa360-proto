@@ -80,3 +80,28 @@ retain native behavior. Media changes and unmount remove the driver, ticker,
 listeners and Lenis instance. Existing book physics and assets are preserved.
 
 Reference: https://github.com/darkroomengineering/lenis/blob/main/README.md
+
+## Learning story and chapter ribbon — V5.23
+
+Lenis-inspired visual continuity meets the explanatory storytelling described in
+Technoverge reference notes. The reference's exact GPU choreography was not
+independently observed. This is an original adaptation for NEXA360.
+
+- Three ribbon chapter bands separate skills, organisations and consultation.
+  SVG stroke progression and modest text travel follow scroll (scrub 1).
+- Tuition includes a three-beat learning story: understand the starting point,
+  work through an illustrative equation, then explore parent feedback. A CSS
+  sticky stage follows the desktop reading sequence without additional pinning.
+- SVG paper/pencil/signal layers change composition over 1.1s, with a quiet
+  orbit and fine-pointer depth. Content controls remain immediately available.
+- The worked example is interactive. All sample records are explicitly labelled.
+- Phones use the same step controls and readable stacked explanations, without
+  sticky staging or automatic scene changes. Reduced motion removes travel.
+- A desktop chapter rail provides direct section navigation after the book.
+- Existing blue waves gain capped, eased scroll-energy response; offscreen and
+  hidden-tab rendering still pauses. No new WebGL contexts or assets replace
+  the original artwork. Course illustration changes now settle in 350ms.
+- The paper clips via overflow:clip, preserving the scene's viewport sticky root.
+
+Book physics, book assets, branding, consultation data and original illustrations
+remain intact. Existing course demos provide the technical learning interactions.

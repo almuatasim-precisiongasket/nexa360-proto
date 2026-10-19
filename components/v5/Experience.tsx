@@ -1,3 +1,4 @@
+import { ChapterTransition } from "./ChapterTransition";
 import { Logo } from "../Logo";
 import { CompanyHub } from "./CompanyHub";
 import { Institutions } from "./Institutions";
@@ -11,9 +12,24 @@ export function Experience() {
   return (
     <>
       <Tuition />
+      <ChapterTransition
+        number="02"
+        title="From understanding to creating."
+        note="TECHNOLOGY & SKILLS / A DIFFERENT WAY TO LEARN"
+      />
       <CourseStudio />
+      <ChapterTransition
+        number="03"
+        title="Individual ambition. Collective possibility."
+        note="FOR SCHOOLS, UNIVERSITIES, BUSINESSES & COMMUNITIES"
+      />
       <Institutions />
       <Questions />
+      <ChapterTransition
+        number="04"
+        title="Let’s find your next step."
+        note="YOUR GOALS / A CONVERSATION / A CLEARER DIRECTION"
+      />
       <Contact />
       <CompanyHub />
       <OptionalExperiences />

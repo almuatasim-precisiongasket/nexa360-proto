@@ -532,3 +532,12 @@ browser motion inspection remains open under the existing browser restriction.
 - Added desktop-only Lenis with one GSAP clock and a shared navigation owner.
 - Preserved native phone scrolling, existing assets and book physics.
 - Validation: TypeScript and lint passed (0 errors, 0 warnings); production compilation passed. Browser interaction review remains unavailable.
+
+## V5.23 — connected learning scenes
+
+- Added ribbon chapter transitions and desktop chapter navigation.
+- Built a three-beat tuition explainer with SVG layers and a worked example.
+- Preserved the book, existing assets and technical subject samples.
+- Added restrained scroll-energy response to the original WebGL waves.
+- Build/TypeScript/lint passed; static anchors and scene markers checked.
+- Visual browser and phone review remain outstanding.
